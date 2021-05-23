@@ -37,7 +37,7 @@
 そもそもこの記事の中でViewControllerを採用している理由はただ「このスケールしやすいアーキテクチャの探究を始めた時、SwiftUIがまだ登場して間もなかった」からというだけであって、私も意図的にViewControllerを採用したわけではありません。  
 今から始めるならば間違いなくSwiftUIでやっていました。  
 
-### それでもViewControllerで設計を学ぶ意義
+### それでも今からViewControllerで設計を学ぶ意義
 しかし今から振り返るとViewControllerを採用したのは決して悪いことではなかったと考えています。  
 その理由はまず、設計をしっかりと理解していくとViewControllerかSwift UIか、またiOSかAndroidかといった開発におけるプラットフォームはあまり関係ないということを強く感じるからです。  
 もちろんViewControllerとSwift UIのプログラムの記述の仕方で違ったり、AndroidではViewの実装でxmlを直接操作したりと細かいところで独自に学ばなければいけないことはあります。  
