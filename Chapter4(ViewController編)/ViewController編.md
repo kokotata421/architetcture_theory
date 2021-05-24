@@ -57,6 +57,12 @@
 3. Viewの大きさの変更、また画面全体のレイアウトの管理
 4. (他のViewControllerも含めた)他のオブジェクトとの連携
 
-このようにVie
+このようにViewControllerの責務を総体的に見ると、ViewControllerの責務は文字通り「Viewの管理(Control)」であり、Viewとは直接的に関係ないデータの操作がその主な責務には含まれないことがわかると思います。
+**4(他のViewControllerも含めた)他のオブジェクトとの連携**はいささか示している範囲が広いようには感じますが、これは恐らくアプリ内におけるViewControllerの重要度の高さから通知機能(NotificationCenter)等、Viewとは直接関係ないオブジェクトとの連携も行う場合もあるため抽象的に表現しているのだと推測しています。  
+なのでViewController全体の責務を考えると、やはりその要は「Viewに関係した責務」だとした方が理解しやすいと思います。  
+
+### 2種類のViewController
+V
+
 
 
