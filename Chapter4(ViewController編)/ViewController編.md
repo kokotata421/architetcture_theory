@@ -63,6 +63,9 @@
 
 ### 2種類のViewController
 ViewControllerの責務は先程の4点なのですが、ViewControllerの種類はその利用ケースによって大きく2種類に分かれます。  
+1. Content ViewController
+2. Container ViewController
+
 
 
 
