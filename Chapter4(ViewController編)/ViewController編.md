@@ -47,8 +47,19 @@
 
 
 ## ViewControllerの基本
-それでは内容に入っていきますが、まず最初にAppleのドキュメントに書かれているViewControllerの基本的な情報について整理します。  
-参考にした
+それでは内容に入っていきますが、まず最初にViewControllerの基本的な情報について整理します。  
+参考にしたのはAppleが開発者向けに公開している[UIViewController](https://developer.apple.com/documentation/uikit/uiviewcontroller)と[View Controller Programming Guide for iOS](https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS/index.html#//apple_ref/doc/uid/TP40007457-CH2-SW1)という2つのドキュメントです。  
 
+### View Controllerの責務
+[ドキュメント](https://developer.apple.com/documentation/uikit/uiviewcontroller)を見ると、ViewControllerの主な責務以下4点だと書かれています。(複数あるため原文も載せると見づらくなってしまうため、ここでは意訳のみ載せます。)  
+1. Viewに紐づいているデータの変化に応じたViewの更新
+2. Viewの操作への対応
+3. Viewの大きさの変更、また画面全体のレイアウトの管理
+4. (他のViewControllerも含めた)他のオブジェクトとの連携
+
+このようにV
+Updating the contents of the views, usually in response to changes to the underlying data.i
+Updating the contents of the views, usually in response to changes to the underlying data.ew
+Updating the contents of the views, usually in response to changes to the underlying data.
 
 
