@@ -76,6 +76,6 @@ Content ViewControllerでは自身に表示されたUIButtonやUILabelといっ�
 この記事で扱うのはこのうちContent ViewControllerに限定されます。  
 Container ViewControllerの設計において何より重要なのは、**自身のChild ViewControllerとなるContent ViewControllerへの干渉を最低限とすること**にあります。  
 これは言い換えると、Container ViewControllerの設計において重要なのはまず各Child ViewController(Content ViewController)の設計であるということです。  
-各Child ViewController(Content ViewController)さえしっかりとできていれば、Container ViewControllerがやるべきことはChild ViewController間の連携くらいであり、特に設計論において注意すべき点はないと考えてます。(Child ViewControllerの親Viewの管理も通常のViewの管理と同じです。)      
+各Child ViewController(Content ViewController)さえしっかりとできていれば、Container ViewControllerがやるべきことはChild ViewController間の連携くらいであり、その連携の具体的な方法に関しては特に設計論の観点から説明することはないと考えています。(Child ViewControllerの親Viewの管理も通常のViewの管理と同じです。)  
 そのためこの記事ではContent ViewControllerの設計に限定して話を進めます。  
 
