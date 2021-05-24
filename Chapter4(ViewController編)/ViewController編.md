@@ -62,18 +62,20 @@
 なのでやはりViewController全体の責務を考えるとその要は「Viewに関係した責務」であると思います。
 
 ### 2種類のViewController
-ViewControllerの責務は先程の4点なのですが、ViewControllerの種類はその利用ケースによって大きく2種類に分かれます。  
-1. Content ViewController
-2. Container ViewController
+ViewControllerの責務は先程の4点なのですが、それでもその種類は利用ケースによって大きく2種類に分かれます。  
+1. Content ViewController: 自身に紐づいた**View**を管理することを責務としたViewController
+2. Container ViewController: 自身の画面内で表示される複数の**ViewController(Child ViewController)**の管理を責務としたViewController
 
-それぞれについて簡単に説明します。  
-### 1.Content ViewController
-自身に紐づいたViewを管理することを目的としたViewControllerです。  
+#### Content ViewControllerとContainer ViewControllerの違い
+大きな違いはViewController内でUIButtonやUILabel等具体的なViewを操作するかどうかいう点でしょうか。  
+Content ViewControllerでは自身に表示されたUIButtonやUILabelといったViewを直接操作するのに対して、Container ViewControllerでは自身が管理するViewControllerとその親View(Root View)のみを操作するため具体的なViewを操作することはありません。  
+一般的にアプリ内では独自に定義するViewControllerはContent ViewControllerだと思います。  
+対してContainer ViewControllerはあまり頻繁に独自で定義することはないと思います。ただ私たちがアプリ内でよく利用するNavigation ControllerやTab Bar ControllerはこのContainer ViewControllerに該当します。  
 
-### 2.Container ViewController
-自身の
-
-
-
-
+#### 記事で扱うのはContent ViewControllerのみ
+この記事で扱うのはこのうちContent ViewControllerに限定されます。  
+Container ViewControllerの設計において何より重要なのは、**自身のChild ViewControllerとなるContent ViewControllerへの干渉を最低限とすること**にあります。  
+これは言い換えると、Container ViewControllerの設計において重要なのはまず各Child ViewController(Content ViewController)の設計であるということです。  
+各Child ViewController(Content ViewController)さえしっかりとできていれば、Container ViewControllerがやるべきことはChild ViewController間の連携くらいであり、特に設計論において注意すべき点はないと考えています。  
+そのためこの記事ではContent ViewControllerの設計に限定して話を進めます。  
 
