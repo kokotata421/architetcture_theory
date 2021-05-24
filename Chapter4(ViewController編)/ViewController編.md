@@ -57,9 +57,6 @@
 3. Viewの大きさの変更、また画面全体のレイアウトの管理
 4. (他のViewControllerも含めた)他のオブジェクトとの連携
 
-このようにV
-Updating the contents of the views, usually in response to changes to the underlying data.i
-Updating the contents of the views, usually in response to changes to the underlying data.ew
-Updating the contents of the views, usually in response to changes to the underlying data.
+このようにVie
 
 
