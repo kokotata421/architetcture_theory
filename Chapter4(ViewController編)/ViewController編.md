@@ -62,7 +62,8 @@
 なのでViewController全体の責務を考えると、やはりその要は「Viewに関係した責務」だとした方が理解しやすいと思います。  
 
 ### 2種類のViewController
-V
+ViewControllerの責務は先程の4点なのですが、ViewControllerの種類はその利用ケースによって大きく2種類に分かれます。  
+
 
 
 
