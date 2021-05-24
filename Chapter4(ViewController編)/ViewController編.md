@@ -68,7 +68,11 @@ ViewControllerの責務は先程の4点なのですが、ViewControllerの種類
 
 それぞれについて簡単に説明します。  
 ### 1.Content ViewController
-自身に紐づいたVi
+自身に紐づいたViewを管理することを目的としたViewControllerです。  
+
+### 2.Container ViewController
+自身の
+
 
 
 
