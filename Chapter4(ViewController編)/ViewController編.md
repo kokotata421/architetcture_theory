@@ -80,5 +80,7 @@ Container ViewControllerの設計において何より重要なのは、**自身
 そのためこの記事ではContent ViewControllerの設計に限定して話を進めます。  
 
 ## 現実のViewControllerの開発で起こる問題
-ドキュメントに基づいて
+ドキュメントに基づいてViewControllerの基本に
+ドキュメントに基づいてViewControllerの基本的な
+ドキュメントに基づいてViewControllerの基本
 
