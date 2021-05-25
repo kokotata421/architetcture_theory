@@ -80,7 +80,10 @@ Container ViewControllerの設計において何より重要なのは、**自身
 そのためこの記事ではContent ViewControllerの設計に限定して話を進めます。  
 
 ## 現実のViewControllerの開発で起こる問題
-ドキュメントに基づいてViewControllerの基本に
-ドキュメントに基づいてViewControllerの基本的な
-ドキュメントに基づいてViewControllerの基本
+ドキュメントに基づいてViewControllerの基本について触れましたが、ここでは現実にViewControllerの開発で起こる問題点について説明します。  
+私は典型的な手法でViewControllerを開発すると以下の問題が起こると考えています。  
+
+1.「Viewの管理(Control)」と一言でいえど、実際には多種多様なプログラムが書かれるため「便利屋的な存在」だと認識されがち
+2. 手続的なプログラミングと宣言的なプログラミングが混同する
+3. ViewControllerによってプログラムのサイズが大きく異なる(対応する画面の仕様に大きく影響を受ける)
 
