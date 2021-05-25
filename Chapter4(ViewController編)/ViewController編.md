@@ -79,3 +79,6 @@ Container ViewControllerの設計において何より重要なのは、**自身
 各Child ViewController(Content ViewController)さえしっかりとできていれば、Container ViewControllerがやるべきことはChild ViewController間の連携くらいであり、その具体的な方法に関して特に設計論の観点から説明することはないと考えています。(Child ViewControllerの親Viewの管理も通常のViewの管理と同じです。)  
 そのためこの記事ではContent ViewControllerの設計に限定して話を進めます。  
 
+## 現実のViewControllerの開発で起こる問題
+ドキュメントに基づいて
+
