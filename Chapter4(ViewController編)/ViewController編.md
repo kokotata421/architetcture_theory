@@ -88,7 +88,4 @@ Container ViewControllerの設計において何より重要なのは、**自身
 3.  ViewControllerによってプログラムのサイズが大きく異なる(対応する画面の仕様に大きく影響を受ける)
 
 ### 1.「Viewの管理(Control)」と一言でいえど、実際には多種多様なプログラムが書かれる
-記事冒頭のViewControllerの説明では、
-
-#### 記事で扱うのはContent ViewControllerのみそ
-#### 記事で扱うのはContent ViewControllerのみ
+記事冒頭のViewControllerの説明では、その責務
