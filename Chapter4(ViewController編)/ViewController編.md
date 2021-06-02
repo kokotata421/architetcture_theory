@@ -63,7 +63,7 @@
 ただ上記で挙げたNotificationCenter等一部例外はあるものの、ViewController全体を考えるとその主要な責務は**Viewに関連した処理**であると理解して問題ないと思います。  
 
 ### 2種類のViewController
-ViewControllerの責務は先程の4点なのですが、それでもその種類は利用ケースによって大きく2種類に分かれます。  
+ViewControllerの責務は先程の4点なのですが、それでもその種類は利用ケースによって大きく2つに分かれます。  
 1. Content ViewController: 自身に紐づいた**Viewを管理**することを責務としたViewController
 2. Container ViewController: 自身の画面内で表示される複数の**ViewController&#40;Container ViewControllerの文脈ではChild ViewControllerと言う&#41;の管理**を責務としたViewController
 
