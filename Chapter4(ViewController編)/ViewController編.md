@@ -68,8 +68,8 @@ ViewControllerの責務は先程の4点なのですが、それでもその種�
 2. Container ViewController: 自身の画面内で表示される複数の**ViewController&#40;Container ViewControllerの文脈ではChild ViewControllerと言う&#41;の管理**を責務としたViewController
 
 #### Content ViewControllerとContainer ViewControllerの違い
-大きな違いはViewController内でUIButtonやUILabel等具体的なViewを操作するかどうかという点でしょうか。  
-Content ViewControllerでは自身に表示されたUIButtonやUILabelといったViewを直接操作するのに対して、Container ViewControllerでは自身が管理するViewControllerとその親View(Root View)のみを操作するためUIButtonやUILabel等の具体的なViewを直接操作することはありません。  
+大きな違いはViewController内で具体的なViewを操作するかどうかという点でしょうか。  
+Content ViewControllerでは自身に表示されたUIButtonやUILabelといったViewを直接操作するのに対して、Container ViewControllerでは自身が管理するViewControllerとその親View(Root View)のみを操作するためUIButtonやUILabelといったViewを直接操作することはありません。  
 一般的にアプリ内で独自に定義するViewControllerのほとんどはContent ViewControllerだと思います。<sup>[*2](#footnote2)</sup>  
 Container ViewControllerはあまり頻繁に独自で定義することはないと思いますが、ただ私たちがアプリ内でよく利用するNavigation ControllerやTab Bar ControllerはContainer ViewControllerに該当します。  
 #### 記事で扱うのはContent ViewControllerのみ
