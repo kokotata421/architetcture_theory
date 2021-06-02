@@ -65,7 +65,7 @@
 ### 2種類のViewController
 ViewControllerの責務は先程の4点なのですが、それでもその種類は利用ケースによって大きく2種類に分かれます。  
 1. Content ViewController: 自身に紐づいた**View**を管理することを責務としたViewController
-2. Container ViewController: 自身の画面内で表示される複数の**ViewController&#40;Container ViewControllerの文脈ではChild ViewControllerと言います&#41;**の管理を責務としたViewController
+2. Container ViewController: 自身の画面内で表示される複数の**ViewController&#40;Container ViewControllerの文脈ではChild ViewControllerと言います&#41; **の管理を責務としたViewController
 
 #### Content ViewControllerとContainer ViewControllerの違い
 大きな違いはViewController内でUIButtonやUILabel等具体的なViewを操作するかどうかいう点でしょうか。  
