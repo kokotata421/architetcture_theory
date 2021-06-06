@@ -146,8 +146,8 @@ ViewControllerは対応する画面の仕様に大きく影響を受けます。
 ViewControllerの基本的な性質と開発時に起こる問題点を見てきました。  
 ここではそれらの事柄を踏まえて本記事の本題と言えるスケールしやすいViewControllerの設計を考えていきます。  
 ### ViewControllerを再定義する
-ViewController開発の問題点を指摘した際にUseCaseやRepository等のコンポーネントはその基本的な性質によってプログラム構造も決定されること、そしてそのような型があるおかげでコードを読む・書く作業において悩む機会が少なくなることを挙げました。  
-ここではViewControllerの開発でもそのような雛形を作るべくViewControllerを再定義します。  
+ViewController開発の問題点としてUseCaseやRepository等のコンポーネントではその基本的な性質によってプログラム構造の型決定されそのおかげで開発時に悩む機会が少なくなるが、ViewControllerにはそのような型が存在しないことを指摘しました。  
+ここではViewControllerの開発にもそのような雛形を作るべくViewControllerを再定義します。  
 しかし再定義するといっても、厳密には既存のViewController定義を上書きするようなことはせずそのコアとなる定義を再度行うことでViewControllerの責務をより明確にします。  
 具体的にはViewControllerのコアを以下のように定義します。  
   
@@ -165,9 +165,9 @@ ViewController開発の問題点を指摘した際にUseCaseやRepository等の�
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/ViewControllerの構造.png" alt="ViewControllerの構造" width=55% > 
 
 プログラム構造として大分わかりやすくなったのではないでしょうか。  
-最初に紹介した4点のViewControllerの責務(#View Controllerの責務)は概念としてはわかりやすかったのですが、実際にそれを基にプログラムを書くとなるとそれぞれの責務の関係に規則性が見えないためそれらの責務がどのようにViewController内に書かれまた全体の構造がどうなっているのか非常に予想しづらかったです。  
-しかしViewControllerのコア責務を「イベント処理」と定義することで「入力イベントの処理」と「出力イベントの処理」という対等な関係にある2つの責務が骨格を担うようになりプログラムの構造が明確になりました。  
-これによって実際のViewControllerのプログラムは以下のような構造で統一化すること可能になります。(これはあくまで一例であり他の形式もありえます。しかし大体に似たような形式になると思います。)  
+最初に紹介した[4点のViewControllerの責務](#View Controllerの責務)は概念としてはわかりやすかったのですが、実際にそれを基に実装するとなるとそれぞれの責務の関係に規則性が見えないためそれらの責務がViewController内にどのように書かれ、また全体の構造がどうなっているのか非常に予想しづらかったです。  
+しかしViewControllerのコア責務を「イベント処理」と定義することで「入力イベントの処理」と「出力イベントの処理」という対等な関係にある2つの責務がプログラムの骨格を担うようになりその構造が明確になりました。  
+これによってViewControllerのプログラムは以下のような構造で統一化することが可能になります。(これはあくまで一例であり他の形式もありえます。しかし大体に似たような形式になると思います。)  
 
 
 ```
