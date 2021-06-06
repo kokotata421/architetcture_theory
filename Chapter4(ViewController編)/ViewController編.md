@@ -151,7 +151,7 @@ ViewController開発の問題点を指摘した際にUseCaseやRepositoryはそ�
 しかし再定義するといっても、厳密には既存のViewController定義を上書きするようなことはせずそのコアとなる定義を再度行うことでViewControllerの責務をより明確にします。  
 具体的にはViewControllerのコアを以下のように定義します。  
   
-**ViewControllerはUIから(への)イベントを処理する機構である。**
+>**ViewControllerはUIから(への)イベントを処理する機構である。**
   
 
   
