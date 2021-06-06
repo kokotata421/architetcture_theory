@@ -171,6 +171,10 @@ ViewController開発の問題点を指摘した際にUseCaseやRepositoryはそ�
 
 
 ```
+// 「入出力イベントの処理」を責務としたViewControllerのプログラム構造
+// クラス本体にインスタンス変数と初期化処理。
+// extensionを利用して入力処理/出力処理をそれぞれまとめて定義・実装。
+
 class ViewController: UIViewController {
     // MARK: Viewのインスタンス変数
     ...
@@ -179,6 +183,7 @@ class ViewController: UIViewController {
     // MARK: 入力に関するインスタンス変数
     ...
     ...
+    
     // MARK: 出力に関するインスタンス変数
     ...
     ...
