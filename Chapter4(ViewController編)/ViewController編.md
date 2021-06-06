@@ -164,7 +164,7 @@ ViewController開発の問題点を指摘した際にUseCaseやRepositoryはそ�
 
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/ViewControllerの構造.png" alt="ViewControllerの構造" width=55% > 
 
-プログラム構造として
+プログラム構造として大分わかりやすくなったのではないでしょうか。  
 
 ## 脚注
 <a name="footnote1">*1</a>: 複数点あり原文(英語)も載せると見づらくなってしまうため、意訳のみ載せています。  
