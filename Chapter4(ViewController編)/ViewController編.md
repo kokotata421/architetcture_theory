@@ -146,8 +146,15 @@ ViewControllerは対応する画面の仕様に大きく影響を受けます。
 ViewControllerの基本的な性質とそれらを沿って開発した時に起こる問題点を見てきました。  
 ここではそれらの事柄を踏まえて本記事の本題と言えるスケールしやすいViewControllerの設計を考えていきます。  
 ### ViewControllerを再定義する
+ViewController開発の問題点を指摘した際にUseCaseやRepositoryはその基本的な性質によってプログラム構造も決定されること、そしてそのような型があるおかげでコードを読む・書く作業において悩む機会が少なくなることを挙げました。  
+ここではViewControllerの開発でもそのような雛形を作るべくViewControllerを再定義します。  
+しかし再定義するといっても、厳密には既存のViewController定義を上書きするようなことはせずそのコアとなる定義を再度行うことでViewControllerの責務をより明確にします。  
+具体的にはViewControllerのコアを以下のように定義します。  
+  
+**ViewControllerはUIから(への)イベントを処理する機構である。**
+  
 
-
+  
 
 ## 脚注
 <a name="footnote1">*1</a>: 複数点あり原文(英語)も載せると見づらくなってしまうため、意訳のみ載せています。  
