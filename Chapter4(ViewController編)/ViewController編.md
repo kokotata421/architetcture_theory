@@ -165,6 +165,65 @@ ViewController開発の問題点を指摘した際にUseCaseやRepositoryはそ�
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/ViewControllerの構造.png" alt="ViewControllerの構造" width=55% > 
 
 プログラム構造として大分わかりやすくなったのではないでしょうか。  
+最初に紹介した4点のViewControllerの責務(#View Controllerの責務)は概念としてはわかりやすかったのですが、実際にそれを基にプログラムを書くとなるとそれぞれの責務の関係に規則性が見えないためそれらの責務がどのようにViewController内に書かれまた全体の構造がどうなっているのか非常に予想しづらかったです。  
+しかしViewControllerのコア責務を「イベント処理」と定義することで「入力イベントの処理」と「出力イベントの処理」という対等な関係にある2つの責務が骨格を担うようになりプログラムの構造が明確になりました。  
+これによって実際のViewControllerのプログラムは以下のような構造で統一化すること可能になります。(これはあくまで一例であり他の形式もありえます。しかし大体に似たような形式になると思います。)  
+
+
+```
+class ViewController: UIViewController {
+    // MARK: Viewのインスタンス変数
+    ...
+    ...
+    
+    // MARK: 入力に関するインスタンス変数
+    ...
+    ...
+    // MARK: 出力に関するインスタンス変数
+    ...
+    ...
+    
+    init() {
+        // 初期化処理
+        ...
+        ...
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+       // 開放処理
+    }
+    
+    override func loadView() {
+        // 初期化処理
+        ...
+        ...
+    }
+}
+
+// MARK: 入力処理
+extension ViewController {
+  // 入力処理の定義・実装
+  ...
+  ...
+  
+}
+
+// MARK: 出力処理
+extension ViewController {
+  // 出力処理の定義・実装
+  ...
+  ...
+  
+}
+```
+
+
+
 
 ## 脚注
 <a name="footnote1">*1</a>: 複数点あり原文(英語)も載せると見づらくなってしまうため、意訳のみ載せています。  
