@@ -153,7 +153,7 @@ ViewController開発の問題点を指摘した際にUseCaseやRepositoryはそ�
   
 >**ViewControllerはUIから(への)イベントを処理する機構である。**
   
-
+既存の定義との違いがよくわからない人もいるかもしれませんが、
   
 
 ## 脚注
