@@ -51,7 +51,7 @@
 それでは内容に入っていきますが、まず最初にViewControllerの基本的な情報について整理します。  
 参考にしたのはAppleが開発者向けに公開している[UIViewController](https://developer.apple.com/documentation/uikit/uiviewcontroller)と[View Controller Programming Guide for iOS](https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS/index.html#//apple_ref/doc/uid/TP40007457-CH2-SW1)という2つのドキュメントです。  
 
-### View Controllerの責務
+### ViewControllerの責務
 [UIViewControllerのドキュメント](https://developer.apple.com/documentation/uikit/uiviewcontroller)を見ると、ViewControllerの主な責務以下4点だと書かれています。<sup>[*1](#footnote1)</sup>  
 1. Viewに紐づいているデータの変化に応じたViewの更新
 2. Viewの操作への対応
@@ -165,7 +165,7 @@ ViewController開発の問題点としてUseCaseやRepository等のコンポー�
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/ViewControllerの構造.png" alt="ViewControllerの構造" width=55% > 
 
 プログラム構造として大分わかりやすくなったのではないでしょうか。  
-最初に紹介した[4点のViewControllerの責務](#View Controllerの責務)は概念としてはわかりやすかったのですが、実際にそれを基に実装するとなるとそれぞれの責務の関係に規則性が見えないためそれらの責務がViewController内にどのように書かれ、また全体の構造がどうなっているのか非常に予想しづらかったです。  
+最初に紹介した[4点のViewControllerの責務](#ViewControllerの責務)は概念としてはわかりやすかったのですが、実際にそれを基に実装するとなるとそれぞれの責務の関係に規則性が見えないためそれらの責務がViewController内にどのように書かれ<sup>[*7](#footnote7)</sup>、また全体の構造がどうなっているのか非常に予想しづらかったです。  
 しかしViewControllerのコア責務を「イベント処理」と定義することで「入力イベントの処理」と「出力イベントの処理」という対等な関係にある2つの責務がプログラムの骨格を担うようになりその構造が明確になりました。  
 これによってViewControllerのプログラムは以下のような構造で統一化することが可能になります。(これはあくまで一例であり他の形式もありえます。しかし大体に似たような形式になると思います。)  
 
@@ -226,6 +226,7 @@ extension ViewController {
   
 }
 ```
+<sup>[*8](#footnote8)</sup>
 
 
 
@@ -238,3 +239,4 @@ extension ViewController {
 <a name="footnote5">*5</a>: PresenterやViewModelといったコンポーネントもUseCaseやRepositoryと比べると責務が広範囲に及んで漠然としている印象を受けますが、それでもその
 性質を突き詰めると「View-BusinssLogic間のデータ変換を行うコンポーネント」であると定義することができます。そしてここから「View->Business Logicのデータ変換とBusiness Logic->Viewのデータ変換」とい構造を持ったプログラムであるべきことが見えてきます。  
 <a name="footnote6">*6</a>: 繰り返しのようになりますがライフサイクルの仕組み等を理解することでViewControllerのプログラム構造が見えてくる面もありますし、また[脚注5](#footnote5)で挙げたPresenter(ViewModel)の定義のようにViewControllerの定義を「View-Presenter(ViewModel)間の処理を行うコンポーネント」というように定義することも可能だと思います。しかし少なくともViewControllerのドキュメントに沿った定義ではViewControllerがCollectionViewのデリゲート、データソースとして振る舞うことやそれらに関連する状態管理も許容しており、私はこれらの処理がViewControllerのプログラム構造を捉える上で切り捨てて良い瑣末なモノであるとは思えません。そのためViewControllerのプログラム構造は一般的な性質のみでは理解できず、実際にコードを見て見ないとわからないと主張しています。
+<a name="footnote7">*7</a>: ドキュメントで紹介した4点の責務を順番に記述しているかもしれませんし、もしくはプロダクトの
