@@ -54,7 +54,7 @@
 ### ViewControllerの責務
 [UIViewControllerのドキュメント](https://developer.apple.com/documentation/uikit/uiviewcontroller)を見ると、ViewControllerの主な責務以下4点だと書かれています。<sup>[*1](#footnote1)</sup>  
 1. Viewに紐づいているデータの変化に応じたViewの更新
-2. ユーザーのView操作への対応
+2. ユーザーインタラクションへの対応
 3. Viewの大きさの変更、また画面全体のレイアウトの管理
 4. (他のViewControllerも含めた)他のオブジェクトとの連携
 
