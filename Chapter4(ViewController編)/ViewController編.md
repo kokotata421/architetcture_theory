@@ -231,6 +231,7 @@ extension ViewController {
 ```
 <sup>[*8](#footnote8)</sup>
 
+### View、Alert、遷移等の具体的な操作を他コンポーネントに委譲する
 
 
 
