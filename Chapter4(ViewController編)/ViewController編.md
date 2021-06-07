@@ -238,7 +238,8 @@ ViewControllerのコアを「UI/システムから(への)イベントを処理�
 そのため長期的に運用しても規模が大きくならないと決まっているアプリや短期間のみ公開するアプリではViewControllerにこれらの責務を直接実装しても問題ありません。  
 ただ後ほど詳しく理由を説明しますが、本記事が目的としているスケールしやすいアーキテクチャは不特定多数の長期的なアプリの開発を前提としており、その場合は「View、Alert、遷移等の具体的な操作」はViewControllerの外部に委譲する方が良いと考えています。  
 
-
+その場合ViewControllerとそのの構成は以下のようになります。  
+<img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/ViewControllerの構造.png" alt="ViewControllerの構造" width=55% > 
 
 
 
