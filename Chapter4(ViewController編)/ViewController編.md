@@ -115,6 +115,122 @@ ViewController(UIKit)には宣言的な記述に思える箇所もあると思�
 下記の画像のように写真とそのタイトルを表示したリストがあり、それぞれのアイテムを選択した時に詳細画面に遷移できる機能をUIKitとSwiftUIそれぞれで実装した場合どのようなコードになるか比較してみました。  
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/命令的プログラミングと宣言的プログラミングの比較例.png" alt="命令的プログラミングと宣言的プログラミングの比較例" width=30% > 
 
+命令的プログラミング・ViewController(UIKit)で実装した場合
+```
+class PhotoCollectionViewController: UIViewController {
+
+    let photos: [Photo]
+    
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(UITableViewCell.self,
+                           forCellReuseIdentifier: "PhotoCell")
+        tableView.delegate = self
+        tableView.dataSource = self
+        self.view.addSubview(tableView)
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+        ])
+        return tableView
+    }()
+    
+    init(photos: [Photo]) {
+        self.photos = photos
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationItem.title = "Photos"
+        _ = tableView
+    }
+}
+
+extension PhotoCollectionViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView,
+                   didSelectRowAt indexPath: IndexPath) {
+        self.navigationController?
+            .pushViewController(PhotoDetailViewController(photo: self.photos[indexPath.row]),
+                                animated: true)
+
+    }
+}
+
+extension PhotoCollectionViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        1
+    }
+    
+    func tableView(_ tableView: UITableView,
+                   numberOfRowsInSection section: Int) -> Int {
+        self.photos.count
+    }
+    func tableView(_ tableView: UITableView,
+                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: UITableViewCell
+        if let dequeuedCell = tableView.dequeueReusableCell(withIdentifier: "PhotoCell") {
+            cell = dequeuedCell
+        } else {
+            cell = UITableViewCell(style: .default, reuseIdentifier: "PhotoCell")
+        }
+        let photo: Photo = photos[indexPath.row]
+        
+        //print(cell.imageView)
+        cell.imageView?.image = UIImage(named: photo.imageName)
+        cell.imageView?.contentMode = .scaleToFill
+        cell.textLabel?.text = String(photo.title)
+        
+        return cell
+    }
+    
+    
+}
+
+```
+
+宣言的プログラミング・SwiftUIで実装した場合
+```
+struct PhotoCollectionView: View {
+    @State var photos: [Photo]
+    var body: some View {
+        
+        NavigationView {
+            List(photos) { photo in
+                NavigationLink(destination: PhotoDetailView(photo: photo)) {
+                    PhotoRow(photo: photo)
+                }
+            }
+            .navigationTitle("Photos")
+        }
+    }
+}
+
+struct PhotoRow: View {
+    var photo: Photo
+
+    var body: some View {
+        HStack {
+            Image(photo.imageName)
+                .resizable()
+                .frame(width: 50, height: 50)
+            Text(photo.title)
+            
+            Spacer()
+            
+        }
+    }
+}
+```
+
 
 当該のコードを見てみるとSwiftUIのコードは自然言語(英語)的で直感的に何をやっているのか理解できるのに対して、ViewControllerのコードは機械的で細々としているのがわかります。  
 ViewControllerに慣れている開発者にとっては、そのように機械的で細々としたコードでも経験によって培われた感覚によって触りをみるだけでそれがどのような責務を担っているのか大体理解できるでしょう。  
