@@ -112,7 +112,7 @@ MVCやレイヤードアーキテクチャといった設計理論の基礎を�
 #### 命令的プログラミング=ViewController(UIKit),宣言的プログラミング=SwiftUI
 ViewController(UIKit)には宣言的な記述に思える箇所もあると思いますが、基本的にはViewController(UIKit)は命令的プログラミング、SwiftUIは宣言的プログラミングと認識して問題ありません。  
 ここでは両者のプログミングがどのように異なるのか知るために簡単な例を見てみます。  
-下記の画像のように写真とそのタイトルを表示したリストがあり、それぞれのアイテムを選択した時に詳細画面に遷移できる機能をUIKitとSwiftUIそれぞれで実装した場合どのようなコードになるか比較してみました。  
+下記の画像のように写真とそのタイトルを表示したリストがあり、それぞれのアイテムを選択した時に詳細画面に遷移できる機能をUIKitとSwiftUIそれぞれで実装した場合どのようなコードになるか比較してみました。(画像はSwiftUIで実装したものです)  
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/命令的プログラミングと宣言的プログラミングの比較例.png" alt="命令的プログラミングと宣言的プログラミングの比較例" width=30% > 
 
 命令的プログラミング・ViewController(UIKit)で実装した場合
