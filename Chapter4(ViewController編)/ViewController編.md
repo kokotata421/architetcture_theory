@@ -112,7 +112,7 @@ MVCやレイヤードアーキテクチャといった設計理論の基礎を�
 #### 命令的プログラミング=ViewController(UIKit),宣言的プログラミング=SwiftUI
 ViewController(UIKit)には宣言的な記述に思える箇所もあると思いますが、基本的にはViewController(UIKit)は命令的プログラミング、SwiftUIは宣言的プログラミングと認識して問題ありません。  
 ここでは両者のプログミングがどのように異なるのか知るために簡単な例を見てみます。  
-下記の画像のように写真とそのタイトルを表示したリストがあり、それぞれのアイテムを選択した時に詳細画面に遷移できる機能をUIKitとSwiftUIそれぞれで実装した場合どのようなコードになるか比較してみました。(画像はSwiftUIで実装したものです)  
+下記の画像のように写真とそのタイトルを表示したリストがあり、それぞれのアイテムを選択した時に詳細画面に遷移できる機能をUIKitとSwiftUIそれぞれで実装した場合どのようなコードになるか比較してみました。(画像はSwiftUIで実装したものです)<sup>[*3](#footnote3)</sup>  
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/命令的プログラミングと宣言的プログラミングの比較例.png" alt="命令的プログラミングと宣言的プログラミングの比較例" width=30% > 
 
 命令的プログラミング・ViewController(UIKit)で実装した場合
@@ -236,7 +236,7 @@ struct PhotoRow: View {
 ViewControllerに慣れている開発者にとっては、そのように機械的で細々としたコードでも経験によって培われた感覚によって触りをみるだけでそれがどのような責務を担っているのか大体理解できるでしょう。  
 しかしそのように慣れている開発者であっても、例えば不具合が生じて正確にコードを調査する必要が出てきた際などには細々した命令的プログラムを１行１行確認する必要があるため集中力が必要なります。    
 #### 多様な処理を含むViewControllerにおいて、命令的なプログラミングはさらに可読性を落としてしまう
-先程の[参照記事](https://engineering.mercari.com/blog/entry/20201216-4043b38af1/)にも書かれている通り、宣言的プログラミング(記事内ではDeclarative Style)は見通しが良いと書かれていますが、それは逆にいうと命令的に書かれたViewcControllerは見通しが良くないということです。<sup>[*4](#footnote4)</sup>   
+先程の[参照記事](https://engineering.mercari.com/blog/entry/20201216-4043b38af1/)にも書かれている通り、宣言的プログラミング(記事内ではDeclarative Style)は見通しが良いと書かれていますが、それは逆にいうと命令的に書かれたViewControllerは見通しが良くないということです。<sup>[*4](#footnote4)</sup>   
 最初に挙げたようにViewControllerには実に多様な処理が含まれていますが、そのように多くの処理を行っていることに加えてそれらが見通しの悪くなる命令的なプログラミングによって実装されていることはViewControllerの可読性を大きく落としていると思います。  
 
 ### 3.ViewControllerは対応する画面の仕様に大きく影響を受ける
@@ -380,7 +380,7 @@ ViewControllerのコアを「UI/システムから(への)イベントを処理�
 ## 脚注
 <a name="footnote1">*1</a>: 複数点あり原文(英語)も載せると見づらくなってしまうため、意訳のみ載せています。  
 <a name="footnote2">*2</a>: アプリの仕様としてContainer ViewControllerを積極的に利用する方針にしているケースもなくはないと思いますが、全体から見ればごく限られたケースだと思います。  
-  
+<a name="footnote3">*3</a>: あくまで目的はViewController(命令的プログラミング)とSwiftUI(宣言的プログラミング)の違いを把握することなので、ViewController側ではCellのレイアウト等何点か省略している実装があります。  
 <a name="footnote4">*4</a>: ここで述べている命令的プログラミングの見通しが良くないという評価は相対的なものではなくある程度客観性を持っていると思います。機械的で細々した命令的プログラミングは人間の一般的な認知能力からして見やすいモノではないはずです。  
 <a name="footnote5">*5</a>: PresenterやViewModelといったコンポーネントもUseCaseやRepositoryと比べると責務が広範囲に及んで漠然としている印象を受けますが、それでもその
 性質を突き詰めると「View-BusinssLogic間のデータ変換を行うコンポーネント」であると定義することができます。そしてここから「View->Business Logicのデータ変換とBusiness Logic->Viewのデータ変換」とい構造を持ったプログラムであるべきことが見えてきます。  
