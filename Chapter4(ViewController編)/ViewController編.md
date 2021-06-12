@@ -96,7 +96,7 @@ MVCやレイヤードアーキテクチャといった設計理論の基礎を�
 ただそうでない開発者にとってこれらのコードからViewControllerの責務を正しく理解するのは難しいと思います。  
 恐らく設計理論の理解よりも先にコード(実務)を通してプログラミングを学んでいる開発者からすると上記のように様々な処理が含まれているViewControllerは「Viewを管理する存在」ではなく、「画面開発における便利屋的な存在」に見えているのではないでしょうか。  
 私はレイヤードアーキテクチャの記事でFatViewControllerの問題の原因としてViewController-Model間の関係の論理的な理解不足を指摘しましたが、このようにコードレベルにおいてViewControllerが雑多にも感じる処理を抱えている状況はそうしたViewController-Model間の関係(ViewControllerに何を書いてはいけないか)を理解することをより難しくさせていると思います。  
-<img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/ViewControllerの構造.png" alt="ViewControllerの構造" width=55% > 
+<img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/コードレベルにおけるViewController.png" alt="コードレベルにおけるViewController" width=55% > 
 
 #### ViewControllerには確立されたコード形式がない
 またこれは後ほど詳しく説明しますが、ViewControllerに多様な処理が含まれるということは、ViewControllerの実装は対応する各画面の仕様によって大きく異なるということです。  
