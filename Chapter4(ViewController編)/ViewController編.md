@@ -98,9 +98,6 @@ MVCやレイヤードアーキテクチャといった設計理論の基礎を�
 私はレイヤードアーキテクチャの記事でFatViewControllerの問題の原因としてViewController-Model間の関係の論理的な理解不足を指摘しましたが、このようにコードレベルにおいてViewControllerが雑多にも思える処理を抱えている状況はそうしたViewController-Model間の関係(ViewControllerに何を書いてはいけないか)を理解することをより難しくさせていると思います。  
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/コードレベルにおけるViewController.png" alt="コードレベルにおけるViewController" width=60% > 
 
-#### ViewControllerには確立されたコード形式がない
-またこれは後ほど詳しく説明しますが、ViewControllerに多様な処理が含まれるということは、ViewControllerの実装は対応する各画面の仕様によって大きく異なるということです。  
-そのためViewControllerの概念的な理解は開発する上で基本的なガイドラインを示してくれはするものの、実際にコードを読む・書くという作業においては各ViewController毎にその都度対応しなくてはいけない面が大きいです。
 
 ### 2.命令的プログラミングと宣言的プログラミングが混在する
 #### 命令的プログラミングと宣言的プログラミング
