@@ -255,7 +255,7 @@ ViewControllerは対応する画面の仕様に大きく影響を受けます。
 例えばARepositoryであれば「A」というオブジェクトを操作対象としていて、そこに定義されているメソッドは「A」に対するCRUD処理であり、インスタンス変数もそれらCRUD処理のために利用されているという構造になっていると思います。    
 #### ViewControllerには具体的なパターン(型)がない
 このように通常のコンポーネントではその基本的な性質によって具体的なプログラム構造まで決定されますが<sup>[*6](#footnote6)</sup>、ViewControllerの場合その基本的な性質によっては具体的なプログラム構造が決定されません。<sup>[*7](#footnote7)</sup>   
-<img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/コンポーネントの性質と構造.png" alt="コンポーネントの性質と構造" width=65% > 
+<img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/コンポーネントの性質と構造.png" alt="コンポーネントの性質と構造" width=70% > 
 このようなVewControllerの特徴はスケールの観点からは大きな欠点だと思います。  
 アーキテクチャやデザインパターン等を代表するように具体的な型が決まっていることは開発の効率を大きく向上させます。  
 具体的な型があることで開発の際「どのようにコードを読めば(書けば)良いか」悩む機会は大きく減りますし、また一般的なアプリケーション開発では「AViewController」「BViewController」のように同様のコンポーネントを複数定義・実装しますがその際にも型を使い回すことできるからです。    
