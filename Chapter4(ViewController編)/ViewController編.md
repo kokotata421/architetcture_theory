@@ -381,7 +381,7 @@ ViewControllerのコアを「UI/システムから(への)イベントを処理�
 ## 脚注
 <a name="footnote1">*1</a>: 複数点あり原文(英語)も載せると見づらくなってしまうため、意訳のみ載せています。  
 <a name="footnote2">*2</a>: アプリの仕様としてContainer ViewControllerを積極的に利用する方針にしているケースもなくはないと思いますが、全体から見ればごく限られたケースだと思います。  
-<a name="footnote3">*3</a>: あくまで目的はViewController(命令的プログラミング)とSwiftUI(宣言的プログラミング)の違いを把握することなので、ViewController側ではCellのレイアウト等何点か省略している実装があります。またSwiftUI側も@Stateの利用方法など理想的ではない実装があります。   
+<a name="footnote3">*3</a>: あくまで目的はViewController(命令的プログラミング)とSwiftUI(宣言的プログラミング)の違いを把握することなので、ViewController側ではCellのレイアウト等何点か省略している実装があります。またSwiftUI側も@Stateの利用方法などベストプラクティスとは言えない実装があります。   
 <a name="footnote4">*4</a>: ViewController(UIKit)側ではAuto Layoutをコードで実装しているためInterface Builderより煩雑になっていると言えると思います。しかし実際開発ではViewController(UIKit)側にはさらにプリフェッチ処理、差分検知、その他省略した何点かの実装が加わるためAuto Layoutをコード実装していなくてもプログラムは例よりさらに煩雑になっているはずです。  
 <a name="footnote5">*5</a>: ここで述べている命令的プログラミングの見通しが良くないという評価は相対的なものではなくある程度客観性を持っていると思います。機械的で細々した命令的プログラミングは人間の一般的な認知能力からして見やすいモノではないはずです。  
 <a name="footnote6">*6</a>: PresenterやViewModelといったコンポーネントもUseCaseやRepositoryと比べると責務が広範囲に及んで漠然としている印象を受けますが、それでもその
