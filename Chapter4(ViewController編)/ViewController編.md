@@ -115,7 +115,7 @@ ViewController(UIKit)には宣言的な記述に思える箇所もあると思�
 下記の画像のように写真とそのタイトルを表示したリストとさらにそれぞれのアイテムを選択した時に詳細画面に遷移できる機能をUIKitとSwiftUIそれぞれで実装してそのコードを比較してみました。(画像はSwiftUIで実装したものです)<sup>[*3](#footnote3)</sup>  
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/命令的プログラミングと宣言的プログラミングの比較例.png" alt="命令的プログラミングと宣言的プログラミングの比較例" width=30% > 
 
-命令的プログラミング・ViewController(UIKit)で実装した場合
+命令的プログラミング・ViewController(UIKit)で実装したコード  
 ```
 class PhotoCollectionViewController: UIViewController {
 
@@ -197,7 +197,7 @@ extension PhotoCollectionViewController: UITableViewDataSource {
 
 ```
 
-宣言的プログラミング・SwiftUIで実装した場合
+宣言的プログラミング・SwiftUIで実装したコード  
 ```
 struct PhotoCollectionView: View {
     @State var photos: [Photo]
@@ -234,7 +234,7 @@ struct PhotoRow: View {
 
 上記のコードを見て見ると宣言的プログラミングであるSwiftUIのコードの方が自然言語(英語)的で直感的に何をやっているのか理解しやすいのがわかると思います。<sup>[*4](#footnote4)</sup>   
 それに比べると命令的プログラミングであるViewController(UIKit)のコードは機械的で細々としておりわかりづらく感じます。  
-ViewControllerに慣れている開発者であればそのように細々としたコードでも触りをみるだけでそれがどのような責務を担っているのか大体理解できると思いますが、しかしそのように慣れている開発者であっても、例えば不具合が生じて正確にコードを調査する必要が出てきた際などには細々した命令的プログラムを１行１行確認する必要があるため集中力が必要なります。    
+ViewControllerに慣れている開発者であればそのように細々としたコードでも触りをみるだけでそれがどのような責務を担っているのか大体理解できると思いますが、しかしそのよう例えば不具合が生じて正確にコードを調査する必要が出てきた際などには細々した命令的プログラムを１行１行確認する必要があるため集中力が必要なります。    
 #### 多様な処理を含むViewControllerにおいて、命令的なプログラミングはさらに可読性を落としてしまう
 先程の[参照記事](https://engineering.mercari.com/blog/entry/20201216-4043b38af1/)にも書かれている通り、宣言的プログラミング(記事内ではDeclarative Style)は見通しが良いと書かれていますが、それは逆にいうと命令的に書かれたViewControllerは見通しが良くないということです。<sup>[*5](#footnote5)</sup>   
 最初に挙げたようにViewControllerには実に多様な処理が含まれていますが、そのように多くの処理を行っていることに加えてそれらが見通しの悪くなる命令的なプログラミングによって実装されていることはViewControllerの可読性を大きく落としていると思います。  
