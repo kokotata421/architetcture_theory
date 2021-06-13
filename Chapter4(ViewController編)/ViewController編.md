@@ -87,7 +87,7 @@ Container ViewControllerの設計において何より重要なのは、**自身
 2.  命令的プログラミングと宣言的プログラミングが混在する
 3.  対応する画面の仕様に大きく影響を受ける
 
-### 1.全角 &#x300C;Viewの管理&#40;Control&#41;全角 &#x300D;と一言でいえど&#x3001;実際には多様なプログラムが書かれる
+### 1.&#x300C;Viewの管理&#40;Control&#41;&#x300D;と一言でいえど&#x3001;実際には多様なプログラムが書かれる
 #### コードレベルからViewControllerの責務が理解しにくい
 記事冒頭の「[ViewControllerの基本](#ViewControllerの基本)」では、[Appleのドキュメント](https://developer.apple.com/documentation/uikit/uiviewcontroller)を引用してViewControllerの主要な責務を4点紹介し、それらはさらに「Viewの管理」へと要約できると説明しました。  
 しかしそのように責務を簡潔に表現できるのはあくまで概念上の話です。  
