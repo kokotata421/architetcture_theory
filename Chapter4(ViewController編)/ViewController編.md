@@ -92,10 +92,10 @@ Container ViewControllerの設計において何より重要なのは、**自身
 記事冒頭の「[ViewControllerの基本](#ViewControllerの基本)」では、[Appleのドキュメント](https://developer.apple.com/documentation/uikit/uiviewcontroller)を引用してViewControllerの主要な責務を4点紹介し、それらはさらに「Viewの管理」へと要約できると説明しました。  
 しかしそのように責務を簡潔に表現できるのはあくまで概念上の話です。  
 実際のコードレベルにおいてViewControllerにはViewの操作、アニメーション、遷移処理、アラート操作、CollectionViewのデリゲート・データソース、その他オブジェクトの連携等、実にさまざまな処理が書かれており、時には簡単な状態変数の管理も行っているケースも見かけます。  
-MVCやレイヤードアーキテクチャといった設計理論の基礎を理解できている開発者であればこのように雑多にも思えるコードにおいてもメタ認識によってその責務を理解することができます。    
-ただそうでない開発者にとってこれらのコードからViewControllerの責務を正しく理解するのは難しいと思います。  
+MVCやレイヤードアーキテクチャといった設計理論の基礎を理解できている開発者であればこのように雑多に思えるコードにおいてもメタ認識によってその責務を理解することができます。    
+ただそうでない開発者にとってはこれらのコードからViewControllerの責務を正しく理解するのは難しいと思います。  
 恐らく設計理論の理解よりも先にコード(実務)を通してプログラミングを学んでいる多くの開発者からすると上記のように様々な処理が含まれているViewControllerは「Viewを管理する存在」ではなく、「画面開発における便利屋的な存在」に見えてしまうのではないでしょうか。  
-私はレイヤードアーキテクチャの記事でFatViewControllerの問題の原因としてViewController-Model間の関係の論理的な理解不足を指摘しましたが、このようにコードレベルにおいてViewControllerが雑多にも思える処理を抱えている状況はそうしたViewController-Model間の関係(ViewControllerに何を書いてはいけないか)を理解することをより難しくさせていると思います。  
+私はレイヤードアーキテクチャの記事でFatViewControllerの問題の原因としてViewController-Model間の関係の論理的な理解不足を指摘しましたが、このようにコードレベルにおいてViewControllerが雑多に思える処理を抱えている状況はそうしたViewController-Model間の関係(ViewControllerに何を書いてはいけないか)を理解することをより難しくさせていると思います。  
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/コードレベルにおけるViewController.png" alt="コードレベルにおけるViewController" width=60% > 
 
 
@@ -112,7 +112,7 @@ MVCやレイヤードアーキテクチャといった設計理論の基礎を�
 #### 命令的プログラミング=ViewController(UIKit),宣言的プログラミング=SwiftUI
 ViewController(UIKit)には宣言的な記述に思える箇所もあると思いますが、基本的にはViewController(UIKit)は命令的プログラミング、SwiftUIは宣言的プログラミングと認識して問題ありません。  
 ここでは両者のプログミングがどのように異なるのか知るために簡単な例を見てみます。  
-下記の画像のように写真とそのタイトルを表示したリストがあり、それぞれのアイテムを選択した時に詳細画面に遷移できる機能をUIKitとSwiftUIそれぞれで実装してそのコードを比較してみました。(画像はSwiftUIで実装したものです)<sup>[*3](#footnote3)</sup>  
+下記の画像のように写真とそのタイトルを表示したリストとさらにそれぞれのアイテムを選択した時に詳細画面に遷移できる機能をUIKitとSwiftUIそれぞれで実装してそのコードを比較してみました。(画像はSwiftUIで実装したものです)<sup>[*3](#footnote3)</sup>  
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/命令的プログラミングと宣言的プログラミングの比較例.png" alt="命令的プログラミングと宣言的プログラミングの比較例" width=30% > 
 
 命令的プログラミング・ViewController(UIKit)で実装した場合
