@@ -184,9 +184,7 @@ extension PhotoCollectionViewController: UITableViewDataSource {
         }
         let photo: Photo = photos[indexPath.row]
         
-        //print(cell.imageView)
         cell.imageView?.image = UIImage(named: photo.imageName)
-        cell.imageView?.contentMode = .scaleToFill
         cell.textLabel?.text = String(photo.title)
         
         return cell
@@ -237,7 +235,7 @@ struct PhotoRow: View {
 ViewControllerに慣れている開発者であれば細々としたコードでも経験によってその触りをみるだけで大体理解できると思いますが、ただそのような場合でも例えば不具合が生じる等して正確にコードを調査する必要がある際にはコードを１行１行確認する必要があるため集中力が必要なります。    
 #### 多様な処理を含むViewControllerにおいて、命令的なプログラミングはさらに可読性を落としてしまう
 先程のコード例を見ても明らかなようにViewControllerのコードは見通しがよくありません。<sup>[*5](#footnote5)</sup>  
-そしてそうした命令的プログラミングの見通しの悪さに加えて、[最初に挙げたViewControllerの多様な処理を含んでいる性質](#1Viewの管理Controlと一言でいえど実際には多様なプログラムが書かれる)はプログラムの可読性を大きく下げてしまっています。  
+そしてそうした命令的プログラミングの見通しの悪さに加えて、[最初に挙げたViewControllerの多様な処理を含んでいる特徴](#1Viewの管理Controlと一言でいえど実際には多様なプログラムが書かれる)はプログラムの可読性を大きく下げてしまっています。  
 
 ### 3.ViewControllerは対応する画面の仕様に大きく影響を受ける
 #### ViewControllerのプログラムの構造を理解するためには、実際にコードを読まなくてはいけない
