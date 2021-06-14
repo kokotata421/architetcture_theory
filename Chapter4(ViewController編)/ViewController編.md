@@ -281,7 +281,7 @@ ViewControllerの問題点として基本的なプログラム構造の型が存
 - View、Alert、遷移等の具体的な操作が二次責務と捉えられるようになる
 
 
-そしてプログラムも以下のような構造。  
+そして「イベント」を中心に据えることでプログラム構造も以下の形に収まっていくと思います。    
 
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/ViewControllerの構造.png" alt="ViewControllerの構造" width=55% > 
 
