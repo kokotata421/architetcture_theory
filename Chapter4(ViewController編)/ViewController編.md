@@ -387,8 +387,8 @@ hogeView.isUserInteractionEnabled = userInteractionEnabled
 hogeView.image = userInteractionEnabled ? 有効の場合の画像 : 無効の場合の画像
 hogeView.backgroundColor = userInteractionEnabled ? UIColor.clear : UIColor.black.withAlphaComponent(0.6)
 ```
-これに対して今回提案した設計では各ViewコンポーネントはRoot Viewと呼ばれる親Viewに宣言され、それらの操作もViewControllerで行うのではなくRoot View内で行われます。  
-従ってViewController側の実装は以下のようになります。
+これに対して今回提案した設計では各ViewコンポーネントはRoot Viewと呼ばれる親Viewに宣言され(Root Viewに関しては後ほど詳細を説明します)、それらの操作もViewControllerで行うのではなくRoot View内で行われます。  
+従ってViewController側の実装は以下のようになります。  
 ```
 // rootViewはViewControllerの画面全体のviewを参照している
 // userInteractionEnabledはインタラクションが有効かどうかを示す引数とする
@@ -398,7 +398,7 @@ self.rootView.setHogeViewInteraction(enabled: userInteractionEnabled)
 ```
 こちらの設計ではHogeViewのインタラクションが変更された際のViewの操作はRoot View側に実装しているためViewControllerはRoot Viewの処理を呼び出すだけです。  
 
-##### 例1:Alertの表示
+##### 例2:Alertの表示
 
 
 #### 『命令的プログラミングと宣言的プログラミングが混在する』問題の解決
