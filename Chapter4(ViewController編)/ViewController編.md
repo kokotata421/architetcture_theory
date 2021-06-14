@@ -381,6 +381,7 @@ ViewControllerの一部の責務を他コンポーネント委譲しても全体
 例えばHogeViewのインタラクションが変更される場合にその画像や背景色も変更される処理はViewControllerに以下のように実装することになります。  
 ```
    // Viewの操作をViewControllerで直に行った場合の実装
+   
    // userInteractionEnabledはインタラクションが有効かどうかを示す引数とする
 
 
@@ -392,11 +393,12 @@ ViewControllerの一部の責務を他コンポーネント委譲しても全体
 従ってViewController側の実装は以下のようになります。  
 ```
 　　// Viewの操作をRoot Viewに委譲した場合のViewControllerの実装
+  
    // rootViewはViewControllerの画面全体のviewを参照している
    // userInteractionEnabledはインタラクションが有効かどうかを示す引数とする
 
 
-    self.rootView.setHogeViewInteraction(enabled: userInteractionEnabled)
+   self.rootView.setHogeViewInteraction(enabled: userInteractionEnabled)
 ```
 こちらの設計ではHogeViewのインタラクションが変更された際のViewの操作はRoot View側に実装しているためViewControllerはRoot Viewの処理を呼び出すだけです。  
 
@@ -405,6 +407,7 @@ ViewControllerの一部の責務を他コンポーネント委譲しても全体
 Alertの表示をViewControlerで直に行った場合以下のような実装になります。  
 ```
    // Alertの表示をViewControllerで直に行った場合の実装
+   
    // dataはPresenterから渡された引数とする
 
    let alert: UIAlertController = UIAlertController(title: "データの保存確認",
@@ -425,12 +428,15 @@ Alertの表示をViewControlerで直に行った場合以下のような実装�
 AlertコンポーネントではAlertStrategyという表示したいアラートの情報を持ったデータを引数として受け取ることでAlertを表示します。  
 それによってViewController側のAlert表示の実装は以下のようになります。  
 ```
-　　/ Alertの表示をAlertコンポーネントに委譲した場合のViewControllerの実装
+　　// Alertの表示をAlertコンポーネントに委譲した場合のViewControllerの実装
+  
    //alertStarategyはアラート表示に関する情報を持った引数
    
    self.alert.show(strategy: alertStrategy)
 ```
-こちらも先程の
+こちらも先程のViewの操作を委譲した場合と同様ViewController側の実装は他コンポーネントへの処理依頼のみとなります。  
+
+
 #### 『命令的プログラミングと宣言的プログラミングが混在する』問題の解決
 
 #### 『ViewControllerは対応する画面の仕様に大きく影響を受ける』問題の解決
