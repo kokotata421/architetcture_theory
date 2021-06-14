@@ -371,6 +371,35 @@ ViewControllerのコアを「UI/システムから(への)イベントを処理�
 
 
 #### 『「Viewの管理(Control)」と一言でいえど、実際には多様なプログラムが書かれる』問題の解決
+ViewControllerの一部の責務を他コンポーネント委譲しても全体の責務の量が減るわけではありませんが、少なくともプログラム上のコードは煩雑ではなくなり画一化されます。  
+これは具体的な責務を他コンポーネントに委譲することで今までViewControllerで行っていた多様な処理が「他コンポーネント(Presenter/View/Alert/Router等)への指示」へと集約されたからです。  
+
+
+ここではいくつか例を紹介することでViewControllerのコードが画一化されたことを確認します。  
+##### 例1:Viewの操作
+通常の実装であれば各ViewコンポーネントはViewControllerに宣言されているためそれらを操作する場合は直接行う必要があります。  
+例えばHogeViewのインタラクションが変更される場合にその画像や背景色も変更される処理はViewControllerに以下のように実装することになります。  
+```
+// userInteractionEnabledはインタラクションが有効かどうかを示す引数とする
+
+
+hogeView.isUserInteractionEnabled = userInteractionEnabled
+hogeView.image = userInteractionEnabled ? 有効の場合の画像 : 無効の場合の画像
+hogeView.backgroundColor = userInteractionEnabled ? UIColor.clear : UIColor.black.withAlphaComponent(0.6)
+```
+これに対して今回提案した設計では各ViewコンポーネントはRoot Viewと呼ばれる親Viewに宣言され、それらの操作もViewControllerで行うのではなくRoot View内で行われます。  
+従ってViewController側の実装は以下のようになります。
+```
+// rootViewはViewControllerの画面全体のviewを参照している
+// userInteractionEnabledはインタラクションが有効かどうかを示す引数とする
+
+
+self.rootView.setHogeViewInteraction(enabled: userInteractionEnabled)
+```
+こちらの設計ではHogeViewのインタラクションが変更された際のViewの操作はRoot View側に実装しているためViewControllerはRoot Viewの処理を呼び出すだけです。  
+
+##### 例1:Alertの表示
+
 
 #### 『命令的プログラミングと宣言的プログラミングが混在する』問題の解決
 
