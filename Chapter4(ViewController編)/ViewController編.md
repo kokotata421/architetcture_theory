@@ -361,7 +361,7 @@ ViewControllerのコアを「UI/システムから(への)イベントを処理�
 その場合ViewControllerの構造とその周辺関係は以下のようになります。  
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/具体的な操作処理を外部に委譲したViewController.png" alt="具体的な操作処理を外部に委譲したViewController" width=60% > 
 
-以下で説明するように具体的な操作を外部に委譲することで記事内で挙げた[ViewControllerの問題](#現実のViewControllerの開発で起こる問題)が解決されます。  
+このように具体的な操作を外部に委譲することで記事内で挙げた[ViewControllerの問題](#現実のViewControllerの開発で起こる問題)が解決されます。  
 
 
 > 補足:  
