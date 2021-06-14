@@ -413,11 +413,14 @@ Alertの表示をViewControlerで直に行った場合以下のような実装�
    let alert: UIAlertController = UIAlertController(title: "データの保存確認",
                                                     message: "データを保存してもいいですか？",
                                                     preferredStyle:  UIAlertControllerStyle.Alert)
-    let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler:{
-        (action: UIAlertAction!) -> Void in
-        presenter.save(data)
-    })
-    let cancelAction: UIAlertAction = UIAlertAction(title: "キャンセル", style: UIAlertActionStyle.Cancel, handler:nil)
+    let defaultAction: UIAlertAction = UIAlertAction(title: "OK",
+                                                     style: UIAlertActionStyle.Default, 
+                                                     handler: { (action: UIAlertAction!) -> Void in
+                                                        presenter.save(data)
+                                                     })
+    let cancelAction: UIAlertAction = UIAlertAction(title: "キャンセル",
+                                                    style: UIAlertActionStyle.Cancel,
+                                                    handler:nil)
     
     alert.addAction(cancelAction)
     alert.addAction(defaultAction)
