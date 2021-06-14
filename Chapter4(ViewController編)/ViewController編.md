@@ -358,15 +358,18 @@ extension ViewController {
 ViewControllerのコアを「UI/システムから(への)イベントを処理する機構」と定義することで「View、Alert、遷移等の具体的な操作」が二次責務となりました。  
 このアーキテクチャではViewControllerのプログラム構造をより統一的かつわかりやすくするためにこれらの二次責務をViewControllerから他のコンポーネントに委譲します。  
   
-ただ留意したいのはこれらの責務の委譲が必須というわけではありません。  
-今回の設計ではViewControllerのコア定義により「View、Alert、遷移等の具体的な操作」を脱着可能な二次責務として認識しています。  
-そのため長期的に運用しても規模が大きくならないと決まっているアプリや短期間のみ公開するアプリではViewControllerにこれらの責務を直接実装しても問題ありません。  
-ただ後ほど詳しく理由を説明しますが、本記事が目的としているスケールしやすいアーキテクチャは不特定多数の長期的なアプリの開発を前提としており、その場合は「View、Alert、遷移等の具体的な操作」はViewControllerの外部に委譲する方が良いと考えています。  
-
-その場合ViewControllerとそのの構成は以下のようになります。  
+その場合ViewControllerの構造とその周辺の構成は以下のようになります。  
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/具体的な操作処理を外部に委譲したViewController.png" alt="具体的な操作処理を外部に委譲したViewController" width=60% > 
 
-そしてこのように具体的な操作を外部に委譲することで[記事内で挙げたViewControllerの問題](#現実のViewControllerの開発で起こる問題)が解決されます。  
+このように具体的な操作を外部に委譲することで記事内で挙げた[ViewControllerの問題](#現実のViewControllerの開発で起こる問題)が解決されます。  
+
+```
+補足:
+「View、Alert、遷移等の具体的な操作」の責務の委譲は必須というわけではありません。  
+今回の設計ではViewControllerのコアを「イベント処理」と定義して、「View、Alert、遷移等の具体的な操作」を脱着可能な二次責務として認識しています。  
+そのため長期的に運用しても規模が大きくならないとわかっているアプリや短期間のみ公開するアプリではViewControllerにこれらの責務を直接実装しても問題ありません。  
+
+```
 
 #### 『「Viewの管理(Control)」と一言でいえど、実際には多様なプログラムが書かれる』問題の解決
 
