@@ -267,21 +267,21 @@ ViewControllerは対応する画面の仕様に大きく影響を受けます。
 ViewControllerの基本的な性質と開発時に起こる問題点を見てきました。  
 ここではそれらの事柄を踏まえて本記事の本題と言えるスケールしやすいViewControllerの設計を考えていきます。  
 ### ViewControllerを再定義する
-ViewController開発の問題点としてUseCaseやRepository等のコンポーネントではその基本的な性質によってプログラム構造の型が決定され、そのおかげで開発時に悩む機会が少なくなるが、ViewControllerにはそのような型が存在しないことを指摘しました。  
+ViewControllerの問題点として基本的なプログラム構造の型が存在しないため個々に対応していく箇所が多い面を挙げました。  
 ここではViewControllerの開発にもそのような雛形を作るべくViewControllerを再定義します。  
-しかし再定義するといっても、厳密には既存のViewController定義を上書きするようなことはせずそのコアとなる定義を行うことでViewControllerの責務をより明確にします。  
+しかし再定義するといっても、厳密には既存のViewController定義を上書きするようなことはせずそのコアとなる定義を行うことでViewControllerの責務をより明確にするだけです。    
 具体的にはViewControllerのコアを以下のように定義します。  
   
 >**ViewControllerはUI/システムから(への)イベントを処理する機構である。**
   
 今までと何が違うのかよくわからない人もいるかもしれませんが、既存のViewControllerの定義は「Viewの管理」と要約と書いたようにそこでは「View」を主眼としていました。  
 しかし今回の定義では「View」ではなく「イベント」が主眼となっています。  
-私はこれによって以下の2点の変化が起こると思います。  
+私はこれによって以下の2点の変化が起こります。    
 - 開発においてイベントの入力、出力処理が一次責務として強調されるようになる
 - View、Alert、遷移等の具体的な操作が二次責務と捉えられるようになる
 
 
-そしてプログラムも以下のような構造を持つことになるでしょう。  
+そしてプログラムも以下のような構造。  
 
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/ViewControllerの構造.png" alt="ViewControllerの構造" width=55% > 
 
