@@ -468,8 +468,6 @@ protocol AppView: UIView {
     func setup()
 }
 
-// MARK: Base View Controller
-// Warning: Don't make any change to this Class anymore for statbility of view controller functions
 class ViewController<View: AppView>: UIViewController {
     var rootView: View { self.view as! View }
     
