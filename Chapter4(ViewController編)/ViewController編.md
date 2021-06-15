@@ -456,6 +456,7 @@ ViewControllerのコア責務を「イベント処理」と定義することで
 ViewControllerのコア責務を「UI/システムから(への)イベントを処理」と定義することで既存の問題が解決されることを説明しました。  
 最後にそのようなViewControllerの実現のために具体的にどのように定義すれば良いか説明していきます。   
 ### ViewControllerの実装
+ViewControllerのコアを「イベント処理」と定義することは具体的な操作をViewControllerの外部に委譲することであるということは既に説明しましたが、その実装の際のポイントは「どうやってViewをViewControllerから切り離すか」ということにあります。  
 
 ### 実装例
 
