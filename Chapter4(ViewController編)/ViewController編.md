@@ -488,8 +488,8 @@ class ViewController<View: AppView>: UIViewController {
 
 
 ```
+既存のViewControllerで
 ViewControllerのRoot ViewはセットアップAppViewプロトロル
-
 ### 実装例
 
 
