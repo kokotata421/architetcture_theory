@@ -454,9 +454,42 @@ ViewControllerのコア責務を「イベント処理」と定義することで
 また後ほど説明しますが実装の際には「入力イベントの処理」と「出力イベントの処理」はさらにViewコンポーネント毎に分割され、これによって作業時には自分のタスク応じてViewControllerのどの箇所を読めば良いか(どの箇所に書けば良いか)が明確になると思います。  
 ## 実装方法
 ViewControllerのコア責務を「UI/システムから(への)イベントを処理」と定義することで既存の問題が解決されることを説明しました。  
-最後にそのようなViewControllerの実現のために具体的にどのように定義すれば良いか説明していきます。   
+最後にその実現のために実際にViewControllerをどのように実装すれば良いか説明します。   
 ### ViewControllerの実装
-ViewControllerのコアを「イベント処理」と定義することは具体的な操作をViewControllerの外部に委譲することであるということは既に説明しましたが、その実装の際のポイントは「どうやってViewをViewControllerから切り離すか」ということにあります。  
+ViewControllerのコアを「イベント処理」と定義することは具体的な操作をViewControllerの外部に委譲することであるということは既に説明しましたが、その実装の際のポイントとして「どうやってViewをViewControllerから切り離すか」が挙げられます。  
+View以外の責務の切り離しについてもこの後の記事で説明はするものの、遷移処理を代行するRouterを代表するようにViewControllerで処理していた責務を外部に委譲すること自体は珍しいことではありません。  
+しかしUIKitを利用したiOSアプリ開発ではViewControllerとViewは密接につながっており、これらを切り離した実践例はあまり見かけることがないと思います。  
+そのためここではアプリケーション全体として
+具体的には以下のようなベースViewControllerを定義して、アプリケーション内のViewControllerは全てこのViewControllerを継承させます。  
+ちなみにこのアプリではInterface Builder(Storyboard/Xib)を利用せずコードのみでViewController/Viewを生成しています。  
+
+```
+protocol AppView: UIView {
+    func setup()
+}
+
+// MARK: Base View Controller
+// Warning: Don't make any change to this Class anymore for statbility of view controller functions
+class ViewController<View: AppView>: UIViewController {
+    var rootView: View { self.view as! View }
+    
+    init(view: View = View(frame: .zero)) {
+        self.view = view
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    override func loadView() {
+        self.rootView.setup()
+    }
+}
+
+
+```
 
 ### 実装例
 
