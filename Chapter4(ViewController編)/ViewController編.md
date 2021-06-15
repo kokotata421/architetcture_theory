@@ -488,8 +488,10 @@ class ViewController<View: AppView>: UIViewController {
 
 
 ```
-既存のViewControllerで
-ViewControllerのRoot ViewはセットアップAppViewプロトロル
+既存のViewControllerからViewを切り離すことが難しい原因はViewControllerのviewプロパティがUIViewクラスであったことにあります。  
+そのためデフォルトではViewControllerからはUIViewのプロパティ・メソッドにしかアクセスできず、そのViewController独自のViewコンポーネントを操作したい場合はViewControllerに直接宣言して操作するしかありませんでした。  
+
+
 ### 実装例
 
 
