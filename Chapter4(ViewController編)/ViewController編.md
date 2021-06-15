@@ -459,8 +459,8 @@ ViewControllerのコア責務を「UI/システムから(への)イベントを�
 ViewControllerのコアを「イベント処理」と定義することは具体的な操作をViewControllerの外部に委譲することであるということは既に説明しましたが、その実装の際のポイントとして「どうやってViewをViewControllerから切り離すか」が挙げられます。  
 View以外の責務の切り離しについてもこの後の記事で説明はするものの、遷移処理を代行するRouterを代表するようにViewControllerで処理していた責務を外部に委譲すること自体は珍しいことではありません。  
 しかしUIKitを利用したiOSアプリ開発ではViewControllerとViewは密接につながっており、これらを切り離した実践例はあまり見かけることがないと思います。  
-そのためここではアプリケーション全体として
-具体的には以下のようなベースViewControllerを定義して、アプリケーション内のViewControllerは全てこのViewControllerを継承させます。  
+そのためここではアプリケーション全体として  
+具体的には以下のように自身のRoot Viewに当たるViewクラスをジェネリクスを利用して指定できるベースViewControllerを定義して、アプリケーション内のViewControllerは全てこのViewControllerを継承させます。  
 ちなみにこのアプリではInterface Builder(Storyboard/Xib)を利用せずコードのみでViewController/Viewを生成しています。  
 
 ```
@@ -488,6 +488,7 @@ class ViewController<View: AppView>: UIViewController {
 
 
 ```
+ViewControllerのRoot ViewはセットアップAppViewプロトロル
 
 ### 実装例
 
