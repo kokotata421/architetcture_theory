@@ -264,14 +264,15 @@ ARepositoryであれば「A」というオブジェクトを操作対象とし�
 アーキテクチャやデザインパターン等を代表するように具体的な型が決まっていることは開発の効率を大きく向上させます。  
 具体的な型があることで開発の際「どのようにコードを読めば(書けば)良いか」悩む機会は大きく減りますし、またアプリケーション開発では一般的に「AViewController」「BViewController」のように同様のコンポーネントを複数定義・実装しますがその際にも型を使い回すことで開発コストは大きく短縮されます。  
 
-それに対してViewControllerのように型が決まっていない場合は個々に対応していく必要があるためコストがかかり、またこうした状況で開発を続けているとプロジェクト内の統一性が失われて混乱が起きてしまう恐れがあります。  
+それに対してViewControllerのように型が決まっていない場合は個々に対応していく必要があるためコストがかかります。
+そしてそのような状況で開発を続けることでプロジェクト内の統一性が失われて混乱が起きてしまう恐れもあると思います。    
 
 ## スケールしやすいViewControllerの設計を考える
 ViewControllerの基本的な性質と開発時に起こる問題点を見てきました。  
 ここではそれらの事柄を踏まえて本記事の本題と言えるスケールしやすいViewControllerの設計を考えていきます。  
 ### ViewControllerを再定義する
-ViewControllerの問題点として基本的なプログラム構造の型が存在しないため個々に対応していく箇所が多い面を挙げました。  
-ここではViewControllerの開発にもそのような雛形を作るべくViewControllerを再定義します。  
+ViewControllerの問題点として基本的なプログラム構造の型が存在しないため個々に対応していく箇所が多いことを挙げました。  
+ここではViewControllerの開発にも雛形を作るべくViewControllerを再定義します。  
 しかし再定義するといっても、厳密には既存のViewController定義を上書きするようなことはせずそのコアとなる定義を行うことでViewControllerの責務をより明確にするだけです。    
 具体的にはViewControllerのコアを以下のように定義します。  
   
@@ -289,9 +290,9 @@ ViewControllerの問題点として基本的なプログラム構造の型が存
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/ViewControllerの構造.png" alt="ViewControllerの構造" width=55% > 
 
 プログラム構造として大分わかりやすくなったのではないでしょうか。  
-最初に紹介した[4点のViewControllerの責務](#ViewControllerの責務)は概念としてはわかりやすかったものの、実際にそれを基に実装するとなるとそれぞれの責務の関係に規則性が見えないためそれらの責務がViewController内にどのように書かれ<sup>[*8](#footnote8)</sup>、また全体の構造がどうなっているのか非常に予想しづらかったです。  
+最初に紹介した[4点のViewControllerの責務](#ViewControllerの責務)は概念としてはわかりやすかったものの、実際にそれを基に実装するとなるとそれぞれの責務の関係に規則性が見えないためそれらがViewController内にどのように書かれ<sup>[*8](#footnote8)</sup>、また全体としてどのような構造になるのか非常に予想しづらかったです。  
 しかしViewControllerのコア責務を「イベント処理」と定義することで「入力イベントの処理」と「出力イベントの処理」という対等な関係にある2つの責務がプログラムの骨格を担うようになりその構造が明確になりました。  
-これによってViewControllerのプログラムは以下のような構造で統一化されます。(これはあくまで一例であり他の形式もありえます。ただ大体に似たような形式になると思います。)  
+これによってViewControllerのプログラムは以下のような構造で統一化されると思います。(これはあくまで一例であり他の形式もありえます。ただ大体に似たような形式になると思います。)  
 
 
 ```
@@ -359,12 +360,12 @@ extension ViewController {
 
 ### View、Alert、遷移等の具体的な操作を他コンポーネントに委譲する
 ViewControllerのコアを「UI/システムから(への)イベントを処理する機構」と定義することで「View、Alert、遷移等の具体的な操作」が二次責務となりました。  
-このアーキテクチャではViewControllerのプログラム構造をより統一的かつわかりやすくするためにこれらの二次責務をViewControllerから他のコンポーネントに委譲します。  
+このアーキテクチャではViewControllerのプログラム構造をよりシンプルかつ統一的にするためにこれらの二次責務をViewControllerから他のコンポーネントに委譲します。  
   
 その場合ViewControllerの構造とその周辺関係は以下のようになります。  
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/具体的な操作処理を外部に委譲したViewController.png" alt="具体的な操作処理を外部に委譲したViewController" width=60% > 
 
-このように具体的な操作を外部に委譲することで記事内で挙げた[ViewControllerの問題](#現実のViewControllerの開発で起こる問題)が解決されます。  
+こうして具体的な操作を外部に委譲することで記事内で挙げた[ViewControllerの問題](#現実のViewControllerの開発で起こる問題)が解決されます。  
 
 
 > 補足:  
@@ -380,7 +381,7 @@ ViewControllerの一部の責務を他コンポーネント委譲しても全体
 
 ここではいくつか例を紹介することでViewControllerのコードが画一化されたことを確認します。  
 ##### 例1:Viewの操作
-通常の実装であれば各ViewコンポーネントはViewControllerに宣言されているためそれらを操作する場合は直接行う必要があります。  
+通常の実装であれば各ViewコンポーネントはViewControllerに宣言されているためそれらを操作する場合はViewControllerが直接行う必要があります。  
 例えばHogeViewのインタラクションが変更される場合にその画像や背景色も変更される処理はViewControllerに以下のように実装することになります。  
 ```
    // Viewの操作をViewControllerで直に行った場合の実装
@@ -392,7 +393,7 @@ ViewControllerの一部の責務を他コンポーネント委譲しても全体
    hogeView.image = userInteractionEnabled ? 有効の場合の画像 : 無効の場合の画像
    hogeView.backgroundColor = userInteractionEnabled ? UIColor.clear : UIColor.black.withAlphaComponent(0.6)
 ```
-これに対して今回提案した設計では各ViewコンポーネントはRoot Viewと呼ばれる親Viewに宣言され(Root Viewに関しては後ほど詳細を説明します)、それらの操作もViewControllerで行うのではなくRoot View内で行われます。  
+これに対して今回提案した設計では各ViewコンポーネントはRoot Viewと呼ばれる親Viewに宣言され(Root Viewに関しては後ほど詳細を説明します)、それらの直接的な操作もViewControllerで行うのではなくRoot View内で行われるようになります。    
 従ってViewController側の実装は以下のようになります。  
 ```
 　　// Viewの操作をRoot Viewに委譲した場合のViewControllerの実装
@@ -403,7 +404,7 @@ ViewControllerの一部の責務を他コンポーネント委譲しても全体
 
    self.rootView.setHogeViewInteraction(enabled: userInteractionEnabled)
 ```
-こちらの設計ではHogeViewのインタラクションが変更された際のViewの操作はRoot View側に実装しているためViewControllerはRoot Viewの処理を呼び出すだけです。  
+こちらの設計ではHogeViewのインタラクションが変更された際のViewコンポーネントの操作はRoot View側に実装しているためViewControllerはRoot Viewの処理を呼び出すだけです。  
 
 ##### 例2:Alertの表示
 続いてAlertの表示を例に説明します。  
