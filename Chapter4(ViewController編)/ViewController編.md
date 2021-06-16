@@ -96,7 +96,7 @@ Container ViewControllerの設計において何より重要なのは、**自身
 MVCやレイヤードアーキテクチャといった設計理論の基礎を理解できている開発者であればこのように雑多に思えるコードにおいてもメタ認識によってその責務を理解することができると思います。      
 ただそうでない開発者にとってはこれらのコードからViewControllerの責務を正しく理解するのは難しいはずです。    
 恐らく設計理論の理解よりも先にコード(実務)を通してプログラミングを学んでいる開発者の多くは上記のように様々な処理が含まれているViewControllerを「Viewを管理する存在」ではなく、「画面開発における便利屋的な存在」と認識してしまうのではないでしょうか。    
-私はレイヤードアーキテクチャの記事でFatViewControllerの問題の原因としてViewController-Model間の関係の論理的な理解不足を指摘しましたが、このようにコードレベルにおいてViewControllerが雑多に思える処理を抱えている状況はそうしたViewController-Model間の関係(ViewControllerに何を書いてはいけないか)を理解することを阻んでいると思います。    
+私はレイヤードアーキテクチャの記事でFatViewController問題の原因としてViewController-Model間の関係の論理的な理解不足を指摘しましたが、このようにコードレベルにおいてViewControllerが雑多に思える処理を抱えている状況はその関係の理解を阻んでいる一因だと思います。    
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/コードレベルにおけるViewController.png" alt="コードレベルにおけるViewController" width=60% > 
 
 
@@ -107,13 +107,14 @@ MVCやレイヤードアーキテクチャといった設計理論の基礎を�
 要は  
 命令的プログラミング･･･目的を達成するために、細かい指示を記述するプログラミングスタイル(How you want)  
 宣言的プログラミング･･･目的のみを記述して、細かい指示はしないプログラミングスタイル(What you want)  
-という違いですが、宣言的プログラミングはその性質からハードウェアに対して自然言語(基本英語)で指示を出しているようなコードになり直感的に読みやすいため昨今主流になりつつあります。  
+という違いです。  
+宣言的プログラミングはその性質からハードウェアに対して自然言語(基本英語)で指示を出しているようなコードになり直感的に読みやすいため昨今主流になりつつあります。  
  
 
 #### 命令的プログラミング=ViewController(UIKit),宣言的プログラミング=SwiftUI
 ViewController(UIKit)には宣言的な記述に思える箇所もあると思いますが、基本的にはViewController(UIKit)は命令的プログラミング、SwiftUIは宣言的プログラミングと認識して問題ありません。  
 ここでは両者のプログミングがどのように異なるのか知るために簡単な例を見てみます。  
-下記の画像のように写真とそのタイトルを表示したリストとさらにそれぞれのアイテムを選択した時に詳細画面に遷移できる機能をUIKitとSwiftUIそれぞれで実装してそのコードを比較してみました。(画像はSwiftUIで実装したものです)<sup>[*3](#footnote3)</sup>  
+下記の画像のように写真とそのタイトルを表示したリストを表示して、それぞれのアイテムを選択した時に詳細画面に遷移できる機能をUIKitとSwiftUIそれぞれで実装してそのコードを比較してみました。(画像はSwiftUIで実装したものです)<sup>[*3](#footnote3)</sup>  
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/命令的プログラミングと宣言的プログラミングの比較例.png" alt="命令的プログラミングと宣言的プログラミングの比較例" width=30% > 
 
 命令的プログラミング・ViewController(UIKit)で実装したコード  
