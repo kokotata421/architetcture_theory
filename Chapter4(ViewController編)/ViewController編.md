@@ -448,7 +448,7 @@ AlertコンポーネントではAlertStrategyという表示したいアラー�
 こちらも先程のViewの操作を委譲した場合と同様ViewController側の実装は他コンポーネントへの処理依頼のみとなるためとても簡潔になりました。  
 
 ##### 具体的な処理を委譲することでViewControllerの処理は画一化される
-Viewの操作とAlertの表示をViewControllerの外部に委譲した場合の実装を見てみました。  
+Viewの操作とAlertの表示を例にViewControllerに直接実装した場合と外部に委譲した場合のコードを比較してみました。  
 改めてそれぞれの変更後のコードだけを再掲します。  
   
 コード例: Viewの操作を委譲した場合のViewControllerの実装
