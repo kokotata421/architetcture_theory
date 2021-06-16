@@ -433,7 +433,8 @@ Alertの表示をViewControlerで直に行った場合以下のような実装�
 
     presentViewController(alert, animated: true, completion: nil)
 ```
-こちらもView操作同様ViewControllerにAlert表示の処理を直接実装するとコードが煩雑化します。  
+Alert表示の場合、View操作とは異なり単体でもそれなりのコード量になってコードの肥大化・煩雑化の原因になり得ます。  
+
 これに対して今回提案した設計ではAlertの表示はAlertコンポーネントが行います。
 AlertコンポーネントではAlertStrategyという表示したいアラートの情報を持ったデータを引数として受け取ることでAlertを表示します。  
 それによってViewController側のAlert表示の実装は以下のようになります。  
