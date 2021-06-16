@@ -488,8 +488,11 @@ class ViewController<View: AppView>: UIViewController {
 
 
 ```
-既存のViewControllerからViewを切り離すことが難しい原因はViewControllerのviewプロパティがUIViewクラスであったことにあります。  
-そのためデフォルトではViewControllerからはUIViewのプロパティ・メソッドにしかアクセスできず、そのViewController独自のViewコンポーネントを操作したい場合はViewControllerに直接宣言して操作するしかありませんでした。  
+既存のViewControllerからViewを切り離すことが難しい原因はViewControllerのviewプロパティにあります。  
+今まではViewControllerのRoot Viewに当たるviewプロパティからはUIViewのプロパティ・メソッドにしかアクセスできないため、各Viewコンポーネントを操作したい場合はViewControllerに直接宣言して操作するしかありませんでした。  
+しかし上記のようにジェネリクスを利用して独自定義したRootViewクラスのインスタンスに直接アクセスできるようにすることでViewControllerからViewを切り離すことが可能になります。(ちなみに各ViewContorollerのRootViewとして定義されるViewクラスは上記コードのAppViewプロトコルに準拠している必要があります。)
+
+例えばA画面(AViewController)に配置したhogeボタン
 
 
 ### 実装例
