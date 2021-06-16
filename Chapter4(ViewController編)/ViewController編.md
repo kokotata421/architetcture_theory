@@ -435,9 +435,7 @@ Alertの表示をViewControlerで直に行った場合以下のような実装�
 ```
 Alert表示の場合、View操作とは異なり単体でもそれなりのコード量になってコードの肥大化・煩雑化の原因になり得ます。  
 
-
-これを
-これに対して今回提案した設計ではAlertの表示はAlertコンポーネントが行います。
+なので今回の設計ではAlert表示も外部のAlertコンポーネントに委譲します。  
 AlertコンポーネントではAlertStrategyという表示したいアラートの情報を持ったデータを引数として受け取ることでAlertを表示します。  
 それによってViewController側のAlert表示の実装は以下のようになります。  
   
@@ -447,11 +445,23 @@ AlertコンポーネントではAlertStrategyという表示したいアラー�
    
    self.alert.show(strategy: alertStrategy)
 ```
-こちらも先程のViewの操作を委譲した場合と同様ViewController側の実装は他コンポーネントへの処理依頼のみとなります。  
+こちらも先程のViewの操作を委譲した場合と同様ViewController側の実装は他コンポーネントへの処理依頼のみとなるためとても簡潔になりました。  
 
 ##### 具体的な処理を委譲することでViewControllerの処理は画一化される
+Viewの操作とAlertの表示をViewControllerの外部に委譲した場合の実装を見てみました。  
+改めてそれぞれの変更後のコードだけを再掲します。  
+  
+コード例: Viewの操作を委譲した場合のViewControllerの実装
+```
+   self.rootView.setHogeViewInteraction(enabled: userInteractionEnabled)
+```  
 
-具体的な処理を委譲することでViewControllerの処理は画一化される例としてViewの操作とAlertの表示の実装を見てみました。
+コード例:Alertの表示を委譲した場合のViewControllerの実装
+```
+   self.alert.show(strategy: alertStrategy)
+```  
+ 
+
 例でみたようにViewControllerの具体的な処理を他コンポーネントへ委譲することで連携するオブジェクトの数は増えますがViewControllerのコード「他コンポーネントの処理の呼び出し」となり非常に画一的になりました。
 
 #### 『命令的プログラミングと宣言的プログラミングが混在する』問題の解決
