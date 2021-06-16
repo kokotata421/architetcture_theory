@@ -393,6 +393,8 @@ ViewControllerの一部の責務を他コンポーネント委譲しても全体
    hogeView.image = userInteractionEnabled ? 有効の場合の画像 : 無効の場合の画像
    hogeView.backgroundColor = userInteractionEnabled ? UIColor.clear : UIColor.black.withAlphaComponent(0.6)
 ```
+コード例自体はたった3行ですが、ViewContrller内で直接View操作を行うと上記のような処理があちこちに実装されることになるためコード全体は煩雑化していきます。  
+  
 これに対して今回提案した設計では各ViewコンポーネントはRoot Viewと呼ばれる親Viewに宣言され(Root Viewに関しては後ほど詳細を説明します)、それらの直接的な操作もViewControllerで行うのではなくRoot View内で行われるようになります。    
 従ってViewController側の実装は以下のようになります。  
   
@@ -431,6 +433,7 @@ Alertの表示をViewControlerで直に行った場合以下のような実装�
 
     presentViewController(alert, animated: true, completion: nil)
 ```
+こちらもView操作同様ViewControllerにAlert表示の処理を直接実装するとコードが煩雑化します。  
 これに対して今回提案した設計ではAlertの表示はAlertコンポーネントが行います。
 AlertコンポーネントではAlertStrategyという表示したいアラートの情報を持ったデータを引数として受け取ることでAlertを表示します。  
 それによってViewController側のAlert表示の実装は以下のようになります。  
