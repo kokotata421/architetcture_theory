@@ -264,8 +264,8 @@ ARepositoryであれば「A」というオブジェクトを操作対象とし�
 アーキテクチャやデザインパターン等を代表するように具体的な型が決まっていることは開発の効率を大きく向上させます。  
 具体的な型があることで開発の際「どのようにコードを読めば(書けば)良いか」悩む機会は大きく減りますし、またアプリケーション開発では一般的に「AViewController」「BViewController」のように同様のコンポーネントを複数定義・実装しますがその際にも型を使い回すことで開発コストは大きく短縮されます。  
 
-それに対してViewControllerのように型が決まっていない場合は個々に対応していく必要があるためコストがかかります。
-そしてそのような状況で開発を続けることでプロジェクト内の統一性が失われて混乱が起きてしまう恐れもあると思います。    
+それに対してViewControllerのように型が決まっていない場合は個々に対応していく必要があるためコストがかかります。  
+さらにそのような状況で開発を続けることでプロジェクト内の統一性が失われて混乱が起きてしまう恐れもあると思います。    
 
 ## スケールしやすいViewControllerの設計を考える
 ViewControllerの基本的な性質と開発時に起こる問題点を見てきました。  
@@ -383,9 +383,9 @@ ViewControllerの一部の責務を他コンポーネント委譲しても全体
 ##### 例1:Viewの操作
 通常の実装であれば各ViewコンポーネントはViewControllerに宣言されているためそれらを操作する場合はViewControllerが直接行う必要があります。  
 例えばHogeViewのインタラクションが変更される場合にその画像や背景色も変更される処理はViewControllerに以下のように実装することになります。  
-```
-   // Viewの操作をViewControllerで直に行った場合の実装
-   
+  
+コード例: Viewの操作をViewControllerで直に行った場合の実装
+```   
    // userInteractionEnabledはインタラクションが有効かどうかを示す引数とする
 
 
@@ -395,9 +395,9 @@ ViewControllerの一部の責務を他コンポーネント委譲しても全体
 ```
 これに対して今回提案した設計では各ViewコンポーネントはRoot Viewと呼ばれる親Viewに宣言され(Root Viewに関しては後ほど詳細を説明します)、それらの直接的な操作もViewControllerで行うのではなくRoot View内で行われるようになります。    
 従ってViewController側の実装は以下のようになります。  
-```
-　　// Viewの操作をRoot Viewに委譲した場合のViewControllerの実装
   
+コード例: Viewの操作をRoot Viewに委譲した場合のViewControllerの実装
+```
    // rootViewはViewControllerの画面全体のviewを参照している
    // userInteractionEnabledはインタラクションが有効かどうかを示す引数とする
 
@@ -409,9 +409,9 @@ ViewControllerの一部の責務を他コンポーネント委譲しても全体
 ##### 例2:Alertの表示
 続いてAlertの表示を例に説明します。  
 Alertの表示をViewControlerで直に行った場合以下のような実装になります。  
+
+コード例：  Alertの表示をViewControllerで直に行った場合の実装
 ```
-   // Alertの表示をViewControllerで直に行った場合の実装
-   
    // dataはPresenterから渡された引数とする
 
    let alert: UIAlertController = UIAlertController(title: "データの保存確認",
@@ -434,9 +434,8 @@ Alertの表示をViewControlerで直に行った場合以下のような実装�
 これに対して今回提案した設計ではAlertの表示はAlertコンポーネントが行います。
 AlertコンポーネントではAlertStrategyという表示したいアラートの情報を持ったデータを引数として受け取ることでAlertを表示します。  
 それによってViewController側のAlert表示の実装は以下のようになります。  
+コード例:Alertの表示をAlertコンポーネントに委譲した場合のViewControllerの実装
 ```
-　　// Alertの表示をAlertコンポーネントに委譲した場合のViewControllerの実装
-  
    //alertStarategyはアラート表示に関する情報を持った引数
    
    self.alert.show(strategy: alertStrategy)
