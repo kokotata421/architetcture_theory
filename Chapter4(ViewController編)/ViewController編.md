@@ -411,7 +411,7 @@ ViewControllerの一部の責務を他コンポーネント委譲しても全体
 ##### 例2:Alertの表示
 続いてAlertの表示を例に説明します。  
 Alertの表示をViewControlerで直に行った場合以下のような実装になります。  
-
+  
 コード例：  Alertの表示をViewControllerで直に行った場合の実装
 ```
    // dataはPresenterから渡された引数とする
@@ -437,6 +437,7 @@ Alertの表示をViewControlerで直に行った場合以下のような実装�
 これに対して今回提案した設計ではAlertの表示はAlertコンポーネントが行います。
 AlertコンポーネントではAlertStrategyという表示したいアラートの情報を持ったデータを引数として受け取ることでAlertを表示します。  
 それによってViewController側のAlert表示の実装は以下のようになります。  
+  
 コード例:Alertの表示をAlertコンポーネントに委譲した場合のViewControllerの実装
 ```
    //alertStarategyはアラート表示に関する情報を持った引数
