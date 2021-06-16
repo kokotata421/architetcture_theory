@@ -90,13 +90,13 @@ Container ViewControllerの設計において何より重要なのは、**自身
 
 ### 1&#046;&#x300C;Viewの管理&#40;Control&#41;&#x300D;と一言でいえど&#x3001;実際には多様なプログラムが書かれる
 #### コードレベルからViewControllerの責務が理解しにくい
-記事冒頭の「[ViewControllerの基本](#ViewControllerの基本)」では、[Appleのドキュメント](https://developer.apple.com/documentation/uikit/uiviewcontroller)を引用してViewControllerの主要な責務を4点紹介し、それらはさらに「Viewの管理」へと要約できると説明しました。  
+記事冒頭の「[ViewControllerの基本](#ViewControllerの基本)」では、[Appleのドキュメント](https://developer.apple.com/documentation/uikit/uiviewcontroller)を引用してViewControllerの主要な責務を4点紹介し、それらはさらに「Viewの管理」と要約できると説明しました。  
 しかしそのように責務を簡潔に表現できるのはあくまで概念上の話です。  
-実際のコードレベルにおいてViewControllerにはViewの操作、アニメーション、遷移処理、アラート操作、CollectionViewのデリゲート・データソース、その他オブジェクトの連携等、実にさまざまな処理が書かれており、時には簡単な状態変数の管理も行っているケースも見かけます。  
-MVCやレイヤードアーキテクチャといった設計理論の基礎を理解できている開発者であればこのように雑多に思えるコードにおいてもメタ認識によってその責務を理解することができます。    
-ただそうでない開発者にとってはこれらのコードからViewControllerの責務を正しく理解するのは難しいと思います。  
-恐らく設計理論の理解よりも先にコード(実務)を通してプログラミングを学んでいる多くの開発者からすると上記のように様々な処理が含まれているViewControllerは「Viewを管理する存在」ではなく、「画面開発における便利屋的な存在」に見えてしまうのではないでしょうか。  
-私はレイヤードアーキテクチャの記事でFatViewControllerの問題の原因としてViewController-Model間の関係の論理的な理解不足を指摘しましたが、このようにコードレベルにおいてViewControllerが雑多に思える処理を抱えている状況はそうしたViewController-Model間の関係(ViewControllerに何を書いてはいけないか)を理解することをより難しくさせていると思います。  
+実際のコードレベルにおいてViewControllerにはViewの操作、アニメーション、遷移処理、アラート操作、CollectionViewのデリゲート・データソース、その他オブジェクトの連携等、実にさまざまな処理が書かれており、時には簡単な状態変数の管理も行っているケースもあります。    
+MVCやレイヤードアーキテクチャといった設計理論の基礎を理解できている開発者であればこのように雑多に思えるコードにおいてもメタ認識によってその責務を理解することができると思います。      
+ただそうでない開発者にとってはこれらのコードからViewControllerの責務を正しく理解するのは難しいはずです。    
+恐らく設計理論の理解よりも先にコード(実務)を通してプログラミングを学んでいる開発者の多くは上記のように様々な処理が含まれているViewControllerを「Viewを管理する存在」ではなく、「画面開発における便利屋的な存在」と認識してしまうのではないでしょうか。    
+私はレイヤードアーキテクチャの記事でFatViewControllerの問題の原因としてViewController-Model間の関係の論理的な理解不足を指摘しましたが、このようにコードレベルにおいてViewControllerが雑多に思える処理を抱えている状況はそうしたViewController-Model間の関係(ViewControllerに何を書いてはいけないか)を理解することを阻んでいると思います。    
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/コードレベルにおけるViewController.png" alt="コードレベルにおけるViewController" width=60% > 
 
 
