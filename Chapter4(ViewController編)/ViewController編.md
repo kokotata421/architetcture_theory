@@ -503,11 +503,7 @@ ViewControllerのコアを「イベント処理」と定義することで具体
 そのためもともとViewControllerが担っていた責務を外部に委譲する上で、どのように汎用性のある形でViewを切り離したViewControllerを設計するかが重要になってきます。  
 
 ### ViewControllerのRoot View型をジェネリクスで指定する
-
-View以外の責務の切り離しについてもこの後の記事で説明はするものの、遷移処理を代行するRouterを代表するようにViewControllerで処理していた責務を外部に委譲すること自体は珍しいことではありません。  
-しかしUIKitを利用したiOSアプリ開発ではViewControllerとViewは密接につながっており、これらを切り離した実践例はあまり見かけることがないと思います。  
-そのためここではアプリケーション全体として  
-具体的には以下のように自身のRoot Viewに当たるViewクラスをジェネリクスを利用して指定できるベースViewControllerを定義して、アプリケーション内のViewControllerは全てこのViewControllerを継承させます。  
+結論から言うと具体的には以下のように自身のRoot Viewに当たるViewクラスをジェネリクスを利用して指定できるベースViewControllerを定義して、アプリケーション内のViewControllerは全てこのViewControllerを継承させます。  
 ちなみにこのアプリではInterface Builder(Storyboard/Xib)を利用せずコードのみでViewController/Viewを生成しています。  
 
 ```
