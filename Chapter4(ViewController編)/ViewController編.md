@@ -497,9 +497,14 @@ ViewControllerはその画面開発の要でありその最も重要役割はそ
 ## 実装方法
 ViewControllerのコア責務を「UI/システムから(への)イベントを処理」と定義することで既存の問題が解決されることを説明しました。  
 最後にその実現のために実際にViewControllerをどのように実装すれば良いか説明します。   
-### ViewControllerの実装
+### ViewControllerからどのようにViewを切り離すか
 ViewControllerのコアを「イベント処理」と定義することで具体的な操作をViewControllerの外部に委譲することは既に説明しました。  
-その際の実装でポイントとなるのは**ViewをViewControllerから切り離す方法**です。    
+その際に実装でポイントとなるのは**ViewControllerからViewを切り離す方法**です。  
+『命令的プログラミングと宣言的プログラミングが混在する』問題の解決でも話しましたがUIKitを利用したiOSアプリ開発ではViewControllerとViewは密接に関わっておりそれらを完全に切り離すのが難しくなっています。  
+そのためもともとViewControllerが担っていた責務を外部に委譲する上で、どのように汎用性のある形でViewを切り離したViewControllerを設計するかが重要になってきます。  
+
+### ViewControllerのRoot View型をジェネリクスで指定する
+
 View以外の責務の切り離しについてもこの後の記事で説明はするものの、遷移処理を代行するRouterを代表するようにViewControllerで処理していた責務を外部に委譲すること自体は珍しいことではありません。  
 しかしUIKitを利用したiOSアプリ開発ではViewControllerとViewは密接につながっており、これらを切り離した実践例はあまり見かけることがないと思います。  
 そのためここではアプリケーション全体として  
