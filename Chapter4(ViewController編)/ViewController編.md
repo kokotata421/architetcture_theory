@@ -548,11 +548,9 @@ UIViewControllerではviewプロパティを通して自身のRoot Viewにアク
 >
 
 ### ViewControllerからViewを切り離す実装例
+ここでは
 
-例えばA画面(AViewController)に配置したhogeボタン
-
-
-### 実装例
+### 具体的な処理を外部に委譲したViewControllerの実践例
 
 
 
