@@ -514,8 +514,8 @@ protocol AppView: UIView {
     func setup()
 }
 
-class ViewController<View: AppView>: UIViewController {
-    var rootView: View { self.view as! View }
+class ViewController<RootView: AppView>: UIViewController {
+    var rootView: RootView { self.view as! RootView }
     
     init(view: View = View(frame: .zero)) {
         self.view = view
@@ -534,6 +534,21 @@ class ViewController<View: AppView>: UIViewController {
 
 
 ```
+デフォルトのUIViewControllerがViewと切り離すことが難しかった原因はUIViewControllerのviewプロパティにあります。    
+UIViewControllerではviewプロパティを通して自身のRoot Viewにアクセスできる仕様となっていましたが、これはUIViewクラスのインスタンスであるためそこからはその画面に表示される個々のViewコンポーネントにアクセスできません。  
+そのためViewコンポーネントはViewController内に宣言され、その中で直接操作されることが基本でした。  
+
+しかし上記で実装したベースViewControllerではジェネリクスを利用して自身のRoot Viewのクラスを指定しています。  
+これによりrootViewプロパティを通して自身のRoot Viewクラスのインスタンスにアクセスできるようになるため、自身が指定したRoot Viewクラスに各Viewコンポーネントの宣言とそれらの操作処理メソッドを
+実装しても問題なくViewControllerから利用できるようになります。  
+
+> 補足:
+> ベースViewController内部では初期化時にviewプロパティに自身が指定したRootViewクラスのインスタンスを代入しており、
+> 
+> ベースViewController内部では初期化時にviewプロパティに自身が指定したRootViewクラスのインスタンスを代入しています。  
+> 
+
+
 このベースViewControllerを継承することで、自身のrootViweプロパティを使って独自に定義したViewクラスのインスタンスにアクセスできるためViewControllerに直にViewコンポーネントを宣言する必要があなくなります。
 既存のViewControllerからViewを切り離すことが難しい原因はViewControllerのviewプロパティにあります。  
 今まではViewControllerのRoot Viewに当たるviewプロパティからはUIViewのプロパティ・メソッドにしかアクセスできないため、各Viewコンポーネントを操作したい場合はViewControllerに直接宣言して操作するしかありませんでした。  
