@@ -548,7 +548,8 @@ UIViewControllerではviewプロパティを通して自身のRoot Viewにアク
 >
 
 ### ViewControllerからViewを切り離す実装例
-ここでは
+ここでは先程のベースViewControllerを利用してViewControllerからViewを切り離した簡単な実装例を紹介します。  
+
 
 ### 具体的な処理を外部に委譲したViewControllerの実践例
 
