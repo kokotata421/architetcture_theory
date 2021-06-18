@@ -542,7 +542,7 @@ UIViewControllerではviewプロパティを通して自身のRoot Viewにアク
 これによりrootViewプロパティを通して自身のRoot Viewクラスのインスタンスにアクセスできるようになるため、自身が指定したRoot Viewクラスに各Viewコンポーネントの宣言とそれらの操作処理メソッドを
 実装しても問題なくViewControllerから利用できるようになります。  
 
-> 補足:
+> 補足:  
 > ベースViewController内部では初期化時にviewプロパティに自身が指定したRootViewクラスのインスタンスを代入しており、rootViewプロパティではviewプロパティをRootView型に強制キャストしています。
 > そのためViewControllerは自身のviewプロパティにRootViewクラス以外のインスタンスを代入する恐れがある場合には安全ではなくなってしまうのですが、一般的な仕様を考えればViewControllerのRoot Viewが途中で差し替えられる可能性は限りなくゼロに近いので心配する必要はないと思います。  
 >
