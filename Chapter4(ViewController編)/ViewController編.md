@@ -547,6 +547,7 @@ UIViewControllerではviewプロパティを通して自身のRoot Viewにアク
 > そのためViewControllerは自身のviewプロパティにRootViewクラス以外のインスタンスを代入する恐れがある場合には安全ではなくなってしまうのですが、一般的な仕様を考えればViewControllerのRoot Viewが途中で差し替えられる可能性は限りなくゼロに近いので心配する必要はないと思います。  
 >
 
+### ViewControllerからViewを切り離す実装例
 
 例えばA画面(AViewController)に配置したhogeボタン
 
