@@ -534,8 +534,8 @@ class ViewController<View: AppView>: UIViewController {
 
 
 ```
-デフォルトのUIViewControllerがViewと切り離すことが難しかった原因はUIViewControllerのviewプロパティにあります。    
-UIViewControllerではviewプロパティを通して自身のRoot Viewにアクセスできる仕様となっていましたが、これはUIViewクラスのインスタンスであるためそこからはその画面に表示される個々のViewコンポーネントにアクセスできません。  
+デフォルトのUIViewControllerからViewを切り離すことが難しかった原因はUIViewControllerのviewプロパティにあります。    
+UIViewControllerではviewプロパティを通して自身のRoot Viewにアクセスできる仕様となっていましたが、これはUIViewクラスのインスタンスであるためそこからはその画面独自で定義したViewコンポーネントにアクセスできません。  
 そのためViewコンポーネントはViewController内に宣言され、その中で直接操作されることが基本でした。  
 
 しかし上記で実装したベースViewControllerではジェネリクスを利用して自身のRoot Viewのクラスを指定しています。(Root Viewに指定するクラスはAppViewというプロトコルに準拠している必要があります。)   
