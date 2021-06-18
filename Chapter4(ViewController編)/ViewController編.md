@@ -499,7 +499,7 @@ ViewControllerのコア責務を「UI/システムから(への)イベントを�
 最後にその実現のために実際にViewControllerをどのように実装すれば良いか説明します。   
 ### ViewControllerからどのようにViewを切り離すか
 ViewControllerのコアを「イベント処理」と定義することで具体的な操作をViewControllerの外部に委譲することを説明しましたが、その実装の際ポイントとなるのは**ViewControllerからViewを切り離す方法**です。  
-『命令的プログラミングと宣言的プログラミングが混在する』問題の解決でも話しましたがUIKitを利用したiOSアプリ開発ではViewControllerとViewは密接に関わっておりそれらを完全に切り離すのが難しくなっています。  
+『命令的プログラミングと宣言的プログラミングが混在する』問題の解決でも話しましたがUIKitを利用したiOSアプリ開発ではViewControllerとViewは密接に関わっておりそれらを完全に切り離すのが難しいです。  
 そのためもともとViewControllerが担っていた責務を外部に委譲する上で、どのように汎用性のある形でViewを切り離したViewControllerを設計するかが重要になってきます。  
 
 ### ViewControllerのRoot View型をジェネリクスで指定する
