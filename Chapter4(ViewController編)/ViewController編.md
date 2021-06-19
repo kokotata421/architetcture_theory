@@ -741,17 +741,13 @@ final class HogeViewController<Presenter: HogePresenterInputs>: ViewController<H
     }
 }
 ```
-まず外部構造から説明していきます。  
-このHogeViewControllerは[ViewControllerのRoot View型をジェネリクスで指定する](#ViewControllerのRoot View型をジェネリクスで指定する)の節で紹介したベースViewControllerを継承しています。  
-具体的には
-```
-ViewController<HogeRootView>
-```
-と自身のRoot ViewクラスをHogeRootViewクラスに指定したベースViewControllerを継承しています。  
-  
-また後ほど再び触れることになりますが、このHogeViewControllerは先程説明した通りHogePresenterの出力先になるためHogePresenterOutputsに準拠しています。  
-  
-そして最後にもう一つこのViewControllerからの入力イベントを処理するHogePresenterInputsの実体型をジェネリクスで指定するようにしています。  
+まず外部構造から見ていこうと思いますが、どれも簡単な説明になるため以下で箇条書きで記します。  
+1. ViewControllerのRoot View型をジェネリクスで指定するの節で紹介したベースViewControllerを継承(具体的にはHogeRootViewクラスに指定したViewController<HogeRootView>クラスの継承)  
+2. HogePresenterの出力先になるためHogePresenterOutputsに準拠
+3. 入力イベントを処理するHogePresenterInputsの実体型をジェネリクスで指定
+
+ 
+そして最後にもう一つこのViewControllerからのするようにしています。  
 後ほど補足で説明しますが、このようにジェネリクスでHogePresenterInputsの実体型を指定する手法を取ることで初期化時におけるDIを可能にしています。  
 
 さて、次にHogeViewControllerの内部構造を見ていきます。
