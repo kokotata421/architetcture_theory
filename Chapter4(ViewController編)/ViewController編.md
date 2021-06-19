@@ -553,13 +553,13 @@ UIViewControllerではviewプロパティを通して自身のRoot Viewにアク
 紹介する実装例は以下のようにボタンを押すことで画面全体の色が切り替わる簡単なアプリです。(本来ダークモードへの切り替えはこのようなアプリ内のボタンを押して実現するものではありませんが、他に簡単なアプリ例が思いつきませんでした。)  
 以降このアプリをHogeアプリと呼びことにします。  
 
-<img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/darkModeExample.gif" alt="具体的な操作処理を外部に委譲したViewController" width=30% > 
+<img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/darkModeExample.gif" alt="Hogeアプリ" width=30% > 
 
 #### Hogeアプリの画面構成
 
 Hogeアプリの画面構成は以下の通りです。  
 各Viewから伸びてる線の先に書いてある情報はプログラム上でのインスタンス名とそのクラス名です。  
-
+<img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/ViewControllerからViewを切り離したアプリ例の画面構成.png" alt="ViewControllerからViewを切り離したアプリ例の画面構成" width=40% > 
 
 
 ## 脚注
