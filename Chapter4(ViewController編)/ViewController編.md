@@ -780,11 +780,11 @@ ViewControllerにおける出力イベント処理とは言い換えればPresen
 しかし今回の設計ではRootView側に具体的なViewの操作を実装しており、ViewController側では行う必要があるのはRootView側の処理の呼び出しのみとなっています。  
 
 > 補足:  
-> PresenterからViewController(HogePresenterOutputs)のupdateColorMode(lightMode: Bool)メソッドを呼び出し、またそこからHogeRootViewのsetColorMode(lightMode: Bool)メソッドを呼び出しているのが、パフォーマンス的によくないのではと思う人がいるかもしれません。  
+> この設計ではPresenterからViewController(HogePresenterOutputs)のupdateColorMode(lightMode: Bool)メソッドを呼び出し、またそこからHogeRootViewのsetColorMode(lightMode: Bool)メソッドを呼び出していますが、これがパフォーマンス的によくないのではと思う人がいるかもしれません。  
 > 確かにここではPresenter->ViewControlelr->Root Viewと処理依頼を垂れ流してオーバーヘッドが発生しているように見えます。  
 > しかしこれはまだ確認できてないので断言はできませんが、恐らくここではコンパイル時の最適化により最終的なプロダクトコードではオーバーヘッドが起こっていないと思います。(そのうち確認します。)    
 > また先にお伝えした通りViewControllerにおいて一番重要な役割は画面全体の機能(イベント)を開発者に伝えることです。  
-> そのため仮にオーバーヘッドが起こっていたとしても、処理を外部に移譲してViewControllerの可読性を上げられるならば開発においてオーバーヘッド以上の価値が生まれると思います。  
+> そのため仮にオーバーヘッドが起こっていたとしても、処理を外部に移譲してViewControllerの可読性を上げられるならば開発においてオーバーヘッド以上の価値があるというのが私の考えです。    
 
 
 
