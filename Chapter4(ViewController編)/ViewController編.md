@@ -697,10 +697,13 @@ HogePresenterInputsは画面から流れてきた入力イベントを処理す�
 そして画面の色のモードを管理管理はこのHogePresenterのみで行われるベキなので、HogeViewControllerもHogeRootViewも初期の色のモードの状態がわかりません。  
 そのためHogePresenterでは初期の色のモードの状態をinit()内でHogePresenterOutputsに通知します。 
 
-> 補足:
+> 補足:  
 > 依存関係においてはプロトコルを積極的に利用した方が良いと述べましたが、  
 > ViewController-View間ではAppViewという包括的なプロトコルしか利用しておらずHogePresenterInputsのように個々のコンポーネントに対応したプロトコルは定義していません。  
-> 
+> その理由は単純に私がサンプルプロジェクトにおいてその必要性を感じなかったからです。  
+> ViewController-View間ではViewからViewControllerの呼び出しはないためプロトコルを定義する必要があるとしたら各RootView毎に作成することになると思います。  
+> しかし基本的にViewのレイアウトや挙動に関するテストはデザイン側のソフトウェアで行うことだと思うであり、実装の差し替えも考えにくいのでViewController-View間ではAppViewプロトコルのみで十分だと思います。  
+
 
 ## 脚注
 <a name="footnote1">*1</a>: 複数点あり原文(英語)も載せると見づらくなってしまうため、意訳のみ載せています。  
