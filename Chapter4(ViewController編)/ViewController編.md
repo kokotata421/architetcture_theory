@@ -548,12 +548,12 @@ UIViewControllerではviewプロパティを通して自身のRoot Viewにアク
 >
 
 ### ViewControllerからViewを切り離す実装例
-最後に先程のベースViewControllerを利用してViewControllerからViewを切り離した簡単な実装例を紹介します。  
+最後に先程のベースViewControllerを利用してViewControllerからViewを切り離した簡単なアプリ実装例を紹介します。  
 
-紹介する実装例は以下のようにボタンを押すことで画面全体の色が切り替わる簡単なアプリです。(本来ダークモードへの切り替えはこのようなアプリ内のボタンを押して実現するものではありませんが、他に簡単なアプリ例が思いつきませんでした。)  
+紹介するのは以下のようにボタンを押すことで画面全体の色が切り替わる簡単なアプリです。(本来ダークモードへの切り替えはこのようなアプリ内のボタンを押して実現するものではありませんが、他に簡単なアプリ例が思いつきませんでした。)  
 以降このアプリをHogeアプリと呼びことにします。  
-ちなみにHogeアプリではViewロジックの実装にPresenterを利用していますが、サンプルプロジェクトではViewModelを使っておりPresenterの利用に慣れていません。  
-そのため細かい箇所でよろしくない実装があるかもしれないので、このHogeアプリからPresenterの実装を参考にするのはオススメしません。  
+ちなみにHogeアプリではViewロジックの実装にPresenterを利用していますが、サンプルプロジェクトではViewModelを使っており個人的にPresenterの実装に慣れていません。  
+そのため細かい箇所でよろしくない実装があるかもしれないので、このHogeアプリからPresenterの実装を参考にするのはオススメしません。(ViewModelを使うと、リアクティブプログラミングを持ち出す必要があり面倒なので、このアプリではPreseterを利用することにしました。)  
 
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/darkModeExample.gif" alt="Hogeアプリ" width=30% > 
 
