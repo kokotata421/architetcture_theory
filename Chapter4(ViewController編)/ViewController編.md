@@ -761,6 +761,16 @@ init(output: HogePresenterOutputs)
 ```
 というHogePresenterOuputsを引数に取るinit処理が定義されていることがわかります。  
 そして既に説明した通りHogeViewController自身がHogePresenterOutputsに準拠しているため、HogeViewControllerは自身を引数とすることでその内部でPresenterを生成できる状況にあり外部からコンポーネントを注入する必要はありません。  
+
+> 補足:  
+> ここでは先程説明したジェネリクスでHogePresenterInputsの実体型を指定する意義について説明します。  
+> 先に説明した通りHogeViewConrollerではその内部でHogePresenterInputsプロトコルのinit(output: HogePresenterOutputs)処理を利用してPresenterを生成していますが、  
+> このように初期化処理を通してHogeViewController内部でPresenterを生成できるのは、ジェネリクスでHogePresenterInputsの実体型を指定しているおかげです。  
+> もしジェネリクスを利用していなければHogePresenterInputs型のインスタンスはHogeViewControllerの外部から注入する必要があります。  
+> そしてここで厄介なのが、HogeViewControllerもHogePresenterInputs型としてHogePresenterを必要としているのに加えてHogePresenterもHogePresenterOutputs型としてHogeViewControllerを必要としている点です。  
+> 
+
+
 ##### HogeViewControllerの入力イベント処理
 次に入力イベント処理の実装ですが、これはほとんどのケースにおいてViewControllerがデフォルトで持っているviewDidLoad()メソッド内で行えば良いと思います。  
 ViewControllerにおける入力イベント処理とは言い換えれば画面内のViewもしくはシステムにおいて何らかのアクションが起こった時にPresenter(ViewModel)内の特定の処理が呼び出されるように登録することです。  
@@ -786,7 +796,8 @@ ViewControllerにおける出力イベント処理とは言い換えればPresen
 > また先にお伝えした通りViewControllerにおいて一番重要な役割は画面全体の機能(イベント)を開発者に伝えることです。  
 > そのため仮にオーバーヘッドが起こっていたとしても、処理を外部に移譲してViewControllerの可読性を上げられるならば開発においてオーバーヘッド以上の価値があるというのが私の考えです。    
 
-
+## Hogeアプリを振り返る
+ViewControllerからViewを切り離した実装例としてHogeアプリを見てきました。  
 
 
 
