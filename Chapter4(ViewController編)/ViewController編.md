@@ -572,7 +572,6 @@ HogeRootViewクラスの実装
 final class HogeRootView: UIView, AppView {
     private(set) lazy var hogeLabel: UILabel = {
         let label: UILabel = .init(frame:.zero)
-        label.backgroundColor = .clear
         label.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(label)
         NSLayoutConstraint.activate([
@@ -591,15 +590,12 @@ final class HogeRootView: UIView, AppView {
                     Hoge Infinity!
                     """
         
-        label.adjustsFontSizeToFitWidth = true
-        label.textAlignment = .left
         label.numberOfLines = 0
         return label
     }()
     
     private(set) lazy var hogeViewColorChangeButton: UIButton = {
         let button: UIButton = .init(frame:.zero)
-        button.backgroundColor = .black
         button.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(button)
         NSLayoutConstraint.activate([
