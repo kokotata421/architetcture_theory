@@ -774,7 +774,7 @@ init(output: HogePresenterOutputs)
 ##### HogeViewControllerの入力イベント処理
 次に入力イベント処理の実装ですが、これはほとんどのケースにおいてViewControllerがデフォルトで持っているviewDidLoad()メソッド内で行えば良いと思います。  
 ViewControllerにおける入力イベント処理とは言い換えれば画面内のViewもしくはシステムにおいて何らかのアクションが起こった時にPresenter(ViewModel)内の特定の処理が呼び出されるように登録することです。  
-そのためViewControllerのライフサイクルにおいて一度だけ呼ばれるviewDidLoad()メソッド内でその処理の登録を行うのが合理的だと思います。  
+そのためViewControllerのライフサイクルにおいて最初に一度だけ呼ばれるviewDidLoad()メソッド内でその処理の登録を行うのが合理的だと思います。  
 このHogeViewControllerにおいてはviewDidLoad()内でHogeRootViewのhogeViewColorChangeButtonボタンがタップされた時、HogePresenterInputs(HogePresenterクラス)のchangeColorMode()が呼び出されるように登録しています。  
 
 ##### HogeViewControllerの出力イベント処理
