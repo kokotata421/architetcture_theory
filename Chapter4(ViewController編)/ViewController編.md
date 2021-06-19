@@ -705,7 +705,42 @@ HogePresenterInputsは画面から流れてきた入力イベントを処理す�
 > しかし基本的にViewのレイアウトや挙動に関するテストはデザイン側のソフトウェアで行うことだと思いますし、実装の差し替えも考えにくいのでViewController-View間ではAppViewプロトコルのみで十分だと思います。  
 
 ##### HogeViewControllerのプログラム
+最後にここでの主題であるViewControllerの実装を見てみます。  
 
+HogeViewControllerクラスの実装
+```
+final class HogeViewController<Presenter: HogePresenterInputs>: ViewController<HogeRootView>, HogePresenterOutputs {
+    
+    private var presenter: Presenter!
+    
+    override init() {
+        super.init()
+        self.presenter = Presenter(output: self)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    //MARK: HogeViewController Inputs
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.rootView
+            .hogeViewColorChangeButton
+            .addAction(
+                UIAction(handler: { [weak self] _ in
+                    self?.presenter.changeColorMode()
+                }),
+                for: .touchUpInside
+            )
+    }
+    
+    
+    //MARK: HogeViewController Outputs
+    func updateColorMode(lightMode: Bool) {
+        self.rootView.setColorMode(lightMode: lightMode)
+    }
+}
+```
 
 ## 脚注
 <a name="footnote1">*1</a>: 複数点あり原文(英語)も載せると見づらくなってしまうため、意訳のみ載せています。  
