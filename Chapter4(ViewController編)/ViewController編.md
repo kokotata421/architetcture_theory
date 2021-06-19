@@ -547,7 +547,7 @@ UIViewControllerではviewプロパティを通して自身のRoot Viewにアク
 > そのためViewControllerは自身のviewプロパティにRootViewクラス以外のインスタンスを代入する恐れがある場合には安全ではなくなってしまうのですが、一般的な仕様を考えればViewControllerのRoot Viewが途中で差し替えられる可能性は限りなくゼロに近いので心配する必要はないと思います。  
 >
 
-### ViewControllerからViewを切り離す実装例
+## 実装例
 最後に先程のベースViewControllerを利用してViewControllerからViewを切り離した簡単なアプリ実装例を紹介します。  
 
 紹介するのは以下のようにボタンを押すことで画面全体の色が切り替わる簡単なアプリです。(本来ダークモードへの切り替えはこのようなアプリ内のボタンを押して実現するものではありませんが、他に簡単なアプリ例が思いつきませんでした。)  
@@ -557,17 +557,17 @@ UIViewControllerではviewプロパティを通して自身のRoot Viewにアク
 
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/darkModeExample.gif" alt="Hogeアプリ" width=30% > 
 
-#### Hogeアプリの画面構成
+### Hogeアプリの画面構成
 
 Hogeアプリの画面構成は以下の通りです。  
 各Viewから伸びてる線の先に書いてある情報はプログラム上でのインスタンス名とそのクラス名です。  
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/ViewControllerからViewを切り離したアプリ例の画面構成.png" alt="ViewControllerからViewを切り離したアプリ例の画面構成" width=60% > 
 
-#### Hogeアプリのプログラム
+### Hogeアプリのプログラム
 画面構成がわかったところでHogeアプリのプログラムについて見ていきます。  
 最初にHogeViewControllerのRoot Viewに当たるHogeRootViewクラスの実装から見てみましょう。  
 
-##### HogeRootViewのプログラム
+#### HogeRootViewのプログラム
 HogeRootViewクラスの実装  
 ```
 final class HogeRootView: UIView, AppView {
@@ -655,7 +655,7 @@ Root View内で何かセットアップが必要な場合は、このAppViewプ�
 
 HogeRootViewではsetupメソッドでhogeLabelとhogeViewColorChangeButtonにアクセスしてそれぞれの遅延初期化処理を呼び出しています。  
 
-##### HogePresenterのプログラム
+#### HogePresenterのプログラム
 この記事ではViewController-Viewの関係が主題であるためPresenterの実装は重要ではありません。  
 しかしアプリ全体の様子をより詳しく理解してもらうためPresenterの実装も載せておきます。  
 HogeViewControllerより先にHogePresenterの説明をするのはHogeViewControllerはPresenter側に定義しているHogePresenterOutputに準拠しているためです。  
@@ -704,7 +704,7 @@ HogePresenterInputsは画面から流れてきた入力イベントを処理す�
 > ViewController-View間ではViewからViewControllerの呼び出しはないためプロトコルを定義する必要があるとしたら各RootView毎に作成することになると思います。  
 > しかし基本的にViewのレイアウトや挙動に関するテストはデザイン側のソフトウェアで行うことだと思いますし、実装の差し替えも考えにくいのでViewController-View間ではAppViewプロトコルのみで十分だと思います。  
 
-##### HogeViewControllerのプログラム
+#### HogeViewControllerのプログラム
 最後にここでの主題であるViewControllerの実装を見てみます。  
 
 HogeViewControllerクラスの実装
@@ -742,7 +742,7 @@ final class HogeViewController<Presenter: HogePresenterInputs>: ViewController<H
 }
 ```
 
-###### HogeViewControllerの外部構造
+##### HogeViewControllerの外部構造
 まずその外部構造から見ていこうと思いますが、どれも簡単な説明になるため以下で箇条書きで記します。  
 1. 記事内で紹介したベースViewControllerを継承(具体的にはRootViewにHogeRootViewクラスを指定したViewController&lt;HogeRootView&gt;クラスの継承)  
 2. HogePresenterの出力先になるためHogePresenterOutputsに準拠
@@ -750,7 +750,7 @@ final class HogeViewController<Presenter: HogePresenterInputs>: ViewController<H
 
 3については後ほど補足で説明しますが、ジェネリクスでHogePresenterInputsの実体型を指定する手法を取ることで初期化時におけるDIを可能にしています。  
 
-###### HogeViewControllerの内部構造
+##### HogeViewControllerの内部構造
 さて、次にHogeViewControllerの内部構造を見ていきますが、その概要を簡単に説明するとinit()で初期化を行い、コメントにもある通りviewDidLoad()で入力イベント処理、updateColorMode(lightMode: Bool)で出力イベント処理を行なっています。  
 ###### HogeViewControllerの初期化処理
 初期化処理から順にその詳細を説明していくと、この初期化処理では外部からコンポーネントは一切注入していません。  
@@ -761,12 +761,13 @@ init(output: HogePresenterOutputs)
 ```
 というHogePresenterOuputsを引数に取るinit処理が定義されていることがわかります。  
 そして既に説明した通りHogeViewController自身がHogePresenterOutputsに準拠しているため、HogeViewControllerは自身を引数とすることでその内部でPresenterを生成できる状況にあり外部からコンポーネントを注入する必要はありません。  
-###### HogeViewControllerの入力イベント処理
+##### HogeViewControllerの入力イベント処理
 次に入力イベント処理の実装ですが、これはほとんどのケースにおいてViewControllerがデフォルトで持っているviewDidLoad()メソッド内で行えば良いと思います。  
 ViewControllerにおける入力イベント処理とは言い換えれば画面内のViewもしくはシステムにおいて何らかのアクションが起こった時にPresenter(ViewModel)内の特定の処理が呼び出されるように登録することです。  
 そのためViewControllerのライフサイクルにおいて一度だけ呼ばれるviewDidLoad()メソッド内でその処理の登録を行うのが合理的だと思います。  
 このHogeViewControllerにおいてはviewDidLoad()内でHogeRootViewのhogeViewColorChangeButtonボタンがタップされた時、HogePresenterInputs(HogePresenterクラス)のchangeColorMode()が呼び出されるように登録しています。  
 
+##### HogeViewControllerの出力イベント処理
 
 
 
