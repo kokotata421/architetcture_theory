@@ -749,8 +749,16 @@ final class HogeViewController<Presenter: HogePresenterInputs>: ViewController<H
 3については後ほど補足で説明しますが、ジェネリクスでHogePresenterInputsの実体型を指定する手法を取ることで初期化時におけるDIを可能にしています。  
 
 
-さて、次にHogeViewControllerの内部構造を見ていきます。
-簡単に言ってしまえばinit()で初期化を行い、コメントにもある通りviewDidLoad()で入力イベント処理、updateColorMode(lightMode: Bool)で出力イベント処理を行なっています。  
+さて、次にHogeViewControllerの内部構造を見ていきますが、その概要を簡単に説明するとinit()で初期化を行い、コメントにもある通りviewDidLoad()で入力イベント処理、updateColorMode(lightMode: Bool)で出力イベント処理を行なっています。  
+初期化処理から順にその詳細を説明していくと、この初期化処理では外部からコンポーネントは一切注入していません。  
+その理由はHogeViewControllerがジェネリクスで指定したPresenter以外外部コンポーネントを必要としていないからです。  
+Presenterに該当するHogePresenterInputsプロトコルの定義を見てみると
+```
+init(output: HogePresenterOutputs)
+```
+というHogePresenterOuputsを引数に取るinit処理が定義されていることがわかります。  
+そして既に説明した通りHogeViewController自身がHogePresenterOutputsに準拠しているため、HogeViewControllerは自身を引数とすることでその内部でPresenterを生成できる状況にあるため外部からコンポーネントを注入する必要はありません。  
+
 
 
 
