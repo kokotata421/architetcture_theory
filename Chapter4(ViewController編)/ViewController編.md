@@ -554,6 +554,7 @@ UIViewControllerではviewプロパティを通して自身のRoot Viewにアク
 
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/darkModeExample.gif" alt="具体的な操作処理を外部に委譲したViewController" width=30% > 
 
+#### 画面全体の構成
 
 
 ## 脚注
