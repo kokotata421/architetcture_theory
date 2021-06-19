@@ -656,7 +656,35 @@ Root View内で何かセットアップが必要な場合は、このAppViewプ�
 HogeRootViewではsetupメソッドでhogeLabelとhogeViewColorChangeButtonにアクセスしてそれぞれの遅延初期化処理を呼び出しています。  
 
 ##### HogePresenterのプログラム
+この記事ではViewController-Viewの関係が主題であるためPresenterの実装は重要ではありません。  
+しかしアプリ全体の様子をより詳しく理解してもらうためPresenterの実装も載せておきます。  
+HogeViewControllerより先にHogePresenterの説明をするのはHogeViewControllerはPresenter側に定義しているHogePresenterOutputに準拠しているためです。  
 
+HogePresenterクラスの実装  
+```
+protocol HogePresenterInputs: AnyObject {
+    init(output: HogePresenterOutputs)
+    func changeColorMode()
+}
+
+protocol HogePresenterOutputs: AnyObject {
+    func updateColorMode(lightMode: Bool)
+}
+
+final class HogePresenter: HogePresenterInputs {
+    var isLightMode: Bool = true
+    private weak var output: HogePresenterOutputs!
+    init(output: HogePresenterOutputs) {
+        self.output = output
+        output.updateColorMode(lightMode: self.isLightMode)
+    }
+    
+    func changeColorMode() {
+        self.isLightMode.toggle()
+        output.updateColorMode(lightMode: self.isLightMode)
+    }
+}
+```
 
 ## 脚注
 <a name="footnote1">*1</a>: 複数点あり原文(英語)も載せると見づらくなってしまうため、意訳のみ載せています。  
