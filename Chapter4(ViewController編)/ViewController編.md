@@ -770,7 +770,12 @@ ViewControllerにおける入力イベント処理とは言い換えれば画面
 ##### HogeViewControllerの出力イベント処理
 最後に出力イベント処理の実装ですが、このHogeViewControllerに出力イベント処理の実装はHogePresenterOutputsに準拠することと同義です。  
 ViewControllerにおける出力イベント処理とは言い換えればPresenterもしくはViewModel等からの出力に対応することであり、それは今回のHogeViewContrllerにおいてはHogePresenterOutputsに準拠することを意味します。  
-
+具体的にはHogePresenterOutputsに準拠した上でそのfunc updateColorMode(lightMode: Bool)メソッド内で
+```
+   self.rootView.setColorMode(lightMode: lightMode)
+```
+と自身のRoot ViewであるHogeRootViewのメソッドを呼び出しています。  
+ここが今回の設計の特徴が一番出ている箇所でしょう。  
 
 
 
