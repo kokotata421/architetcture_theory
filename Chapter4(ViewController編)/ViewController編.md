@@ -704,6 +704,8 @@ HogePresenterInputsは画面から流れてきた入力イベントを処理す�
 > ViewController-View間ではViewからViewControllerの呼び出しはないためプロトコルを定義する必要があるとしたら各RootView毎に作成することになると思います。  
 > しかし基本的にViewのレイアウトや挙動に関するテストはデザイン側のソフトウェアで行うことだと思いますし、実装の差し替えも考えにくいのでViewController-View間ではAppViewプロトコルのみで十分だと思います。  
 
+##### HogeViewControllerのプログラム
+
 
 ## 脚注
 <a name="footnote1">*1</a>: 複数点あり原文(英語)も載せると見づらくなってしまうため、意訳のみ載せています。  
