@@ -694,10 +694,13 @@ HogePresenterInputsは画面から流れてきた入力イベントを処理す�
 
 さて、ここでの本題であるHogePresenterクラスに話を移すと、このクラスは画面の色のモード(ライト/ダーク)の状態を管理しておりそれが変更された時にHogePresenterOutputsに新しい状態を通知します。  
 具体的にはHogePresenterInputsで定義したchangeColorMode()メソッドの呼び出しによって現在の状態を変更して新しい状態をHogePresenterOutputsに通知しています。  
-そして既に説明した通り画面の色のモードを管理しているのはこのHogePresenterであり、HogeViewControllerもHogeRootViewもこの状態にはHogePresenterを通してアクセスするべきです。  
-そのためHogePresenterはinit()内で自身の初期の色のモードの状態をHogePresenterOutputsに通知します。 
+そして画面の色のモードを管理管理はこのHogePresenterのみで行われるベキなので、HogeViewControllerもHogeRootViewも初期の色のモードの状態がわかりません。  
+そのためHogePresenterでは初期の色のモードの状態をinit()内でHogePresenterOutputsに通知します。 
 
-
+> 補足:
+> 依存関係においてはプロトコルを積極的に利用した方が良いと述べましたが、
+> ViewController-View間ではAppViewという包括的なプロトコルしか利用しておらずHogePresenterInputsのように個々のコンポーネントに対応したプロトコルは定義していません。  
+> 
 
 ## 脚注
 <a name="footnote1">*1</a>: 複数点あり原文(英語)も載せると見づらくなってしまうため、意訳のみ載せています。  
