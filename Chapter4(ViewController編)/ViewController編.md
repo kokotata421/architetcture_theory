@@ -552,6 +552,8 @@ UIViewControllerではviewプロパティを通して自身のRoot Viewにアク
 
 紹介する実装例は以下のようにボタンを押すことで画面全体の色が切り替わる簡単なアプリです。(本来ダークモードへの切り替えはこのようなアプリ内のボタンを押して実現するものではありませんが、他に簡単なアプリ例が思いつきませんでした。)  
 以降このアプリをHogeアプリと呼びことにします。  
+ちなみにHogeアプリではViewロジックの実装にPresenterを利用していますが、サンプルプロジェクトではViewModelを使っておりPresenterの利用に慣れていません。  
+そのため細かい箇所でよろしくない実装があるかもしれないので、このHogeアプリからPresenterの実装を参考にするのはオススメしません。  
 
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/darkModeExample.gif" alt="Hogeアプリ" width=30% > 
 
@@ -562,6 +564,90 @@ Hogeアプリの画面構成は以下の通りです。
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/ViewControllerからViewを切り離したアプリ例の画面構成.png" alt="ViewControllerからViewを切り離したアプリ例の画面構成" width=60% > 
 
 #### Hogeアプリのプログラム
+画面構成がわかったところでHogeアプリのプログラムについて見ていきます。  
+最初にHogeViewControllerのRoot Viewに当たるHogeRootViewクラスの実装から見てみましょう。  
+
+HogeRootViewクラスの実装  
+```
+final class HogeRootView: UIView, AppView {
+    private(set) lazy var hogeLabel: UILabel = {
+        let label: UILabel = .init(frame:.zero)
+        label.backgroundColor = .clear
+        label.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(label)
+        NSLayoutConstraint.activate([
+            label.centerYAnchor
+                .constraint(equalTo: self.safeAreaLayoutGuide.centerYAnchor),
+            label.centerXAnchor
+                .constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
+            label.heightAnchor.constraint(equalToConstant: 300),
+            label.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.6)
+        ])
+        label.text = """
+                    Hoge
+                    Hoge Hoge
+                    Hoge Hoge Hoge
+                    Hoge Hoge Hoge Hoge ...
+                    Hoge Infinity!
+                    """
+        
+        label.adjustsFontSizeToFitWidth = true
+        label.textAlignment = .left
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    private(set) lazy var hogeViewColorChangeButton: UIButton = {
+        let button: UIButton = .init(frame:.zero)
+        button.backgroundColor = .black
+        button.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(button)
+        NSLayoutConstraint.activate([
+            button.topAnchor
+                .constraint(equalTo: self.hogeLabel.bottomAnchor, constant: 15),
+            button.centerXAnchor
+                .constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
+            button.heightAnchor.constraint(equalToConstant: 50),
+            button.widthAnchor.constraint(equalToConstant: 200)
+        ])
+        
+        return button
+    }()
+    
+    override init(frame:CGRect) {
+        super.init(frame: frame)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    func setup() {
+        _ = self.hogeLabel
+        _ = self.hogeViewColorChangeButton
+    }
+    
+    func setColorMode(lightMode: Bool) {
+        if lightMode {
+            self.backgroundColor = .white
+            self.hogeLabel.textColor = .black
+            self.hogeViewColorChangeButton.backgroundColor = .lightGray
+            self.hogeViewColorChangeButton.setTitle("Hoge Dark Mode!!!",
+                                                    for: .normal)
+            self.hogeViewColorChangeButton.setTitleColor(.black, for: .normal)
+        } else {
+            self.backgroundColor = .black
+            self.hogeLabel.textColor = .white
+            self.hogeViewColorChangeButton.backgroundColor = .darkGray
+            self.hogeViewColorChangeButton.setTitle("Hoge Light Mode!!!",
+                                                    for: .normal)
+            self.hogeViewColorChangeButton.setTitleColor(.white, for: .normal)
+        }
+    }
+}
+
+```
 
 
 ## 脚注
