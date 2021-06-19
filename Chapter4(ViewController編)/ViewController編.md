@@ -567,7 +567,7 @@ Hogeアプリの画面構成は以下の通りです。
 画面構成がわかったところでHogeアプリのプログラムについて見ていきます。  
 最初にHogeViewControllerのRoot Viewに当たるHogeRootViewクラスの実装から見てみましょう。  
 
-#### HogeRootViewのプログラム
+##### HogeRootViewのプログラム
 HogeRootViewクラスの実装  
 ```
 final class HogeRootView: UIView, AppView {
@@ -655,6 +655,7 @@ Root View内で何かセットアップが必要な場合は、このAppViewプ�
 
 HogeRootViewではsetupメソッドでhogeLabelとhogeViewColorChangeButtonにアクセスしてそれぞれの遅延初期化処理を呼び出しています。  
 
+##### HogePresenterのプログラム
 
 
 ## 脚注
