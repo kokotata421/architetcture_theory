@@ -742,7 +742,7 @@ final class HogeViewController<Presenter: HogePresenterInputs>: ViewController<H
 }
 ```
 まず外部構造から見ていこうと思いますが、どれも簡単な説明になるため以下で箇条書きで記します。  
-1. ViewControllerのRoot View型をジェネリクスで指定するの節で紹介したベースViewControllerを継承(具体的にはHogeRootViewクラスに指定したViewController<HogeRootView>クラスの継承)  
+1. ViewControllerのRoot View型をジェネリクスで指定するの節で紹介したベースViewControllerを継承(具体的にはHogeRootViewクラスに指定したViewController&lt;HogeRootView&gt;クラスの継承)  
 2. HogePresenterの出力先になるためHogePresenterOutputsに準拠
 3. 入力イベントを処理するHogePresenterInputsの実体型をジェネリクスで指定
 
