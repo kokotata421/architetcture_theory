@@ -645,6 +645,9 @@ final class HogeRootView: UIView, AppView {
 
 ```
 
+HogeRootViewはViewControllerからViewの責務を切り離すことが目的であり、そのためこのクラスには一般的にViewControllerの責務であるViewコンポーネントの宣言、Viewの操作の処理が実装されています。  
+
+
 
 ## 脚注
 <a name="footnote1">*1</a>: 複数点あり原文(英語)も載せると見づらくなってしまうため、意訳のみ載せています。  
