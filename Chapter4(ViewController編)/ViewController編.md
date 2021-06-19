@@ -686,6 +686,15 @@ final class HogePresenter: HogePresenterInputs {
 }
 ```
 
+クリーンアーキテクチャ編でも説明した通り、テスト等の観点から依存関係においてプロトコルを積極的に利用した方が良くここでもそのようにしています。  
+具体的に定義しているのはHogePresenterInputsとHogePresenterOutputsという2つのプロトコルです。  
+HogePresenterInputsは画面から流れてきた入力イベントを処理する機構であり、これはHogePresenter自身が準拠しています。  
+そしてHogePresenterOutputsはPresenterの処理結果を出力する機構であり、こちらはHogeViewControllerが準拠します。  
+全体としては画面からの入力イベントをHogePresenterInputs(HogePresenter)が処理して、その処理結果をHogePresenterOutputs(HogeViewController)に出力するという流れです。  
+
+
+
+
 ## 脚注
 <a name="footnote1">*1</a>: 複数点あり原文(英語)も載せると見づらくなってしまうため、意訳のみ載せています。  
 <a name="footnote2">*2</a>: アプリの仕様としてContainer ViewControllerを積極的に利用する方針にしているケースもなくはないと思いますが、全体から見ればごく限られたケースだと思います。  
