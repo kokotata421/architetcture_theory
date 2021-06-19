@@ -561,6 +561,8 @@ Hogeアプリの画面構成は以下の通りです。
 各Viewから伸びてる線の先に書いてある情報はプログラム上でのインスタンス名とそのクラス名です。  
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/ViewControllerからViewを切り離したアプリ例の画面構成.png" alt="ViewControllerからViewを切り離したアプリ例の画面構成" width=60% > 
 
+#### Hogeアプリのプログラム
+
 
 ## 脚注
 <a name="footnote1">*1</a>: 複数点あり原文(英語)も載せると見づらくなってしまうため、意訳のみ載せています。  
