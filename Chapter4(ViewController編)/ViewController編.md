@@ -777,7 +777,7 @@ ViewControllerにおける出力イベント処理とは言い換えればPresen
 と自身のRoot ViewであるHogeRootViewのメソッドを呼び出しています。  
 ここに今回の設計の特徴が一番出ていると思います。  
 一般的なViewControllerの設計では具体的なViewの操作はViewController自身が行う必要があります。  
-しかし今回の設計ではRootView側に具体的な操作を実装しており、ViewController側では行う必要があるのはRootView側の処理の呼び出しのみとなります。    
+しかし今回の設計ではRootView側に具体的なViewの操作を実装しており、ViewController側では行う必要があるのはRootView側の処理の呼び出しのみとなります。    
 
 
 
