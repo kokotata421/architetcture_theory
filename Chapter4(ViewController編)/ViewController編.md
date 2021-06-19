@@ -798,7 +798,14 @@ ViewControllerにおける出力イベント処理とは言い換えればPresen
 
 ## Hogeアプリを振り返る
 ViewControllerからViewを切り離した実装例としてHogeアプリを見てきました。  
+非常に単純なアプリであったためViewControllerからViewを切り離すメリットがイマイチよく伝わらなかった人もいるかもしれません。  
+しかしUIをInterface Builderではなくコードで生成した影響が大きいですが、こんな小さなアプリでさえ今回の設計によって本来ViewControllerに実装するはずだった50程のコードをRootViewに書き出すことができています。(hogeLabelとhogeViewColorChangeButtonの宣言と初期化処理、そしてsetColorMode(lightMode: Bool)メソッド)
+実際のプロダクトではほとんどのViewControllerにおいて今回以上のViewコンポーネントとViewの操作を行う必要があるはずです。  
+その時にそれら全てRootViewに書き出し、またその他の具体的な処理に関してもViewControllerの外部のコンポーネントに移譲することでViewControllerの可読性が大きく変わることは容易に想像が着くと思います。
+また誇張することなくViewControllerはアプリ開発の一番の要です。  
 
+
+## 本記事のまとめ
 
 
 
