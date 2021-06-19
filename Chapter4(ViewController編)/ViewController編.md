@@ -552,7 +552,7 @@ UIViewControllerではviewプロパティを通して自身のRoot Viewにアク
 
 紹介する実装例は以下のようにボタンを押すことで画面全体の色が切り替わる簡単なアプリです。(本来ダークモードへの切り替えはこのようなアプリ内のボタンを押して実現するものではありませんが、他に簡単なアプリ例が思いつきませんでした。)  
 
-<img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/darkModeExample.gif" alt="具体的な操作処理を外部に委譲したViewController" width=40% > 
+<img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/darkModeExample.gif" alt="具体的な操作処理を外部に委譲したViewController" width=30% > 
 
 
 
