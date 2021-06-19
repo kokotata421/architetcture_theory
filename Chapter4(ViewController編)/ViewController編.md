@@ -741,14 +741,13 @@ final class HogeViewController<Presenter: HogePresenterInputs>: ViewController<H
     }
 }
 ```
-まず外部構造から見ていこうと思いますが、どれも簡単な説明になるため以下で箇条書きで記します。  
-1. 記事内で紹介したベースViewControllerを継承(具体的にはHogeRootViewクラスに指定したViewController&lt;HogeRootView&gt;クラスの継承)  
+まずその外部構造から見ていこうと思いますが、どれも簡単な説明になるため以下で箇条書きで記します。  
+1. 記事内で紹介したベースViewControllerを継承(具体的にはRootViewにHogeRootViewクラスを指定したViewController&lt;HogeRootView&gt;クラスの継承)  
 2. HogePresenterの出力先になるためHogePresenterOutputsに準拠
 3. 入力イベントを処理するHogePresenterInputsの実体型をジェネリクスで指定
 
- 
-そして最後にもう一つこのViewControllerからのするようにしています。  
-後ほど補足で説明しますが、このようにジェネリクスでHogePresenterInputsの実体型を指定する手法を取ることで初期化時におけるDIを可能にしています。  
+3については後ほど補足で説明しますが、ジェネリクスでHogePresenterInputsの実体型を指定する手法を取ることで初期化時におけるDIを可能にしています。  
+
 
 さて、次にHogeViewControllerの内部構造を見ていきます。
 簡単に言ってしまえばinit()で初期化を行い、コメントにもある通りviewDidLoad()で入力イベント処理、updateColorMode(lightMode: Bool)で出力イベント処理を行なっています。  
