@@ -692,6 +692,10 @@ HogePresenterInputsは画面から流れてきた入力イベントを処理す�
 そしてHogePresenterOutputsはPresenterの処理結果を出力する機構であり、こちらはHogeViewControllerが準拠します。  
 全体としては画面からの入力イベントをHogePresenterInputs(HogePresenter)が処理して、その処理結果をHogePresenterOutputs(HogeViewController)に出力するという流れです。  
 
+さて、ここでの本題であるHogePresenterクラスに話を移すと、このクラスは画面の色のモード(ライト/ダーク)の状態を管理しておりそれが変更された時にHogePresenterOutputsに新しい状態を通知します。  
+具体的にはHogePresenterInputsで定義したchangeColorMode()メソッドの呼び出しによって現在の状態を変更して新しい状態をHogePresenterOutputsに通知しています。  
+そして既に説明した通り、画面の色のモードを管理しているのはこのHogePresenterです。  
+そのためV
 
 
 
