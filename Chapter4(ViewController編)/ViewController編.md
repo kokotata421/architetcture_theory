@@ -807,15 +807,17 @@ ViewControllerにおける出力イベント処理とは言い換えればPresen
 ## Hogeアプリを振り返る
 ViewControllerからViewを切り離した実装例としてHogeアプリを見てきました。  
 非常に単純なアプリであったためViewControllerからViewを切り離すメリットがイマイチよく伝わらなかった人もいるかもしれません。  
-しかしUIをInterface Builderではなくコードで生成した影響が大きいですが、こんな小さなアプリでさえ今回の設計によって本来ViewControllerに実装するはずだった50程のコードをRootViewに書き出すことができています。(hogeLabelとhogeViewColorChangeButtonの宣言と初期化処理、そしてsetColorMode(lightMode: Bool)メソッド)
+しかしUIをInterface Builderではなくコードで生成した影響が大きいですが、こんな小さなアプリでさえ今回の設計によって本来ViewControllerに実装するはずだった50程のコードをRootViewに書き出すことができています。(hogeLabelとhogeViewColorChangeButtonの宣言と初期化処理、そしてsetColorMode(lightMode: Bool)メソッドは本来ViewControllerに記述されていたはずです。)    
 実際のプロダクトではほとんどのViewControllerにおいて今回以上のViewコンポーネントとViewの操作を行う必要があるのは間違いありません。    
-その時にそれら全てRootViewに書き出し、またその他の具体的な処理に関してもViewControllerの外部のコンポーネントに移譲することでViewControllerの開発のしやすさが大きく変わることは容易に想像が着くと思います。  
-また誇張することなくViewControllerはアプリ開発の一番の要です。  
-
+その時にそれら全てをRootViewに書き出し、またその他の具体的な処理に関してもViewControllerの外部のコンポーネントに移譲することでViewControllerの開発のしやすさが大きく変わることは想像がつくのではないでしょうか。    
+またViewControllerは誇張するまでもなくアプリ開発の一番の要です。  
+そのようなViewControllerの可読性、変更容易性が上がることは1コンポーネントの開発容易性上がる以上の価値があると思います。  
 
 ## 本記事のまとめ
-
-
+- Appleのドキュメントによれば、ViewControllerの責務は「Viewの管理(Control)」と要約できる
+- しかしそのようなViewControllerの理解は概念上は有効だが、実装上はコードが煩雑になる等の問題が起こる
+- そのため本記事ではViewControllerのコア責務を「イベント処理」と定義して、「View、Alert、遷移等の具体的な操作」をViewControllerの外部に移譲する
+- それによってV
 
 ## 脚注
 <a name="footnote1">*1</a>: 複数点あり原文(英語)も載せると見づらくなってしまうため、意訳のみ載せています。  
