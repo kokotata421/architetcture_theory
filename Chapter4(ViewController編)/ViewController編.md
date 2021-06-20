@@ -554,7 +554,7 @@ UIViewControllerではviewプロパティを通して自身のRoot Viewにアク
 > fatalError("init(coder:) has not been implemented")が実装されていますが、これは厳密にはよろしくないようです。  
 > 詳しくは[こちらの記事](https://qiita.com/coe/items/9723381ec0046fd8d8ad)を読んで欲しいのですが、
 > どうやらinit?(coder: NSCoder)はInterface Builder以外でもViewController復元時に呼び出されるためしっかり実装しておいた方が良いみたいなのです。  
-> そのため私もまだしっかり対応できていないため手をつけていませんが、  
+> そのため私はまだしっかり対応できていないため手をつけていませんが、  
 > required init?(coder: NSCoder)メソッドの実装はこの例を真似せず各自調べて適切に実装しましょう。  
 > この記事では他にもViewControllerの実装例が紹介されますが、そちらに関しても同様です。　　
 
