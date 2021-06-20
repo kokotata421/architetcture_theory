@@ -284,7 +284,7 @@ ViewControllerの問題点として基本的なプログラム構造の型が存
 - 開発においてイベントの入力、出力処理が一次責務として強調されるようになる
 - View、Alert、遷移等の具体的な操作が二次責務と捉えられるようになる
 
-### イベントを中心に据えることでViewControllerのプログラム構造も決まってくる
+### 「イベント」を中心に据えることでViewControllerのプログラム構造も決まってくる
 そして「イベント」を中心に据えることでプログラム構造も以下の形に収まっていきます。     
 
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/ViewControllerの構造.png" alt="ViewControllerの構造" width=55% > 
@@ -549,8 +549,7 @@ UIViewControllerではviewプロパティを通して自身のRoot Viewにアク
 
 
 > 補足:  
-> このベースViewControllerの   
-> required init?(coder: NSCoder)メソッドには  
+> このベースViewControllerのrequired init?(coder: NSCoder)メソッドには  
 > fatalError("init(coder:) has not been implemented")が実装されていますが、これは厳密にはよろしくないようです。  
 > 詳しくは[こちらの記事](https://qiita.com/coe/items/9723381ec0046fd8d8ad)を読んで欲しいのですが、
 > どうやらinit?(coder: NSCoder)はInterface Builder以外でもViewController復元時に呼び出されるためしっかり実装しておいた方が良いみたいなのです。  
