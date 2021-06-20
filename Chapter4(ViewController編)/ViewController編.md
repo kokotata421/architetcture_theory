@@ -570,7 +570,7 @@ UIViewControllerではviewプロパティを通して自身のRoot Viewにアク
 ### Hogeアプリの画面構成
 
 Hogeアプリの画面構成は以下の通りです。  
-各Viewから伸びてる線の先に書いてある情報はプログラム上でのインスタンス名とそのクラス名です。  
+各Viewから伸びてる線の先にある情報はプログラム上でのインスタンス名とそのクラス名です。  
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/ViewControllerからViewを切り離したアプリ例の画面構成.png" alt="ViewControllerからViewを切り離したアプリ例の画面構成" width=60% > 
 
 ### Hogeアプリのプログラム
