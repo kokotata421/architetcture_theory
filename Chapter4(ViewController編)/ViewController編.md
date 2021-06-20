@@ -382,16 +382,16 @@ ViewControllerの一部の責務を他コンポーネント委譲しても全体
 ここではいくつか例を紹介することでViewControllerのコードが画一化されたことを確認します。  
 ##### 例1:Viewの操作
 通常の実装であれば各ViewコンポーネントはViewControllerに宣言されているためそれらを操作する場合はViewControllerが直接行う必要があります。  
-例えばHogeViewのインタラクションが変更される場合にその画像や背景色も変更される処理はViewControllerに以下のように実装することになります。  
+例えばBarViewのインタラクションが変更される場合にその画像や背景色も変更される処理はViewControllerに以下のように実装することになります。  
   
 コード例: Viewの操作をViewControllerで直に行った場合の実装
 ```   
    // userInteractionEnabledはインタラクションが有効かどうかを示す引数とする
 
 
-   hogeView.isUserInteractionEnabled = userInteractionEnabled
-   hogeView.image = userInteractionEnabled ? 有効の場合の画像 : 無効の場合の画像
-   hogeView.backgroundColor = userInteractionEnabled ? UIColor.clear : UIColor.black.withAlphaComponent(0.6)
+   barView.isUserInteractionEnabled = userInteractionEnabled
+   barView.image = userInteractionEnabled ? 有効の場合の画像 : 無効の場合の画像
+   barView.backgroundColor = userInteractionEnabled ? UIColor.clear : UIColor.black.withAlphaComponent(0.6)
 ```
 上記のコードはたった3行ですが、ViewContrller内で直接View操作を行うと似たような処理があちこちで実装されることになるためコード全体が煩雑化していきます。  
   
@@ -404,7 +404,7 @@ ViewControllerの一部の責務を他コンポーネント委譲しても全体
    // userInteractionEnabledはインタラクションが有効かどうかを示す引数とする
 
 
-   self.rootView.setHogeViewInteraction(enabled: userInteractionEnabled)
+   self.rootView.setBarViewInteraction(enabled: userInteractionEnabled)
 ```
 こちらの設計ではHogeViewのインタラクションが変更された際のViewコンポーネントの操作はRoot View側に実装しているためViewControllerはRoot Viewの処理を呼び出すだけです。  
 
