@@ -504,7 +504,7 @@ ViewControllerのコアを「イベント処理」と定義することで具体
 『命令的プログラミングと宣言的プログラミングが混在する』問題の解決でも話しましたがUIKitを利用したiOSアプリ開発ではViewControllerとViewは密接に関わっておりそれらを完全に切り離すのが難しいです。  
 そのためもともとViewControllerが担っていた責務を外部に委譲する上で、どのように汎用性のある形でViewを切り離したViewControllerを設計するかが重要になってきます。  
 
-### ViewControllerのRoot View型をジェネリクスで指定する
+### ViewControllerのRoot&nbsp;View型をジェネリクスで指定する
 結論から言うとViewControllerからViewを切り離すために以下のようにジェネリクスを利用して自身のRoot Viewのクラスを指定できるベースViewControllerを定義しました。  
 アプリケーション内の全てのViewControllerはこのViewControllerを継承させます。    
 
@@ -752,7 +752,7 @@ final class HogeViewController<Presenter: HogePresenterInputs>: ViewController<H
 
 ##### HogeViewControllerの外部構造
 まずその外部構造から見ていこうと思いますが、どれも簡単な説明になるため以下で箇条書きで記します。  
-1. 記事内で紹介したベースViewControllerを継承(具体的にはRootViewにHogeRootViewクラスを指定したViewController&lt;HogeRootView&gt;クラスの継承)  
+1. [記事内](#ViewControllerのRootView型をジェネリクスで指定する)で紹介したベースViewControllerを継承(具体的にはRootViewにHogeRootViewクラスを指定したViewController&lt;HogeRootView&gt;クラスの継承)  
 2. HogePresenterの出力先になるためHogePresenterOutputsに準拠
 3. 入力イベントを処理するHogePresenterInputsの実体型をジェネリクスで指定
 
