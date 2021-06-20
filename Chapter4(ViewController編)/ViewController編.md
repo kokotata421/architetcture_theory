@@ -825,6 +825,8 @@ ViewControllerからViewを切り離した実装例としてHogeアプリを見�
 
 ## 補論:七変化ViewController
 
+## 補論:3つのDI(Dependency Injection)
+
 ## 脚注
 <a name="footnote1">*1</a>: 複数点あり原文(英語)も載せると見づらくなってしまうため、意訳のみ載せています。  
   
