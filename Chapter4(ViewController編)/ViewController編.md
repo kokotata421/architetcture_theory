@@ -656,10 +656,11 @@ final class HogeRootView: UIView, AppView {
 
 ```
 
-HogeRootViewはViewControllerからViewの責務を切り離すことが目的であり、そのためこのクラスには一般的にViewControllerの責務であるViewコンポーネントの宣言、Viewの操作の処理が実装されています。  
-具体的にはhogeLabel・hogeViewColorChangeButtonの宣言と初期化処理、また画面の色のモード(ライト/ダーク)が変更された時のViewの操作処理を行うsetColorMode(lightMode: Bool)メソッドが実装されています。  
+HogeRootViewはViewControllerからViewの責務を切り離すことが目的であり、そのためこのクラスには基本的にViewControllerの責務であるViewコンポーネントの宣言、Viewの操作の処理が実装されています。  
 
-そしてHogeRootViewはViewControllerのRoot Viewであることを明示するため、[ルートViewControllerの説明](#ViewControllerのRoot View型をジェネリクスで指定する)でも紹介したAppViewプロトコルに準拠しています。  
+具体的にはhogeLabel・hogeViewColorChangeButtonの宣言と初期化処理、また画面の色のモード(ライト/ダーク)が変更された時のView操作を行うsetColorMode(lightMode: Bool)メソッドが実装されています。  
+
+そしてHogeRootViewはViewControllerのRoot Viewであることを明示するため、[ルートViewControllerの説明](#ViewControllerのRootView型をジェネリクスで指定する)でも紹介したAppViewプロトコルに準拠しています。  
 Root View内で何かセットアップが必要な場合は、このAppViewプロトコルのsetup()メソッド内に記述しましょう。  
 このメソッドはViewControllerのloadView()メソッド内で呼び出されます。  
 
