@@ -811,7 +811,7 @@ ViewControllerからViewを切り離した実装例としてHogeアプリを見�
 実際のプロダクトではほとんどのViewControllerにおいて今回以上のViewコンポーネントとViewの操作を行う必要があるのは間違いありません。    
 その時にそれら全てをRootViewに書き出し、またその他の具体的な処理に関してもViewControllerの外部のコンポーネントに移譲することでViewControllerの開発のしやすさが大きく変わることは想像がつくのではないでしょうか。    
 またViewControllerは誇張するまでもなくアプリ開発の一番の要です。  
-そのようなViewControllerの可読性、変更容易性が上がることは1コンポーネントの開発容易性上がる以上の価値があると思います。  
+そのようなViewControllerの開発容易性が上がることは1コンポーネントの開発容易性が上がる以上の価値があると思います。  
 
 ## 本記事のまとめ
 - Appleのドキュメントによれば、ViewControllerの責務は「Viewの管理(Control)」と要約できる
