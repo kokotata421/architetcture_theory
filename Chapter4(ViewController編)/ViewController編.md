@@ -749,7 +749,7 @@ final class HogeViewController<Presenter: HogePresenterInputs>: ViewController<H
 > これはジェネリクスを利用したクラスではObjective-C由来のメソッドをextension内で実装できないため、「入力イベント処理」にあたるviewDidLoadメソッドをViewController本体に実装せざるを得なかったからです。  
 > ただこのような形式の違いは些細なことであり、大切なのはViewControllerが「初期化処理/入力イベント処理/出力イベント処理」と単純な構造を取っていてそれらの実装形式がアプリケーション全体で統一されていることです。  
 > それさえ守られていたら開発者にとってViewControllerプログラムは十分に見やすいものになっているはずです。  
->  
+
 ##### HogeViewControllerの外部構造
 まずその外部構造から見ていこうと思いますが、どれも簡単な説明になるため以下で箇条書きで記します。  
 1. 記事内で紹介したベースViewControllerを継承(具体的にはRootViewにHogeRootViewクラスを指定したViewController&lt;HogeRootView&gt;クラスの継承)  
