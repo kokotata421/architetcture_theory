@@ -745,7 +745,7 @@ final class HogeViewController<Presenter: HogePresenterInputs>: ViewController<H
 ```
 
 > 補足:  
-> 「イベント」を中心に据えることでViewControllerのプログラム構造も決まってくるでは「入力イベント処理」と「出力イベント処理」はそれぞれ別にextensionで書き出されていましたが、今回は全てViewController本体に実装されています。  
+> [「イベント」を中心に据えることでViewControllerのプログラム構造も決まってくる](#「イベント」を中心に据えることでViewControllerのプログラム構造も決まってくる)では「入力イベント処理」と「出力イベント処理」はそれぞれ別にextensionで書き出されていましたが、今回は全てViewController本体に実装されています。  
 > これはジェネリクスを利用したクラスではObjective-C由来のメソッドをextension内で実装できないため、「入力イベント処理」にあたるviewDidLoadメソッドをViewController本体に実装せざるを得なかったからです。  
 > ただこのような形式の違いは些細なことであり、大切なのはViewControllerが「初期化処理/入力イベント処理/出力イベント処理」と単純な構造を取っていてそれらの実装形式がアプリケーション全体で統一されていることです。  
 > それさえ守られていたら開発者にとってViewControllerプログラムは十分に見やすいものになっているはずです。  
