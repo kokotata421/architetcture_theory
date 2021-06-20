@@ -284,7 +284,7 @@ ViewControllerの問題点として基本的なプログラム構造の型が存
 - 開発においてイベントの入力、出力処理が一次責務として強調されるようになる
 - View、Alert、遷移等の具体的な操作が二次責務と捉えられるようになる
 
-### 「イベント」を中心に据えることでViewControllerのプログラム構造も決まってくる
+### &#12300;イベント&#12301;を中心に据えることでViewControllerのプログラム構造も決まってくる
 そして「イベント」を中心に据えることでプログラム構造も以下の形に収まっていきます。     
 
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/ViewControllerの構造.png" alt="ViewControllerの構造" width=55% > 
@@ -701,11 +701,11 @@ final class HogePresenter: HogePresenterInputs {
 具体的に定義しているのはHogePresenterInputsとHogePresenterOutputsという2つのプロトコルです。  
 HogePresenterInputsは画面から流れてきた入力イベントを処理する機構であり、これはHogePresenter自身が準拠しています。  
 そしてHogePresenterOutputsはPresenterの処理結果を出力する機構であり、こちらはHogeViewControllerが準拠します。  
-全体としては画面からの入力イベントをHogePresenterInputs(HogePresenter)が処理して、その処理結果をHogePresenterOutputs(HogeViewController)に出力するという流れです。  
+全体としてはHogeViewController->HogePresenterInputs(HogePresenter)->HogePresenterOutputs(HogeViewController)という処理の流れです。  
 
 さて、ここでの本題であるHogePresenterクラスに話を移すと、このクラスは画面の色のモード(ライト/ダーク)の状態を管理しており、それが変更された時にHogePresenterOutputsに新しい状態を通知します。  
 具体的にはHogePresenterInputsで定義したchangeColorMode()メソッドの呼び出しによって現在の状態を変更して新しい状態をHogePresenterOutputsに通知しています。  
-また画面の色のモードを管理管理はこのHogePresenterのみで行われるべきなので、HogeViewControllerもHogeRootViewも初期の色のモードの状態がわかりません。  
+また色のモードの管理管理はこのHogePresenterのみで行われるべきなので、HogeViewControllerもHogeRootViewも初期の色のモードに関する状態がわかりません。  
 そのためHogePresenterでは初期の色のモードの状態をinit()内でHogePresenterOutputsに通知します。 
 
 > 補足:  
@@ -713,7 +713,7 @@ HogePresenterInputsは画面から流れてきた入力イベントを処理す�
 > ViewController-View間ではAppViewという包括的なプロトコルしか利用しておらずHogePresenterInputsのように個々のコンポーネントに対応したプロトコルは定義していません。  
 > その理由は単純に私がサンプルプロジェクトにおいてその必要性を感じなかったからです。  
 > ViewController-View間ではViewからViewControllerの呼び出しはないためプロトコルを定義する必要があるとしたら各RootView毎に作成することになると思います。  
-> しかし基本的にViewのレイアウトや挙動に関するテストはデザイン側のソフトウェアで行うことだと思いますし、実装の差し替えも考えにくいのでViewController-View間ではAppViewプロトコルのみで十分だと思います。  
+> しかし基本的にViewのレイアウトや挙動に関するテストはデザイン側のソフトウェアを使って行うことだと思いますし、実装の差し替えも考えにくいのでViewController-View間ではAppViewプロトコルのみで十分だと思います。  
 
 #### HogeViewControllerのプログラム
 最後にここでの主題であるViewControllerの実装を見てみます。  
