@@ -284,7 +284,7 @@ ViewControllerの問題点として基本的なプログラム構造の型が存
 - 開発においてイベントの入力、出力処理が一次責務として強調されるようになる
 - View、Alert、遷移等の具体的な操作が二次責務と捉えられるようになる
 
-### 「イベント」を中心に据えることでViewControllerのプログラム構造も決まってくる
+### イベントを中心に据えることでViewControllerのプログラム構造も決まってくる
 そして「イベント」を中心に据えることでプログラム構造も以下の形に収まっていきます。     
 
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/ViewControllerの構造.png" alt="ViewControllerの構造" width=55% > 
@@ -745,7 +745,7 @@ final class HogeViewController<Presenter: HogePresenterInputs>: ViewController<H
 ```
 
 > 補足:  
-> [「イベント」を中心に据えることでViewControllerのプログラム構造も決まってくる](#「イベント」を中心に据えることでViewControllerのプログラム構造も決まってくる)では「入力イベント処理」と「出力イベント処理」はそれぞれ別にextensionで書き出されていましたが、今回は全てViewController本体に実装されています。  
+> [記事内で以前紹介したViewControllerのプログラム構造](#イベントを中心に据えることでViewControllerのプログラム構造も決まってくる)では「入力イベント処理」と「出力イベント処理」はそれぞれ別にextensionで書き出されていましたが、今回は全てViewController本体に実装されています。  
 > これはジェネリクスを利用したクラスではObjective-C由来のメソッドをextension内で実装できないため、「入力イベント処理」にあたるviewDidLoadメソッドをViewController本体に実装せざるを得なかったからです。  
 > ただこのような形式の違いは些細なことであり、大切なのはViewControllerが「初期化処理/入力イベント処理/出力イベント処理」と単純な構造を取っていてそれらの実装形式がアプリケーション全体で統一されていることです。  
 > それさえ守られていたら開発者にとってViewControllerプログラムは十分に見やすいものになっているはずです。  
