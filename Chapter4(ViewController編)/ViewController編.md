@@ -546,7 +546,17 @@ UIViewControllerではviewプロパティを通して自身のRoot Viewにアク
 > 補足:  
 > ベースViewController内部では初期化時にviewプロパティに自身が指定したRootViewクラスのインスタンスを代入しており、rootViewプロパティではviewプロパティをRootView型に強制キャストしています。  
 > そのためViewControllerは自身のviewプロパティにRootViewクラス以外のインスタンスを代入する恐れがある場合には安全ではなくなってしまうのですが、一般的な仕様を考えればViewControllerのRoot Viewが途中で差し替えられる可能性は限りなくゼロに近いので心配する必要はないと思います。  
->
+
+
+> 補足:  
+> このベースViewControllerの   
+> required init?(coder: NSCoder)メソッドには
+> fatalError("init(coder:) has not been implemented")が実装されていますが、これは厳密にはよろしくないようです。  
+> 詳しくは[こちらの記事]を読んで欲しいのですが、どうやらinit?(coder: NSCoder)はInterface Builder以外でも、  
+> ViewController復元時に呼び出されるためしっかり実装しておいた方が良いみたいなのです。  
+> そのため私もまだしっかり対応できていないため手をつけていませんが、  
+> required init?(coder: NSCoder)メソッドの実装はこの例を真似せず各自調べて適切に実装しましょう。  
+> この例以外にもこの記事ではViewControllerの実装例が紹介されますが、そちらに関しても同様です。　　
 
 ## 実装例
 最後に先程のベースViewControllerを利用してViewControllerからViewを切り離した簡単なアプリ実装例を紹介します。  
