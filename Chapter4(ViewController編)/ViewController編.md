@@ -772,19 +772,20 @@ final class HogeViewController<Presenter: HogePresenterInputs>: ViewController<H
 ##### HogeViewControllerの初期化処理
 初期化処理から順にその詳細を説明していくと、この初期化処理では外部からコンポーネントは一切注入していません。  
 その理由はHogeViewControllerがジェネリクスで指定したPresenter以外外部コンポーネントを必要としていないからです。  
-そしてPresenterに該当するHogePresenterInputsプロトコルの定義を見てみると
+Presenter型が準拠しているべきHogePresenterInputsプロトコルの定義を見てみると
 ```
 init(output: HogePresenterOutputs)
 ```
 というHogePresenterOuputsを引数に取るinit処理が定義されていることがわかります。  
-また既に説明した通りHogeViewController自身がHogePresenterOutputsに準拠しています。
-そのためHogeViewControllerは自身を引数とすることでその内部でPresenterを生成できる状況にあり外部からコンポーネントを注入する必要はありません。  
+そして既に説明した通りHogeViewController自身がHogePresenterOutputsに準拠しています。  
+そのためHogeViewControllerのジェネリクスで指定したPresenter型は外部から注入せずとも、HogeViewController内の初期化処理内でHogeViewControllerを引数とすることで生成可能となっています。  
+
 
 ##### HogeViewControllerの入力イベント処理
 次に入力イベント処理の実装ですが、これはほとんどのケースにおいてViewControllerがデフォルトで持っているviewDidLoad()メソッド内で行えば良いと思います。  
 ViewControllerにおける入力イベント処理とは言い換えれば画面内のViewもしくはシステムにおいて何らかのアクションが起こった時にPresenter(ViewModel)内の特定の処理が呼び出されるように登録することです。  
 そのためViewControllerのライフサイクルにおいて最初に一度だけ呼ばれるviewDidLoad()メソッド内でその処理の登録を行うのが合理的だと思います。  
-このHogeViewControllerにおいてはviewDidLoad()内でHogeRootViewのhogeViewColorChangeButtonボタンがタップされた時、HogePresenterInputs(HogePresenterクラス)のchangeColorMode()が呼び出されるように登録しています。  
+HogeViewControllerにおいてはviewDidLoad()内でHogeRootViewのhogeViewColorChangeButtonボタンがタップされた時、HogePresenterInputs(HogePresenterクラス)のchangeColorMode()が呼び出されるように登録しています。  
 
 ##### HogeViewControllerの出力イベント処理
 最後に出力イベント処理の実装ですが、このHogeViewControllerに出力イベント処理の実装はHogePresenterOutputsに準拠することと同義です。  
@@ -795,7 +796,7 @@ ViewControllerにおける出力イベント処理とは言い換えればPresen
 ```
 と自身のRoot ViewであるHogeRootViewのメソッドを呼び出しています。  
 ここに今回の設計の特徴が一番出ていると思います。  
-一般的なViewControllerの設計では具体的なViewの操作はViewController自身が行う必要があります。  
+一般的なViewControllerの設計では具体的なViewの操作はViewController自身が行う必要がありました。    
 しかし今回の設計ではRootView側に具体的なViewの操作を実装しており、ViewController側では行う必要があるのはRootView側の処理の呼び出しのみとなっています。  
 
 > 補足:  
@@ -809,7 +810,7 @@ ViewControllerにおける出力イベント処理とは言い換えればPresen
 ViewControllerからViewを切り離した実装例としてHogeアプリを見てきました。  
 非常に単純なアプリであったためViewControllerからViewを切り離すメリットがイマイチよく伝わらなかった人もいるかもしれません。  
 しかしUIをInterface Builderではなくコードで生成した影響が大きいですが、こんな小さなアプリでさえ今回の設計によって本来ViewControllerに実装するはずだった50程のコードをRootViewに書き出すことができています。(hogeLabelとhogeViewColorChangeButtonの宣言と初期化処理、そしてsetColorMode(lightMode: Bool)メソッドは本来ViewControllerに記述されていたはずです。)    
-実際のプロダクトではほとんどのViewControllerにおいて今回以上のViewコンポーネントとViewの操作を行う必要があるのは間違いありません。    
+実際のプロダクトではほとんどのViewControllerにおいて今回以上のViewコンポーネントの宣言とその操作を行う必要があるのは間違いありません。    
 その時にそれら全てをRootViewに書き出し、またその他の具体的な処理に関してもViewControllerの外部のコンポーネントに移譲することでViewControllerの開発のしやすさが大きく変わることは想像がつくのではないでしょうか。    
 またViewControllerは誇張するまでもなくアプリ開発の一番の要です。  
 そのようなViewControllerの開発容易性が上がることは1コンポーネントの開発容易性が上がる以上の価値があると思います。  
