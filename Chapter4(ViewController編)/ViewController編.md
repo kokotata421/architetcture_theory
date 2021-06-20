@@ -466,7 +466,7 @@ Viewの操作とAlertの表示を例にViewControllerに直接実装した場合
 そしてさらに一歩深く言及すると、次の節でも説明するように責務を他へ委譲することでViewController内のほとんどの処理が宣言的プログラミングによって実装可能となりました。  
 それによりViewControllerのコードが全体的に自然言語(英語)に近い表現になるため、連携するコンポーネントは様々でもそのコードの形式は画一的になっています。  
 
-#### 『命令的プログラミングと宣言的プログラミングが混在する』問題の解決
+#### &#12302;命令的プログラミングと宣言的プログラミングが混在する&#12303;問題の解決
 外部コンポーネントに処理を委譲するということは、ViewControllerはそれら外部コンポーネントのメソッドもしくはプロパティを利用することで処理を依頼するということです。  
 そのためそれら外部コンポーネントの設計と命名を適切に行うことでViewControllerの大部分は宣言的プログラミングによって実装可能になります。  
 
@@ -500,16 +500,16 @@ ViewControllerはその画面開発の要でありその最も重要役割はそ
 ViewControllerのコア責務を「UI/システムから(への)イベントを処理」と定義することで既存の問題が解決されることを説明しました。  
 ここではその実現のために実際にViewControllerをどのように実装すれば良いか説明します。   
 ### ViewControllerからどのようにViewを切り離すか
-ViewControllerのコアを「イベント処理」と定義することで具体的な操作をViewControllerの外部に委譲することを説明しましたが、その実装の際ポイントとなるのは**ViewControllerからViewを切り離す方法**です。  
-『命令的プログラミングと宣言的プログラミングが混在する』問題の解決でも話しましたがUIKitを利用したiOSアプリ開発ではViewControllerとViewは密接に関わっておりそれらを完全に切り離すのが難しいです。  
+ViewControllerのコアを「イベント処理」と定義することで具体的な操作をViewControllerの外部に委譲すると説明しましたが、その実装の際ポイントとなるのは**ViewControllerからViewを切り離す方法**です。  
+[『命令的プログラミングと宣言的プログラミングが混在する』問題の解決](#命令的プログラミングと宣言的プログラミングが混在する問題の解決)でも話しましたがUIKitを利用したiOSアプリ開発ではViewControllerとViewは密接に関わっておりそれらを完全に切り離すのが難しくなっています。    
 そのためもともとViewControllerが担っていた責務を外部に委譲する上で、どのように汎用性のある形でViewを切り離したViewControllerを設計するかが重要になってきます。  
 
 ### ViewControllerのRoot&nbsp;View型をジェネリクスで指定する
-結論から言うとViewControllerからViewを切り離すために以下のようにジェネリクスを利用して自身のRoot Viewのクラスを指定できるベースViewControllerを定義しました。  
-アプリケーション内の全てのViewControllerはこのViewControllerを継承させます。    
+結論から言うとViewControllerからViewを切り離すために以下のようにジェネリクスを利用して自身のRoot Viewのクラスを指定できるベースViewControllerを設計しました。  
+アプリケーション内の全てのViewControllerはこのベースViewControllerクラスを継承させます。    
 
 ちなみに以下のベースViewControllerクラスの実装はInterface Builder(Storyboard/Xib)を利用せずコードのみでViewを生成・管理することを前提としています。  
-そのためInterface Builderを利用する場合は多少実装が変わると思いますが、ただその場合もジェネリクスを利用して自身のRoot Viewのクラスを指摘できる仕様は必要になるはずです。  
+そのためInterface Builderを利用する場合は多少実装が変わると思いますが、ただその場合もジェネリクスを利用して自身のRoot Viewのクラスを指定できる仕様は必要になるはずです。  
 
 ```
 protocol AppView: UIView {
