@@ -812,7 +812,7 @@ ViewControllerからViewを切り離した実装例としてHogeアプリを見�
 しかしUIをInterface Builderではなくコードで生成した影響が大きいですが、こんな小さなアプリでさえ今回の設計によって本来ViewControllerに実装するはずだった50程のコードをRootViewに書き出すことができています。(hogeLabelとhogeViewColorChangeButtonの宣言と初期化処理、そしてsetColorMode(lightMode: Bool)メソッドは本来ViewControllerに記述されていたはずです。)    
 実際のプロダクトではほとんどのViewControllerにおいて今回以上のViewコンポーネントの宣言とその操作を行う必要があるのは間違いありません。    
 その時にそれら全てをRootViewに書き出し、またその他の具体的な処理に関してもViewControllerの外部のコンポーネントに移譲したならば、Interface Builderを利用していたとしても各ViewControllerにおいて少なくとも100行以上のコードが外部へと書き出されるはずです。  
-そのように考えた場合ViewControllerの開発のしやすさ(特にコードの見通し、可読性)が大きく変わることは想像がつくのではないでしょうか。    
+そのように考えた場合、具体的な操作を外部に移譲することでViewControllerの開発のしやすさ(特にコードの見通し、可読性)が大きく変わることが想像できるのではないでしょうか。    
 またViewControllerは誇張するまでもなくアプリ開発の一番の要です。  
 そのようなViewControllerの開発容易性が上がることは1コンポーネントの開発容易性が上がる以上の価値があると思います。  
 
@@ -820,7 +820,7 @@ ViewControllerからViewを切り離した実装例としてHogeアプリを見�
 - Appleのドキュメントによれば、ViewControllerの責務は「Viewの管理(Control)」と要約できる
 - しかしそのようなViewControllerの理解は概念上は有効だが、実装上はコードが煩雑になる等の問題が起こる
 - そのため本記事ではViewControllerのコア責務を「イベント処理」と定義して、「View、Alert、遷移等の具体的な操作」をViewControllerの外部に移譲する
-- それによりViewControllerプログラムの構造は単純化され、可読性・変更容易性が大きく上がる
+- そうした再定義によりViewControllerは概念上のみならず実装上も単純な構造を持つことになり、プログラムの可読性・変更容易性は大きく上がる
 
 ## 脚注
 <a name="footnote1">*1</a>: 複数点あり原文(英語)も載せると見づらくなってしまうため、意訳のみ載せています。  
