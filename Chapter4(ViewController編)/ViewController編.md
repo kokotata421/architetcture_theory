@@ -818,8 +818,8 @@ ViewControllerからViewを切り離した実装例としてHogeアプリを見�
 
 ## 本記事のまとめ
 - Appleのドキュメントによれば、ViewControllerの責務は「Viewの管理(Control)」と要約できる
-- しかしそのようなViewControllerの理解は概念上は有効だが、実装上はコードが煩雑になる等の問題が起こる
-- そのため本記事ではViewControllerのコア責務を「イベント処理」と定義して、「View、Alert、遷移等の具体的な操作」をViewControllerの外部に移譲する
+- しかしそのようなViewControllerの定義は概念上は有効だが、抽象的すぎるあまり実装上はコードが煩雑になる等の問題が起こる
+- そのため本記事の設計ではViewControllerのコア責務を「イベント処理」と定義して、「View、Alert、遷移等の具体的な操作」をViewControllerの外部に移譲する
 - そうした再定義によりViewControllerは概念上のみならず実装上も単純な構造を持つことになり、プログラムの可読性・変更容易性は大きく上がる
 
 
