@@ -33,9 +33,11 @@
 
 
 ## Viewの設計を説明するにあたり
-前回のViewController設計の記事で、従来のiOSアプリの設計におけるViewControllerとViewの関係があまりに近しいためViewの設計についても基本的なことは全て書いてしまいました。  
-しかしこの記事の設計ではViewはViewContorllerと明確に区別され独立した機構として存在しています。  
+前回のViewController設計の記事で、従来のiOSアプリの設計におけるViewControllerとViewの関係があまりに近しかったためViewの設計についても基本的なことは全て書いてしまいました。  
+しかし今回の設計ではViewはViewContorllerと明確に区別され独立した機構として存在しています。  
 そのため内容は前回記事と重複してしまうのですが、再度Viewの設計について書いていきます。  
 ViewControllerの記事を読んだ人はAlertの説明箇所まで読み飛ばして構わないと思います。  
+
+## Viewの設計
 
 ## Alertの設計
