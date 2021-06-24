@@ -130,8 +130,12 @@ final class HogeRootView: UIView, AppView {
 
 まず最初に今回のケースに関して2点ほど説明をしておきます。  
 1点目は実装コードの冒頭に書かれているAppViewプロトコルについてです。  
-このAppViewは各ViewControllerのRootViewであることを明示するためのプロトコルであり、RootViewとなるViewはこのプロトコルに準拠している必要があります。
+このAppViewは各ViewControllerのRootViewであることを明示するためのプロトコルであり、RootViewとなるViewはこのプロトコルに準拠している必要があります。  
 そして各RootViewでセットアップ処理を行いたい場合はこのAppViewプロトコルのsetup()メソッドにその処理を実装します。  
+  
+2点目はこのHogeRootViewのsetColorMode(lightMode: Bool)についてです。  
+この画面ではhogeViewColorChangeButtonにタップすることで画面全体の色を変えられる仕様になっており、setColorMode(lightMode: Bool)はその画面の色を変更するメソッドとなります。  
+
 
 
 ## Alertの設計
