@@ -127,4 +127,8 @@ final class HogeRootView: UIView, AppView {
 }
 
 ```
+
+まず最初に今回のケースに関して2点ほど説明をしておきます。  
+1点目は実装コードの冒頭に書かれているAppViewプロトコルについてです。  
+この
 ## Alertの設計
