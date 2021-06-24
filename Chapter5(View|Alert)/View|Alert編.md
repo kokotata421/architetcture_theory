@@ -47,6 +47,10 @@
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter5(View%7CAlert)/Images/RootViewの構成.png" alt="RootViewの構成" width=60% > 
 
 ```
+protocol AppView: UIView {
+    func setup()
+}
+
 final class HogeRootView: UIView, AppView {
     private(set) lazy var hogeLabel: UILabel = {
         let label: UILabel = .init(frame:.zero)
