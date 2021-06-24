@@ -44,6 +44,6 @@
 ここでは前回の記事の例でも出したHogeRootViewを参考にその独自のRootViewクラスをどのように定義、実装していけば良いか説明します。  
 
 さっそくですが、HogeRootViewはHogeViewControllerのRootViewでありUI的には以下のような画面構成になっています。  
-<img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter5(View|Alert編)/Images/RootViewの構成.png" alt="RootViewの構成" width=60% > 
+<img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter5(View%7CAlert)/Images/RootViewの構成.png" alt="RootViewの構成" width=60% > 
 
 ## Alertの設計
