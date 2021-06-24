@@ -40,8 +40,7 @@
 なのでViewControllerの記事を読んだ人はAlertの説明箇所まで読み飛ばしてもらって大丈夫です。    
 
 ## Viewの設計
-さて
-## Viewの設計
-## Viewの設計
+さて既にお伝えした通り、今回の設計ではViewをViewControllerとは明確に切り離しています。  
+
 
 ## Alertの設計
