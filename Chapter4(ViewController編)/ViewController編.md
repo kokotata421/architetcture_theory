@@ -555,7 +555,7 @@ UIViewControllerではviewプロパティを通して自身のRoot Viewにアク
 > どうやらinit?(coder: NSCoder)はInterface Builder以外でもViewController復元時に呼び出されるためしっかり実装しておいた方が良いみたいなのです。  
 > そのため私はまだしっかり対応できていないため手をつけていませんが、  
 > required init?(coder: NSCoder)メソッドの実装はこの例を真似せず各自調べて適切に実装しましょう。  
-> この記事では他にもViewControllerの実装例が紹介されますが、そちらに関しても同様です。　　
+> この記事では他にもViewControllerやViewの実装例が紹介されますが、上記のinit?(coder: NSCoder)の実装に関してはそれらに対しても同様です。　　
 
 ## 実装例
 最後に先程のベースViewControllerを利用してViewControllerからViewを切り離した簡単なアプリ実装例を紹介します。  
