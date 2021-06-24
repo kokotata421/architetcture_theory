@@ -41,6 +41,9 @@
 
 ## Viewの設計
 さて既にお伝えした通り、今回の設計ではViewをViewControllerとは明確に切り離しており、そのための実装としてViewController毎に独自のRootViewクラスの定義を必須としています。  
+ここでは前回の記事の例でも出したHogeRootViewを参考にその独自のRootViewクラスをどのように定義、実装していけば良いか説明します。  
+
+さっそくですが、HogeRootViewはHogeViewControllerのRootViewでありUI的には以下のような画面構成になっています。  
 
 
 ## Alertの設計
