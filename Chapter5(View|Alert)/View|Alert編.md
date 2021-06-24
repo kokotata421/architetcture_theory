@@ -40,7 +40,7 @@
 なのでViewControllerの記事を読んだ人はAlertの説明箇所まで読み飛ばしてもらって大丈夫です。    
 
 ## Viewの設計
-さて既にお伝えした通り、今回の設計ではViewをViewControllerとは明確に切り離しています。  
+さて既にお伝えした通り、今回の設計ではViewをViewControllerとは明確に切り離しており、そのための実装としてViewController毎に独自のRootViewクラスの定義を必須としています。  
 
 
 ## Alertの設計
