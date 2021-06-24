@@ -46,4 +46,80 @@
 さっそくですが、HogeRootViewはHogeViewControllerのRootViewでありUI的には以下のような画面構成になっています。  
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter5(View%7CAlert)/Images/RootViewの構成.png" alt="RootViewの構成" width=60% > 
 
+```
+final class HogeRootView: UIView, AppView {
+    private(set) lazy var hogeLabel: UILabel = {
+        let label: UILabel = .init(frame:.zero)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(label)
+        NSLayoutConstraint.activate([
+            label.centerYAnchor
+                .constraint(equalTo: self.safeAreaLayoutGuide.centerYAnchor),
+            label.centerXAnchor
+                .constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
+            label.heightAnchor.constraint(equalToConstant: 300),
+            label.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.6)
+        ])
+        label.text = """
+                    Hoge
+                    Hoge Hoge
+                    Hoge Hoge Hoge
+                    Hoge Hoge Hoge Hoge ...
+                    Hoge Infinity!
+                    """
+        
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    private(set) lazy var hogeViewColorChangeButton: UIButton = {
+        let button: UIButton = .init(frame:.zero)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(button)
+        NSLayoutConstraint.activate([
+            button.topAnchor
+                .constraint(equalTo: self.hogeLabel.bottomAnchor, constant: 15),
+            button.centerXAnchor
+                .constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
+            button.heightAnchor.constraint(equalToConstant: 50),
+            button.widthAnchor.constraint(equalToConstant: 200)
+        ])
+        
+        return button
+    }()
+    
+    override init(frame:CGRect) {
+        super.init(frame: frame)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    func setup() {
+        _ = self.hogeLabel
+        _ = self.hogeViewColorChangeButton
+    }
+    
+    func setColorMode(lightMode: Bool) {
+        if lightMode {
+            self.backgroundColor = .white
+            self.hogeLabel.textColor = .black
+            self.hogeViewColorChangeButton.backgroundColor = .lightGray
+            self.hogeViewColorChangeButton.setTitle("Hoge Dark Mode!!!",
+                                                    for: .normal)
+            self.hogeViewColorChangeButton.setTitleColor(.black, for: .normal)
+        } else {
+            self.backgroundColor = .black
+            self.hogeLabel.textColor = .white
+            self.hogeViewColorChangeButton.backgroundColor = .darkGray
+            self.hogeViewColorChangeButton.setTitle("Hoge Light Mode!!!",
+                                                    for: .normal)
+            self.hogeViewColorChangeButton.setTitleColor(.white, for: .normal)
+        }
+    }
+}
+
+```
 ## Alertの設計
