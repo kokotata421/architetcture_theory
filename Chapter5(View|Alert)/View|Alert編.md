@@ -130,5 +130,8 @@ final class HogeRootView: UIView, AppView {
 
 まず最初に今回のケースに関して2点ほど説明をしておきます。  
 1点目は実装コードの冒頭に書かれているAppViewプロトコルについてです。  
-この
+このAppViewは各ViewControllerのRootViewであることを明示するためのプロトコルであり、RootViewとなるViewはこのプロトコルに準拠している必要があります。
+そして各RootViewでセットアップ処理を行いたい場合はこのAppViewプロトコルのsetup()メソッドにその処理を実装します。  
+
+
 ## Alertの設計
