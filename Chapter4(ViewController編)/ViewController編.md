@@ -832,7 +832,46 @@ MVPの場合はViewに関するロジックはPresenterが処理することに�
 またそのアプリの規模によってもViewControllerの責務は変わってきます。  
 本記事ではViewController内の責務を細かく切り分けて外部に委譲する設計を提案していますが、規模の小さなアプリでは開発・運用コストを考えると責務を細かく分けずにViewControllerに直接実装した方が合理的だと思います。  
 ### Appleなど信頼できるソースが例示するコードも設計的に必ず正しいわけではない
-もう一点述べたいことが、これはViewControllerに限った話ではないですが、プログラマとして学ぼうとすると他人のサンプルコードを参考にすることが多いと
+もう一点述べたいのが、設計を学ぶ際には結局のところコードではなくその背後にある理論を理解するしかないということです。  
+プログラマとして色々と学ぶ際には他人のコードから学ぶことが多いと思いますが、先ほどViewControllerを例に述べた通り、各コンポーネントの責務の境界はその状況によって大きく変化します。  
+そのため他人のコードは必ずしも設計の理解に役立たない可能性があります。  
+これはApple等信頼できるソースが例示しているコードにおいても同様です。  
+例えばWWDCでAppleが示しているViewControllerのコードには状態管理を行なっているものもあります。(記憶が曖昧で実際にどこのセッションでそのような例が示されていたかは忘れてしまいました。)  
+しかしそのような例ではセッションの主旨があくまで他の箇所にあるから便宜的にViewControllerに状態管理をさせているだけであって、どのようなケースにおいてもそうした設計が正しいとは限りません。  
+またこれはViewControllerの例ではないのですが、Appleが提供しているSwift UIのチュートリアルではLandmarkというDomainオブジェクトを以下のように定義しています。  
+```
+import Foundation
+import SwiftUI
+import CoreLocation
+
+struct Landmark: Hashable, Codable {
+    var id: Int
+    var name: String
+    var park: String
+    var state: String
+    var description: String
+
+    private var imageName: String
+    var image: Image {
+        Image(imageName)
+    }
+
+    private var coordinates: Coordinates
+    var locationCoordinate: CLLocationCoordinate2D {
+        CLLocationCoordinate2D(
+            latitude: coordinates.latitude,
+            longitude: coordinates.longitude)
+    }
+
+    struct Coordinates: Hashable, Codable {
+        var latitude: Double
+        var longitude: Double
+    }
+}
+```
+設計論の
+
+
 このようにViewControllerの責務は状況によって変化するため絶対に参考になる
 
 
