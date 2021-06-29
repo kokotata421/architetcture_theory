@@ -869,7 +869,8 @@ struct Landmark: Hashable, Codable {
     }
 }
 ```
-設計論の
+冒頭のimportを見ても分かる通り、このDomainオブジェクトではSwiftUIとCoreLocationという外部フレームワークに依存してしまっているため設計論的にはよろしくありません。  
+
 
 
 このようにViewControllerの責務は状況によって変化するため絶対に参考になる
