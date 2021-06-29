@@ -824,7 +824,19 @@ ViewControllerからViewを切り離した実装例としてHogeアプリを見�
 
 
 ## 補論:七変化ViewController
+### ViewControllerの責務は状況によって変化する
+本記事内でViewControllerの責務が理解しづらい原因としてコードレベルにおいてViewControllerが雑多に思える処理を抱えている状況を挙げました。  
+しかしViewControllerの責務の境界はその周辺の環境によって変化しており、そのような性質も責務の理解を難しくさせていると思います。  
+例えばそのアプリがMVPであるのかMVCであるのかによってViewControllerの責務は変わってきます。  
+MVPの場合はViewに関するロジックはPresenterが処理することになっていますが、MVCの場合Viewロジックを処理する明確な場所は存在していないためViewControllerがその役目を担う可能性があります。      
+またそのアプリの規模によってもViewControllerの責務は変わってきます。  
+本記事ではViewController内の責務を細かく切り分けて外部に委譲する設計を提案していますが、規模の小さなアプリでは開発・運用コストを考えると責務を細かく分けずにViewControllerに直接実装した方が合理的だと思います。  
+### Appleなど信頼できるソースが例示するコードも設計的に必ず正しいわけではない
+もう一点述べたいことが、これはViewControllerに限った話ではないですが、プログラマとして学ぼうとすると他人のサンプルコードを参考にすることが多いと
+このようにViewControllerの責務は状況によって変化するため絶対に参考になる
 
+
+## 補論:View以外の責務の委譲
 ## 補論:3つのDI(Dependency Injection)
 
 ## 脚注
