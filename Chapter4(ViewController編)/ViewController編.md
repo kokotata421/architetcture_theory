@@ -871,12 +871,12 @@ struct Landmark: Hashable, Codable {
     }
 }
 ```
-引用元： [https://developer.apple.com/tutorials/swiftui/building-lists-and-navigation](#https://developer.apple.com/tutorials/swiftui/building-lists-and-navigation)
-設計の基本原則ではこのようにDomainオブジェクトでUIや外部フレームワークの情報を扱うのはよくありません。  
-しかしこれも先ほどの例と同様でAppleが間違っているというわけではなく、ここでの趣旨はSwift UIの実装方法にあるためDomainオブジェクトの設計に便宜的に済ましているだけであると思います。  
+引用元： [https://developer.apple.com/tutorials/swiftui/building-lists-and-navigation](#https://developer.apple.com/tutorials/swiftui/building-lists-and-navigation)  
+設計の基本原則からするとDomainオブジェクトでUIや外部フレームワークの情報を扱うのはよくありません。  
+しかしこれも先ほどの例と同様で、ここでの主旨はSwift UIの実装方法にあるためDomainオブジェクトの設計に便宜的に済ましているだけであると思います。  
 
-このようにViewControllerに限らず私たちが普段目にするコードは特定の目的に沿って簡易的に実装されているものも多く設計論的観点はあまり考慮されていない場合があります。  
-そのためコードを通して設計を学ぶのには限界があり(もちろん細かな記述やテクニックで参考にはなると思います)、しっかり理解を深めるためには理論を通して全ての状況に通底する原理・原則を学んでいく必要があります。    
+ViewControllerは特に責務が定まっていないコンポーネントだと思いますが、このように私たちが普段目にするコードは特定の目的に沿って簡易的に実装されており設計論的観点からは良くない例も多い印象です。  
+そのためコードを通して設計を学ぶのには限界があり(もちろん細かな記述やテクニックで参考にはなると思います)、しっかり理解を深めるためには理論を通して全ての状況に通底する原理・原則を学んでいく必要があると思います。      
 
 
 ## 補論:View以外の責務の委譲
