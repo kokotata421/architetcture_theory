@@ -879,6 +879,7 @@ ViewControllerは特に責務が定まっていないコンポーネントでは
 
 
 ## 補論:View以外の責務の委譲
+
 ## 補論:3つのDI(Dependency Injection)
 
 ## 脚注
