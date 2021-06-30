@@ -871,7 +871,7 @@ struct Landmark: Hashable, Codable {
     }
 }
 ```
-<sup>引用元： [https://developer.apple.com/tutorials/swiftui/building-lists-and-navigation](#https://developer.apple.com/tutorials/swiftui/building-lists-and-navigation)</sup>  
+<sup>引用元： [https://developer.apple.com/tutorials/swiftui/building-lists-and-navigation](https://developer.apple.com/tutorials/swiftui/building-lists-and-navigation)</sup>  
 設計の基本原則からするとDomainオブジェクトでUIや外部フレームワークの情報を扱うのはよくありません。  
 しかしこれも先ほどの例と同様で、ここでの主旨はSwift UIの実装方法にあるためDomainオブジェクトの設計に便宜的に済ましているだけであると思います。  
 
