@@ -901,9 +901,22 @@ Combineを利用することで通常よりもスマートな実装が可能に�
 またそれに対してNotificationCenterへの通知の送信(入力)は画面の出力の結果として行われるため、ViewControllerの出力処理と連携する形となります。コメ(あくまでViewControllerのイベント結果としてNotificationCenterへ通知する場合であり、システムからのNotifacationCenterへの通知は内部で自動で行われるためViewControllerは関与しません)  
 そしてNotifactionCenterへの通知の登録をViewControllerで行う場合は初期設定時に行うことになります。  
 ### CollectionView Delegate/DataSource
-CollectionViewのDelegate/DataSourceの実装についてお話しします。  
+CollectionViewのDelegate/DataSourceの実装についてお話しします。コメ:直接言及はしませんが、ここでの内容はTableViewにも同様に当てはまります。  
 まずCollectionViewの基本的なことをおさらいすると、CollectionViewのDelegateはViewControllerにおける入力処理、DataSourceは出力処理に当たります。  
-これはDelegateがCollectionViewで発生するイベントの処理を定義するものであること、またDataSourceはCollectionViewの表示を定義するものであることをわかると思います。  
+これはDelegateに定義されているのがセルのタップ等CollectionViewにおけるイベント発生時の処理に関するメソッドであること、またDataSourceに定義されているのがセルの表示に関するメソッドであることを考えればわかると思います。  
+####  Delegate(入力処理)の実装
+Delegateの実装に関してはいくつかパターンがありますが、サンプルプロジェクトではRxCocoaを利用しているため
+```
+collectionView.rx.itemSelected
+```
+のようにDelegateをあまり意識しなくても良い設計になっています。  
+RxCocoaという外部ライブラリを利用している点は好き嫌い分かれそうですが、この方法だとDelegateも他のViewの入力イベントと同じように扱えますし、開発コストもかからないので私は気に入っています。  
+
+他にはDelegateのラッパークラスを作成する方法があると思います。  
+ラッパークラスを作成した場合はViewControllerの入力イベントの処理時にCollectionViewのイベント発生時に行いたい処理をクロージャでラッパークラスに渡す形になりそうです。  
+
+またDelegateに関してはViewControllerに直接実装する方法もありだと思います。  
+
 
 
 ```
