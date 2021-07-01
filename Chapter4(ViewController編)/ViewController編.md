@@ -916,7 +916,9 @@ RxCocoaという外部ライブラリを利用している点は好き嫌い分�
 ラッパークラスを作成した場合はViewControllerの入力イベントの処理時にCollectionViewのイベント発生時に行いたい処理をクロージャでラッパークラスに渡す形になりそうです。  
 
 またDelegateに関してはViewControllerに直接実装する方法もありだと思います。  
-
+本記事ではViewControllerの責務をイベント処理の機構として、具体的な処理を外部に委譲することを提案しました。  
+そしてここではDelegateも外部に委譲する責務の一部として紹介しましたが、Delegateの各メソッドはCollectionViewの入力イベントと一対一で対応しています。  
+そのためDelegateを直接ViewControllerで実装してもそこで具体的な処理によってViewControllerが肥大化する恐れはないと思います。  
 
 
 ```
