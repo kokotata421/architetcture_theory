@@ -888,7 +888,19 @@ ViewControllerは特に責務が定まっていないコンポーネントだと
 AlertもRouterと同じです。  
 Alertの表示はつまるところViewControllerのpresentメソッドで行うため、大きく言えば遷移の一種です。  
 そのため機構としては別に扱っていますがViewControllerからの責務の委譲方法についてはRouterと同じです。  
+Alertの詳細についてはView/Alert編でお話しします。  
+### Notification Center
+NotificationCenterについてはデフォルトでViewControllerの外にあるので、責務の外部化については特に話すことはありません。  
+ただNotificationCenterの実装については2点ほど説明すべき点があります。    
+まずNotificationCenterからの通知を処理する際にはCombineフレームワークの利用をオススメします。
+Combineを利用することで通常よりもスマートな実装が可能になるからです。  
 
+次にNotificationCenterからの通知処理(出力)はViewControllerの入力処理と連携します。  
+これは考えてみるとわかるのですが、ViewControllerはNotificationCenterから通知を受け取ってそれを自身の画面で処理するためにPresenter(ViewModel)に委譲するわけです。  
+そのためNotificationCenterからの通知処理(出力)が連携するのはViewControllerの出力処理ではなく入力処理になります。  
+またそれに対してNotificationCenterへの通知の送信(入力)は画面の出力の結果として行われるため、ViewControllerの出力処理と連携する形となります。コメ(あくまでViewControllerのイベント結果としてNotificationCenterへ通知する場合であり、システムからのNotifacationCenterへの通知は内部で自動で行われるためViewControllerは関与しません)  
+そしてNotifactionCenterへの通知の登録をViewControllerで行う場合は初期設定時に行うことになります。  
+### CollectionView
 
 ## 脚注
 <a name="footnote1">*1</a>: 複数点あり原文(英語)も載せると見づらくなってしまうため、意訳のみ載せています。  
