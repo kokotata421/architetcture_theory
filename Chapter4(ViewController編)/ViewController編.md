@@ -900,7 +900,7 @@ Combineを利用することで通常よりもスマートな実装が可能に�
 そのためNotificationCenterからの通知処理(出力)が連携するのはViewControllerの出力処理ではなく入力処理になります。  
 またそれに対してNotificationCenterへの通知の送信(入力)は画面の出力の結果として行われるため、ViewControllerの出力処理と連携する形となります。コメ(あくまでViewControllerのイベント結果としてNotificationCenterへ通知する場合であり、システムからのNotifacationCenterへの通知は内部で自動で行われるためViewControllerは関与しません)  
 そしてNotifactionCenterへの通知の登録をViewControllerで行う場合は初期設定時に行うことになります。  
-### CollectionView
+### CollectionView Delegate/DataSource
 
 ## 脚注
 <a name="footnote1">*1</a>: 複数点あり原文(英語)も載せると見づらくなってしまうため、意訳のみ載せています。  
