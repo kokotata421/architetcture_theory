@@ -884,12 +884,12 @@ ViewControllerは特に責務が定まっていないコンポーネントだと
 しかし全く言及しないのもどうかと思うのでここではそれらをどのようにViewControllerの外部に委譲するのか簡単に説明します。 
 ### Router
 まず基本的にこの記事にあるようにRouterにViewControllerを渡してそちらで通常の遷移処理を行うだけです。  
-本記事が提案するRouterはいくつか独自に設計した箇所がありますが、その詳細は画面遷移編でお話しします。  
+ただ遷移処理のRouterへの外部化ではなく遷移処理自体の実装に関しては独自な設計をしている箇所があり、その詳細は画面遷移編でお話しします。  
 ### Alert 
 AlertもRouterと同じです。  
 Alertの表示はつまるところViewControllerのpresentメソッドで行うため、大きく言えば遷移の一種です。  
-そのため機構としては別に扱っていますがViewControllerからの責務の委譲方法についてはRouterと同じです。  
-Alertの詳細についてはView/Alert編でお話しします。  
+そのため機構としては別なものとして扱っていますがViewControllerからの責務の外部化についてはRouterと同じ方法になります。  
+Alertについても独自な実装を施している箇所がありますが、その詳細についてはView/Alert編でお話しします。  
 ### Notification Center
 NotificationCenterについてはデフォルトでViewControllerの外にあるので、責務の外部化については特に話すことはありません。  
 ただNotificationCenterの実装については2点ほど説明すべき点があります。    
