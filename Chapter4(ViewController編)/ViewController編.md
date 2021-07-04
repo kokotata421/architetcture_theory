@@ -897,11 +897,16 @@ NotificationCenterについてはデフォルトでViewControllerの外にある
 まずNotificationCenterからの通知を処理する際にはCombineフレームワークの利用をオススメします。
 Combineを利用することで通常よりもスマートな実装が可能になるからです。  
 #### Notification CenterとViewController間の連携
+##### Notification Centerへの通知の登録
+NotifactionCenterへの通知の登録をViewControllerで行う場合は初期設定時に行うことになります。  
+具体的にはViewControllerのviewDidLoadメソッドで行われることが多いでしょう。  
+##### Notification Centerへの通知処理(入力処理)
+NotificationCenterへの通知の送信(入力)は画面の出力の結果として行われるため、ViewControllerの出力処理と連携する形となります。コメ(あくまでViewControllerのイベント結果としてNotificationCenterへ通知する場合であり、システムからのNotifacationCenterへの通知は内部で自動で行われるためViewControllerは関与しません)
+##### Notification Centerからの通知処理(出力処理)
 次にNotificationCenterからの通知処理(出力)はViewControllerの入力処理と連携します。  
-これは考えてみるとわかるのですが、ViewControllerはNotificationCenterから通知を受け取ってそれを自身の画面で処理するためにPresenter(ViewModel)に委譲します。    
+これは考えてみるとわかるのですが、ViewControllerはNotificationCenterから通知を受け取ってそれを自身の画面で処理するためにPresenter(ViewModel)に依頼します。      
 そのためNotificationCenterからの通知処理(出力)が連携するのはViewControllerの出力処理ではなく入力処理になります。  
-またそれに対してNotificationCenterへの通知の送信(入力)は画面の出力の結果として行われるため、ViewControllerの出力処理と連携する形となります。コメ(あくまでViewControllerのイベント結果としてNotificationCenterへ通知する場合であり、システムからのNotifacationCenterへの通知は内部で自動で行われるためViewControllerは関与しません)  
-そしてNotifactionCenterへの通知の登録をViewControllerで行う場合は初期設定時に行うことになります。  
+  
 ### CollectionView Delegate/DataSource
 CollectionViewのDelegate/DataSourceの実装についてお話しします。コメ:直接言及はしませんが、ここでの内容はTableViewにも同様に当てはまります。  
 まずCollectionViewの基本的なことをおさらいすると、CollectionViewのDelegateはViewControllerにおける入力処理、DataSourceは出力処理に当たります。  
