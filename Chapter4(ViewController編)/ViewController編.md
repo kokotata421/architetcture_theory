@@ -940,6 +940,15 @@ collectionView.rx.itemSelected
 今回のサンプルプロジェクトではこのRxCocoaを利用してDelegateメソッドを利用しています。  
 ただこのサンプルプロジェクトではアプリ全体でRxを利用していたためRxCocoaの採用を躊躇う理由がありませんでしたが、他の技術構成をとっているアプリでは全体との兼ね合いを踏まえて慎重に検討する必要があると思います。  
 
+####  DataSource(出力処理)の実装
+DataSource(出力処理)の実装に関してはDelegateと比べて選択肢は少なく、大きくいうとDataSourceのラッパークラスを作るしかないと思います。  
+その理由をそれぞれ説明するとまずDataSourceのCollectionViewのセルの表示に関する実装では細かなCellの設定やロジック判定などを行います。  
+そのため命令的プログラミングが必要になる箇所があり、DataSourceを直接ViewControllerに実装すると本記事で提案していた記述スタイルや責務が維持できなくなってしまいます。  
+またDelegate時のように気軽にRxCocoa(とRxDataSources)を利用することもできません。  
+DelegateはViewControllerの入力処理であり画面に関するイベントの起点であるためRxCocoaの局所的な利用が可能でした。  
+しかし出力処理であるDataSourceの実装でRxCocoaやRxDataSourcesを利用しようとすると基本的にDataSourceにイベントを流すPresenter(ViewModel)でもRxを利用する必要が出てくるため設計全体にも大きな影響を及ぼすことになります。  
+また仮にRxをアプリで利用して、DataSourceの実装でRxCocoaやRxDataSourcesを利用したとしても本記事が提案した内容に沿って実装するためにはDataSourceのラッパークラスは必要になってきます。  
+
 ## 補論:3つのDI
 
 ## 脚注
