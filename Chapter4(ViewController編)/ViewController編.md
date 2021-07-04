@@ -912,10 +912,23 @@ NotificationCenterからの通知処理(出力)はViewControllerの入力処理�
 ここではCollectionViewのDelegate/DataSourceについて説明します。  
 ちなみに直接言及はしませんが、ここでのCollectionViewの内容はそのままTableViewにも当てはまります。  
 #### Delegate-ViewControllerの入力処理、DataSource-ViewControllerの出力処理
-まず基本的なことから説明すると、CollectionViewのDelegateはViewControllerにおける入力処理、DataSourceは出力処理に該当します。  
+まず基本的なことから説明すると、CollectionViewのDelegateの実装はViewControllerにおける入力処理、DataSourceの実装は出力処理と関係しています。    
 これはDelegateに定義されているのがセルのタップ等CollectionViewにおけるイベント発生時の処理に関するメソッドであること、またDataSourceに定義されているのがセルの表示に関するメソッドであることを考えればわかると思います。  
 ####  Delegate(入力処理)の実装
-Delegateの実装に関してはいくつかパターンがあり、それぞれ一長一短あるためどの方法を採用するかは開発者自身で決めるべきだと思います。  
+Delegateの実装に関してはいくつかパターンがあり、それぞれ一長一短あるためどの方法を採用するかは開発者自身で決めるのが良いでしょう。  
+
+##### ViewControllerに直に実装する
+Delegateに関してはViewControllerに直接実装する方法もありだと思います。  
+本記事ではViewControllerの責務をイベント処理の機構として具体的な処理を外部に委譲することを提案しましたが、CollectionViewのDelegateメソッドはその一つ一つがCollectionViewからの入力処理に対応しており、また各Delegateメソッドの実装は対応するPresenter(ViewModel)側のメソッドの呼び出しに留まります。  
+そのためDelegateを直接ViewControllerで実装しても本記事が目的とする統一的なViewControllerの構造が破壊されることも、ViewController内の宣言的プログラミングの方針が破られる恐れもありません。  
+
+##### Delegateのラッパークラス/Delegateに準拠したベースCollectionViewクラスを実装する
+Delegateをラップしたクラスを実装のも一つの手でしょう。  
+この場合ViewControllerの入力処理を行う箇所でラッパークラスに各Delegateのイベントに対応する処理をクロージャで渡す方法が想定されます。  
+また似たような方法としてDelegateに準拠したCollectionViewクラスを実装して、アプリ内でそれをベースクラスとして利用する手が考えられます。  
+
+これらの方法ではラッパークラスで各Delegateメソッドに対応するメソッドもしくは変数を再定義する必要があるため手間がかかりますが、ViewController上での記述形式に関してはViewControllerに直に実装するに比べると統一感が生まれると思います。  
+
 
 ```
 collectionView.rx.itemSelected
@@ -926,10 +939,7 @@ RxCocoaという外部ライブラリを利用している点は好き嫌い分�
 他にはDelegateのラッパークラスを作成する方法があると思います。  
 ラッパークラスを作成した場合はViewControllerの入力イベントの処理時にCollectionViewのイベント発生時に行いたい処理をクロージャでラッパークラスに渡す形になりそうです。  
 
-またDelegateに関してはViewControllerに直接実装する方法もありだと思います。  
-本記事ではViewControllerの責務をイベント処理の機構として、具体的な処理を外部に委譲することを提案しました。  
-そしてここではDelegateも外部に委譲する責務の一部として紹介しましたが、Delegateの各メソッドはCollectionViewの入力イベントと一対一で対応しています。  
-そのためDelegateを直接ViewControllerで実装してもそこで具体的な処理によってViewControllerが肥大化する恐れはないと思います。  
+また
 
 
 ```
