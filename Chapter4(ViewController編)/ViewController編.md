@@ -911,6 +911,7 @@ NotificationCenterからの通知処理(出力)はViewControllerの入力処理�
 ### Delegate/DataSource
 ここではCollectionViewのDelegate/DataSourceについて説明します。  
 ちなみに直接言及はしませんが、ここでのCollectionViewの内容はそのままTableViewにも当てはまります。  
+またここでは概要の説明に留め、次のView/Alert編でもう少し詳細に触れようと思います。  
 #### Delegate-ViewControllerの入力処理、DataSource-ViewControllerの出力処理
 まず基本的なことから説明すると、CollectionViewのDelegateの実装はViewControllerにおける入力処理、DataSourceの実装は出力処理と関係しています。    
 これはDelegateに定義されているのがセルのタップ等CollectionViewにおけるイベント発生時の処理に関するメソッドであること、またDataSourceに定義されているのがセルの表示に関するメソッドであることを考えればわかると思います。  
