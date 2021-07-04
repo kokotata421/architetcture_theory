@@ -901,10 +901,11 @@ Combineを利用することで通常よりもスマートな実装が可能に�
 NotifactionCenterへの通知の登録をViewControllerで行う場合は初期設定時に行うことになります。  
 具体的にはViewControllerのviewDidLoadメソッドで行われることが多いでしょう。  
 ##### Notification Centerへの通知処理(入力処理)
-NotificationCenterへの通知の送信(入力)は画面の出力の結果として行われるため、ViewControllerの出力処理と連携する形となります。コメ(あくまでViewControllerのイベント結果としてNotificationCenterへ通知する場合であり、システムからのNotifacationCenterへの通知は内部で自動で行われるためViewControllerは関与しません)
+NotificationCenterへの通知の送信(入力)は画面の出力の結果として行われるため、ViewControllerの出力処理と連携する形となります。  
+ただこれはそのViewControllerからNotification Centerへイベントを通知する場合の話であり、システムからのNotifacationCenterへの通知は内部で自動で行われるためViewControllerは関与しません。  
 ##### Notification Centerからの通知処理(出力処理)
-次にNotificationCenterからの通知処理(出力)はViewControllerの入力処理と連携します。  
-これは考えてみるとわかるのですが、ViewControllerはNotificationCenterから通知を受け取ってそれを自身の画面で処理するためにPresenter(ViewModel)に依頼します。      
+NotificationCenterからの通知処理(出力)はViewControllerの入力処理と連携します。  
+これは考えてみるとわかるのですが、ViewControllerはNotificationCenterから通知を受け取ってそれを自身の画面で対応するためPresenter(ViewModel)に処理を依頼します。      
 そのためNotificationCenterからの通知処理(出力)が連携するのはViewControllerの出力処理ではなく入力処理になります。  
   
 ### CollectionView Delegate/DataSource
