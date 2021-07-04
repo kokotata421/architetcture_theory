@@ -950,8 +950,22 @@ DelegateはViewControllerの入力処理であり画面に関するイベント�
 しかし出力処理であるDataSourceの実装でRxCocoaやRxDataSourcesを利用しようとすると基本的にDataSourceにイベントを流すPresenter(ViewModel)でもRxを利用する必要が出てくるため設計全体にも大きな影響を及ぼすことになります。  
 また仮にRxをアプリで利用して、DataSourceの実装でRxCocoaやRxDataSourcesを利用したとしても本記事が提案した内容に沿って実装するためにはDataSourceのラッパークラスは必要になってきます。  
 
-##
-## 補論:3つのDI
+### その他の外部化
+遷移処理(Router)・Alert・Notification・(CollectionViewの)Delegate/DataSourceの責務のViewControllerからの外部化について説明しましたが、他にも仕様によってViewControllerの外部に書き出すべき責務が発生するかもしれません。  
+ただどのような責務を外部化するとしても基本的にはこれまでの例で見てきた通り、ViewControllerで実装していた際に必要だったコンポーネント(ViewController自身を含む)を移譲先に渡してそちらの方でviewcontrollerでしていたように実装するだけです。  
+
+## 補論:3つのDI(Dependency Injection)
+本文内の例で示したHogeアプリのHogeViewControllerでは以下のようにPresenterに当たるHogePresenterInputsプロトコルの実体型をジェネリクスで指定する形式をとっています。  
+```
+class HogeViewController<Presenter: HogePresenterInputs>
+```
+この箇所でジェネリクスを利用した目的としてはDependency Injection(以下DI)が関係しているのですが、ここではDIの説明をしながらなぜここでジェネリクスを利用したのか説明します。  
+### DIの基本的な説明
+まず最初に蛇足だとは思うのですが、DIの説明からします。  
+DIはあるコンポーネントがその挙動のために必要な他のコンポーネントを外部から渡す所作を指します(より正確には外部から必要なコンポーネントを渡すような設計)  
+要するに初期化時に引数としてデータを受け取るのも外部からデータを渡されてるわけですからDIです。  
+DIという言葉に慣れていないと「初期化時に値を渡すとか基本的なことなのに"Dependency Injection"とか大層な命名して理解しづらいし、IT界隈カッコつけすぎだわ」とか思うのですが、慣れてくるとDIというだけで相手に簡単に状況を伝えることができる便利な言葉になります。  
+さて話を戻すとDIの方法には3つの方法があります。  
 
 
 ## 脚注
