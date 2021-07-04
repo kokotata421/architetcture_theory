@@ -892,12 +892,13 @@ Alertの表示はつまるところViewControllerのpresentメソッドで行う
 Alertについても独自な実装を施している箇所がありますが、その詳細についてはView/Alert編でお話しします。  
 ### Notification Center
 NotificationCenterについてはデフォルトでViewControllerの外にあるので、責務の外部化については特に話すことはありません。  
-ただNotificationCenterの実装については2点ほど説明すべき点があります。    
+ただNotificationCenterの実装については2点ほど説明すべき点があります。 
+#### Notification Centerからの通知処理の実装方法
 まずNotificationCenterからの通知を処理する際にはCombineフレームワークの利用をオススメします。
 Combineを利用することで通常よりもスマートな実装が可能になるからです。  
-
+#### Notification CenterとViewController間の連携
 次にNotificationCenterからの通知処理(出力)はViewControllerの入力処理と連携します。  
-これは考えてみるとわかるのですが、ViewControllerはNotificationCenterから通知を受け取ってそれを自身の画面で処理するためにPresenter(ViewModel)に委譲するわけです。  
+これは考えてみるとわかるのですが、ViewControllerはNotificationCenterから通知を受け取ってそれを自身の画面で処理するためにPresenter(ViewModel)に委譲します。    
 そのためNotificationCenterからの通知処理(出力)が連携するのはViewControllerの出力処理ではなく入力処理になります。  
 またそれに対してNotificationCenterへの通知の送信(入力)は画面の出力の結果として行われるため、ViewControllerの出力処理と連携する形となります。コメ(あくまでViewControllerのイベント結果としてNotificationCenterへ通知する場合であり、システムからのNotifacationCenterへの通知は内部で自動で行われるためViewControllerは関与しません)  
 そしてNotifactionCenterへの通知の登録をViewControllerで行う場合は初期設定時に行うことになります。  
