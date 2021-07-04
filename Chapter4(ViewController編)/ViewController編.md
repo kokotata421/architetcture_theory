@@ -950,7 +950,9 @@ DelegateはViewControllerの入力処理であり画面に関するイベント�
 しかし出力処理であるDataSourceの実装でRxCocoaやRxDataSourcesを利用しようとすると基本的にDataSourceにイベントを流すPresenter(ViewModel)でもRxを利用する必要が出てくるため設計全体にも大きな影響を及ぼすことになります。  
 また仮にRxをアプリで利用して、DataSourceの実装でRxCocoaやRxDataSourcesを利用したとしても本記事が提案した内容に沿って実装するためにはDataSourceのラッパークラスは必要になってきます。  
 
+##
 ## 補論:3つのDI
+
 
 ## 脚注
 <a name="footnote1">*1</a>: 複数点あり原文(英語)も載せると見づらくなってしまうため、意訳のみ載せています。  
