@@ -929,95 +929,20 @@ Delegateをラップしたクラスを実装のも一つの手でしょう。
 
 これらの方法ではラッパークラスで各Delegateメソッドに対応するメソッドもしくは変数を再定義する必要があるため手間がかかりますが、ViewController上での記述形式に関してはViewControllerに直に実装するに比べると統一感が生まれると思います。  
 
-
+##### RxCocoaを利用する
+RxCocoaを利用するのも一つの解決策です。  
+RxCocoaは外部ライブラリなので好き嫌いはあると思いますが、UI層自体がiOSアプリではUIKitフレームワークなのでここで外部ライブラリを利用することは設計論的観点からするとおかしなことではありません。  
+何よりRxCocoaを利用することで以下のようにDelegateメソッドをCollectionView自身の一部のように扱うことができるようになり、さらに先程の自作ラッパークラスを実装する方法のように開発の手間が増えることもありません。    
 ```
 collectionView.rx.itemSelected
 ```
-のようにDelegateをあまり意識しなくても良い設計になっています。  
-RxCocoaという外部ライブラリを利用している点は好き嫌い分かれそうですが、この方法だとDelegateも他のViewの入力イベントと同じように扱えますし、開発コストもかからないので私は気に入っています。  
 
 他にはDelegateのラッパークラスを作成する方法があると思います。  
 ラッパークラスを作成した場合はViewControllerの入力イベントの処理時にCollectionViewのイベント発生時に行いたい処理をクロージャでラッパークラスに渡す形になりそうです。  
+今回のサンプルプロジェクトではこのRxCocoaを利用してDelegateメソッドを利用しています。  
+ただこのサンプルプロジェクトではアプリ全体でRxを利用していたためRxCocoaの採用を躊躇う理由がありませんでしたが、他の構成を採用しているアプリでは全体との兼ね合いを踏まえて慎重に検討する必要があると思います。  
 
-また
 
-
-```
-import UIKit
-import RxCocoa
-import RxSwift
-
-class HomeCollectionDataSourceWrapper<CellViewModel: HomeCollectionCellViewModelPort> {
-    enum Section {
-        case homePhotos
-    }
-    
-    typealias CellRegistration = UICollectionView.CellRegistration<PhotoViewCell, CellViewModel>
-    typealias DataSource = UICollectionViewDiffableDataSource<Section, Photo>
-    typealias ViewModelProvider = (_ photoData: Photo,
-                                   _ indexPath: IndexPath) -> CellViewModel
-    private let datasource: DataSource
-   
-    init(collectionView: UICollectionView,
-         viewModelProvider: ViewModelProvider) {
-        
-        let selectedItem = collectionView
-                                .rx
-                                .itemSelected
-                                .share(replay: 1, scope: .forever)
-        let willDisplayCell = collectionView
-                                .rx
-                                .willDisplayCellIndex
-                                .share(replay: 1, scope: .forever)
-                
-        self.datasource = DataSource(collectionView: collectionView) {
-            (collectionView: UICollectionView,
-             indexPath: IndexPath,
-             photo: Photo) -> UICollectionViewCell? in
-            let registration: CellRegistration = .init(handler: { cell, indexPath, viewModel in
-                
-                viewModel.disposeBag.extension.addDisposables(disposables:
-                        selectedItem
-                                .bind(to: viewModel.inputs.selectedIndexPath),
-                        willDisplayCell
-                            .bind(to: viewModel.inputs.displayIndexPath)
-                )
-                
-                viewModel.disposeBag.extension.addDisposables(disposables:
-                    viewModel
-                        .outputs
-                        .photoImageData
-                        .do(onNext: { [weak cell] _ in
-                            cell?.isUserInteractionEnabled = true
-                        })
-                        .bind(to: cell.rx.imageData),
-                    viewModel
-                        .outputs
-                        .highlight
-                        .bind(to: cell.rx.highlight)
-                )
-            })
-            return collectionView
-                .dequeueConfiguredReusableCell(using: registration,
-                                               for: indexPath,
-                                                item: viewModelProvider(photo,
-                                                                    indexPath)
-                                                )
-            
-      
-        }
-        
-    }
-    
-    func update(newItems: [Photo]) {
-        let snapshot: NSDiffableDataSourceSnapshot<Section, Photo> = .init()
-        snapshot.appendSections([.homePhotos])
-        snapshot.appendItems(newItems,
-                             toSection: .homePhotos)
-        datasource.apply(snapshot)
-    }
-}
-```
 ## 補論:3つのDI
 
 ## 脚注
