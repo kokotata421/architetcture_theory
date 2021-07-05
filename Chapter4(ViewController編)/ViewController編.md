@@ -992,11 +992,18 @@ DIという言葉に慣れていないと「初期化時に値を渡すとか基
 要するにHogeViewControllerとHogePresenterはそれぞれがもう一方に依存している関係だったわけです。  
 このように相互に依存しているインスタンス同士では基本的にどちらか一方でプロパティかメソッドを通したDIを採用することでその依存関係を解決します。  
 しかしここではジェネリクスを利用することで初期化時のDIを可能にしています。  
-
-
-
-
-
+具体的にはHogePresenterInputsプロトコルには以下のような初期化処理が定義されていて
+```
+init(output: HogePresenterOutputs)
+```
+この初期化処理により、HogeViewControllerでは自身の初期化処理内でHogePresenterを生成することができるようになっています。  
+```
+override init() {
+   super.init()
+   self.presenter = Presenter(output: self)
+}
+```
+このよう
 ## 脚注
 <a name="footnote1">*1</a>: 複数点あり原文(英語)も載せると見づらくなってしまうため、意訳のみ載せています。  
   
