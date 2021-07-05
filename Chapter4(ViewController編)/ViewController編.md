@@ -988,7 +988,7 @@ DIという言葉に慣れていないと「初期化時に値を渡すとか基
 
 ### HogeViewControllerの状況
 さてHogeViewControllerでなぜジェネリスクを使っているのか理解するためにDIを説明しましたが、ここでジェネリクスを使っているのは初期化時のDIを可能にするためです。  
-順に説明するためHogeViewControllerの依存関係について説明します。  
+今回のケースではHogeViewControllerはHogePresenterInputsプロトコルに準拠するHogePresenterクラスを必要としており、またそのHogePresenterはHogePresenterOutputsプロトコルに準拠するHogeViewController
 
 
 
