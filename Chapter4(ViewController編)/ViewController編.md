@@ -998,9 +998,15 @@ init(output: HogePresenterOutputs)
 ```
 この初期化処理により、HogeViewControllerでは自身の初期化処理内でHogePresenterを生成することができるようになっています。  
 ```
-override init() {
-   super.init()
-   self.presenter = Presenter(output: self)
+final class HogeViewController<Presenter: HogePresenterInputs>: ViewController<HogeRootView>, HogePresenterOutputs {
+    
+    private var presenter: Presenter!
+    
+    override init() {
+        super.init()
+        self.presenter = Presenter(output: self)
+    }
+    ...
 }
 ```
 このよう
