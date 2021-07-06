@@ -58,10 +58,9 @@
 3. Viewの大きさの変更、また画面全体のレイアウトの管理
 4. (他のViewControllerも含めた)他のオブジェクトとの連携
 
-このようにViewControllerの責務を総体的に見ると、ViewControllerの責務は文字通り「Viewの管理(Control)」であり、Viewとは関係のないデータの操作はその主な責務には含まれないことがわかると思います。  
+このようにViewControllerの責務を総体的に見るとその責務はViewと関係しており、Viewと関係のないデータの操作はその主な責務には含まれないことがわかると思います。  
 **4.(他のViewControllerも含めた)他のオブジェクトとの連携**はいささか示している範囲が広いようには感じますが、この場合にもやはりその責務の中心には「View」があることは間違いありません。  
-そのためViewControllerの主要な責務を**Viewに関連した処理**であるアバウトに理解するのは、その役割をシンプルに理解する上で役に立つと思います。  
-
+そのためViewControllerをシンプルに理解するためにその責務を名前の通り**Viewの管理(Control)を行うコンポーネント**と捉える
 ### 2種類のViewController
 ViewControllerの責務は先程の4点であることは変わらないのですが、その種類は利用ケースによって大きく2つに分かれます。  
 1. Content ViewController: 自身に紐づいた**Viewを管理**することを責務としたViewController
@@ -76,7 +75,8 @@ Container ViewControllerはあまり独自で定義することはないと思�
 この記事で扱うのはContent ViewControllerに限定されます。  
 Container ViewControllerの設計において何より重要なのは、**自身のChild ViewControllerとなるContent ViewControllerへの干渉を最低限とすること**にあります。  
 これは言い換えると、Container ViewControllerの設計において重要なのはまず各Child ViewController(Content ViewController)の設計であるということです。  
-そのため各Child ViewController(Content ViewController)さえしっかりとできていれば、Container ViewControllerがやるべきことはChild ViewController間の連携を管理するくらいであり、その具体的な方法に関して今回の設計論の観点から特に説明することはないと考えています。(Conatainer ViewControllerで操作するChild ViewControllerの親Viewの管理も通常のViewの管理と同じです。)  
+そのため各Child ViewController(Content ViewController)さえしっかりとできていれば、Container ViewControllerがやるべきことはChild ViewController間の連携を取り持つくらいであり、その具体的な方法に関して今回の設計論の観点から特に説明することはないと考えています。  
+Conatainer ViewControllerで操作するChild ViewControllerの親Viewの管理も通常のViewの管理と同じです。   
 なのでこの記事ではContent ViewControllerの設計に限定して話を進めます。  
 
 ## 現実のViewControllerの開発で起こる問題
