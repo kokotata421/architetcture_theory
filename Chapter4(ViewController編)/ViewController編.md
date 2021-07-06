@@ -1012,6 +1012,9 @@ final class HogeViewController<Presenter: HogePresenterInputs>: ViewController<H
 つまり、Presenterの実体型はHogePresenterInputsプロトコルに準拠しているためinit(output: HogePresenterOutputs)によって初期化可能であり、またHogeViewControllerはHogePresenterOutputsプロトコルに準拠しているためPresenterの実体型のインスタンスを自身を引数とすることで生成可能になっています。  
 それによってHogeViewControllerはPresenterのDIを行う必要がなくなり、Setter Injection・Method Injectionを利用せずにConstructor Injectionのみで依存関係が解決することが可能になりました。  
 
+### DI実装時はConstructor Injectionの方法を模索する
+
+
 ## 脚注
 <a name="footnote1">*1</a>: 複数点あり原文(英語)も載せると見づらくなってしまうため、意訳のみ載せています。  
   
