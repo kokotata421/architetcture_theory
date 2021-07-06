@@ -996,7 +996,7 @@ DIという言葉に慣れていないと「初期化時に値を渡すとか基
 ```
 init(output: HogePresenterOutputs)
 ```
-この初期化処理により、HogeViewControllerでは自身の初期化処理内でHogePresenterを生成することができるようになっています。  
+この初期化処理により、HogeViewControllerでは初期化処理内で自身が指定したPresenterジェネリクスの実体型を生成することができるようになっています。  
 ```
 final class HogeViewController<Presenter: HogePresenterInputs>: ViewController<HogeRootView>, HogePresenterOutputs {
     
