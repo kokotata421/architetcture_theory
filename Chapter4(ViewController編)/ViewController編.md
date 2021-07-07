@@ -75,8 +75,7 @@ Container ViewControllerはあまり独自で定義することはないと思�
 この記事で扱うのはContent ViewControllerに限定されます。  
 ドキュメントに書かれている通りContainer ViewControllerでは**自身のChild ViewControllerへの干渉を最低限とするべき**であり、それはつまるところContainer ViewController内にある各Content ViewControllerの設計の重要性を意味しています。  
 各Content ViewControllerが独立した形でしっかりと設計がなされていれば、自身の親であるContainer ViewControllerからの干渉はChild ViewControllerの生成・破棄の管理、Child ViewControllerのRoot Viewの操作、Child ViewController間の連携あたりに限定されるからです。  
-そのため設計論においてContainer ViewControllerに関して固有に考えなくてはいけないことはほとんどありません。  
-なので本記事ではContent ViewControllerの設計に限定して話を進めます。  
+そのため設計論においてContainer ViewControllerに関して固有に考えなくてはいけないことはほとんどなく、本記事ではContent ViewControllerの設計に限定して話を進めることとします。    
 
 ## 現実のViewControllerの開発で起こる問題
 ドキュメントを参考にしながらViewControllerの基本について触れましたが、ここでは現実にViewControllerの開発(コードを読む、書く)で起こる問題点について説明します。  
