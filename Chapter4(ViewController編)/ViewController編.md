@@ -64,7 +64,7 @@
 ### 2種類のViewController
 ViewControllerの責務は先程の4点であることは変わらないのですが、その種類は利用ケースによって大きく2つに分かれます。  
 1. Content ViewController: 自身に紐づいた**Viewを管理**することを責務としたViewController
-2. Container ViewController: 自身の画面内で表示される**ViewController&#40;Container ViewControllerの文脈ではChild ViewControllerと言う&#41;の管理**を責務としたViewController
+2. Container ViewController: 自身の画面内で表示する**ViewController&#40;Container ViewControllerの文脈ではChild ViewControllerと言う&#41;の管理**を責務としたViewController
 
 #### Content ViewControllerとContainer ViewControllerの違い
 大きな違いはViewController内で具体的なViewコンポーネントを操作するかどうかでしょうか。  
@@ -74,9 +74,9 @@ Container ViewControllerはあまり独自で定義することはないと思�
 #### 記事で扱うのはContent ViewControllerのみ
 この記事で扱うのはContent ViewControllerに限定されます。  
 Container ViewControllerの設計において何より重要なのは、**自身のChild ViewControllerとなるContent ViewControllerへの干渉を最低限とすること**にあります。  
-これは言い換えると、Container ViewControllerの設計において重要なのはまず各Child ViewController(Content ViewController)の設計であるということです。  
+これは言い換えると、Container ViewControllerの設計において重要なのはまず各Child ViewController(Content ViewController)コメ:Child ViewControllerが必ずしもContentViewControllerということではないが、の設計であるということです。  
 そのため各Child ViewController(Content ViewController)さえしっかりとできていれば、Container ViewControllerがやるべきことはChild ViewController間の連携を取り持つくらいであり、その具体的な方法に関して今回の設計論の観点から特に説明することはないと考えています。  
-Conatainer ViewControllerで操作するChild ViewControllerの親Viewの管理も通常のViewの管理と同じです。   
+Conatainer ViewControllerで操作するChild ViewControllerの親Viewの管理は通常のViewの管理と同じで、こちらも特に説明することはありません。   
 なのでこの記事ではContent ViewControllerの設計に限定して話を進めます。  
 
 ## 現実のViewControllerの開発で起こる問題
