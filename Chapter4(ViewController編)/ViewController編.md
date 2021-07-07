@@ -1022,7 +1022,7 @@ DIを初期化時に行うことで(Constructor Injection)そのコンポーネ�
 
 <a name="footnote3">*3</a>: もちろんContainer ViewControllerのChild ViewControllerもContainer ViewControllerである場合もあると思います。しかしその場合も重要なのはChild ViewControllerであるContainer ViewControllerの中にあるContent ViewControllerの設計であり、そのContent ViewControllerの設計がしっかりなされれば大抵の場合はその親であるContainer ViewControllerの責務も限定され設計しやすくなるはずであり、またその親のContainer ViewControllerも...と連鎖的に解決していくはずです。  
 
-<a name="footnote4">*4</a>: もちろんContainer ViewControllerのChild ViewControllerもContainer ViewControllerである場合もあると思います。しかしその場合も重要なのはChild ViewControllerであるContainer ViewControllerの中にあるContent ViewControllerの設計であり、そのContent ViewControllerの設計がしっかりなされれば大抵の場合はその親であるContainer ViewControllerの責務も限定され設計しやすくなるはずであり、またその親のContainer ViewControllerも...と連鎖的に解決していくはずです。 
+<a name="footnote4">*4</a>: Container ViewControllerの実装について知りたい場合はAppleの公式ではこちらの[ドキュメント](https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS/ImplementingaContainerViewController.html)で扱っています。日本語の記事は「Container ViewController Swift」等と調べればいくつか出てきます。  
 
 <a name="footnote4">*4</a>: あくまで目的はViewController(命令的プログラミング)とSwiftUI(宣言的プログラミング)の違いを把握することなので、ViewController側ではCellのレイアウト等何点か省略している実装があります。またSwiftUI側も@Stateの利用方法などベストプラクティスとは言えない実装があります。  
   
