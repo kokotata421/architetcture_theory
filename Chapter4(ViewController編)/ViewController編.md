@@ -74,8 +74,8 @@ Container ViewControllerはあまり独自で定義することはないと思�
 #### 記事で扱うのはContent ViewControllerのみ
 この記事で扱うのはContent ViewControllerに限定されます。  
 ドキュメントに書かれている通りContainer ViewControllerでは**自身のChild ViewControllerへの干渉を最低限とするべき**であり、それはつまるところContainer ViewController内にある各Content ViewControllerの設計の重要性を意味しています。  
-各Content ViewControllerが独立した形でしっかりと設計がなされていれば、自身の親であるContainer ViewControllerからの干渉はChild ViewControllerの生成・破棄の管理、Child ViewControllerのRoot Viewの操作、Child ViewController間の連携、あたりに限定されるからです。  
-そのため設計論においてContainer ViewControllerに関して固有に考えなくてはいけないことはほとんどなく、本記事ではContent ViewControllerの設計に限定して話を進めることとします。    
+各Content ViewControllerが独立した形でしっかりと設計がなされていれば、自身の親であるContainer ViewControllerからの干渉はChild ViewControllerの生成・破棄の管理、Child ViewControllerのRoot Viewの操作、Child ViewController間の連携、あたりに限定されるからです。<sup>[*3](#footnote3)</sup>  
+そのため設計論においてContainer ViewControllerに関して固有に考えなくてはいけないことはほとんどなく、本記事ではContent ViewControllerの設計に限定して話を進めることとします。<sup>[*4](#footnote4)</sup>   
 
 ## 現実のViewControllerの開発で起こる問題
 ドキュメントを参考にしながらViewControllerの基本について触れましたが、ここでは現実にViewControllerの開発(コードを読む、書く)で起こる問題点について説明します。  
@@ -1019,14 +1019,18 @@ DIを初期化時に行うことで(Constructor Injection)そのコンポーネ�
 <a name="footnote1">*1</a>: 複数点あり原文(英語)も載せると見づらくなってしまうため、意訳のみ載せています。  
   
 <a name="footnote2">*2</a>: アプリの仕様としてContainer ViewControllerを積極的に利用する方針にしているケースもなくはないと思いますが、全体から見ればごく限られたケースだと思います。  
+
+<a name="footnote3">*3</a>: もちろんContainer ViewControllerのChild ViewControllerもContainer ViewControllerである場合もあると思います。しかしその場合も重要なのはChild ViewControllerであるContainer ViewControllerの中にあるContent ViewControllerの設計であり、そのContent ViewControllerの設計がしっかりなされれば大抵の場合はその親であるContainer ViewControllerの責務も限定され設計しやすくなるはずであり、またその親のContainer ViewControllerも...と連鎖的に解決していくはずです。  
+
+<a name="footnote4">*4</a>: もちろんContainer ViewControllerのChild ViewControllerもContainer ViewControllerである場合もあると思います。しかしその場合も重要なのはChild ViewControllerであるContainer ViewControllerの中にあるContent ViewControllerの設計であり、そのContent ViewControllerの設計がしっかりなされれば大抵の場合はその親であるContainer ViewControllerの責務も限定され設計しやすくなるはずであり、またその親のContainer ViewControllerも...と連鎖的に解決していくはずです。 
+
+<a name="footnote4">*4</a>: あくまで目的はViewController(命令的プログラミング)とSwiftUI(宣言的プログラミング)の違いを把握することなので、ViewController側ではCellのレイアウト等何点か省略している実装があります。またSwiftUI側も@Stateの利用方法などベストプラクティスとは言えない実装があります。  
   
-<a name="footnote3">*3</a>: あくまで目的はViewController(命令的プログラミング)とSwiftUI(宣言的プログラミング)の違いを把握することなので、ViewController側ではCellのレイアウト等何点か省略している実装があります。またSwiftUI側も@Stateの利用方法などベストプラクティスとは言えない実装があります。  
+<a name="footnote5">*5</a>: ViewController(UIKit)側ではAuto Layoutをコードで実装しているためInterface Builderより煩雑になっていると言えると思います。しかし実際開発ではViewController(UIKit)側にはさらにプリフェッチ処理、差分検知、その他省略した何点かの実装が加わるためAuto Layoutをコード実装していなくてもプログラムは例よりさらに煩雑になっているはずです。 
   
-<a name="footnote4">*4</a>: ViewController(UIKit)側ではAuto Layoutをコードで実装しているためInterface Builderより煩雑になっていると言えると思います。しかし実際開発ではViewController(UIKit)側にはさらにプリフェッチ処理、差分検知、その他省略した何点かの実装が加わるためAuto Layoutをコード実装していなくてもプログラムは例よりさらに煩雑になっているはずです。 
+<a name="footnote6">*6</a>: ここで述べている命令的プログラミングの見通しが良くないという評価は相対的なものではなくある程度客観性を持っていると思います。機械的で細々した命令的プログラミングは人間の一般的な認知能力からして見やすいモノではないはずです。  
   
-<a name="footnote5">*5</a>: ここで述べている命令的プログラミングの見通しが良くないという評価は相対的なものではなくある程度客観性を持っていると思います。機械的で細々した命令的プログラミングは人間の一般的な認知能力からして見やすいモノではないはずです。  
-  
-<a name="footnote6">*6</a>: PresenterやViewModelといったコンポーネントもUseCaseやRepositoryと比べると責務が広範囲に及んで漠然としている印象を受けますが、それでもその
+<a name="footnote6">*</a>: PresenterやViewModelといったコンポーネントもUseCaseやRepositoryと比べると責務が広範囲に及んで漠然としている印象を受けますが、それでもその
 性質を突き詰めると「View-BusinssLogic間のデータ変換を行うコンポーネント」であると定義することができます。そしてここから「View->Business Logicのデータ変換とBusiness Logic->Viewのデータ変換」とい構造を持ったプログラムであるべきことが見えてきます。  
   
 <a name="footnote7">*7</a>: 繰り返しのようになりますがライフサイクルの仕組み等を理解することでViewControllerのプログラム構造が見えてくる面もありますし、また[脚注5](#footnote5)で挙げたPresenter(ViewModel)の定義のようにViewControllerの定義を「View-Presenter(ViewModel)間の処理を行うコンポーネント」というように定義することも可能だと思います。しかし少なくともViewControllerのドキュメントに沿った定義ではViewControllerがCollectionViewのデリゲート、データソースとして振る舞うことやそれらに関連する状態管理も許容しており、私はこれらの処理がViewControllerのプログラム構造を捉える上で切り捨てて良い瑣末なモノであるとは思えません。そのためViewControllerのプログラム構造は一般的な性質のみでは理解できず、実際にコードを見て見ないとわからないと主張しています。  
