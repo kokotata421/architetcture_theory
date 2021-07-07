@@ -1020,7 +1020,7 @@ DIを初期化時に行うことで(Constructor Injection)そのコンポーネ�
   
 <a name="footnote2">*2</a>: アプリの仕様としてContainer ViewControllerを積極的に利用する方針にしているケースもなくはないと思いますが、全体から見ればごく限られたケースだと思います。  
 
-<a name="footnote3">*3</a>: もちろんContainer ViewControllerのChild ViewControllerもContainer ViewControllerである場合もあると思います。しかしその場合も重要なのはChild ViewControllerであるContainer ViewControllerの中にあるContent ViewControllerの設計であり、そのContent ViewControllerの設計がしっかりなされれば大抵の場合はその親であるContainer ViewControllerの責務も限定され設計しやすくなるはずであり、またその親のContainer ViewControllerも...と連鎖的に解決していくはずです。  
+<a name="footnote3">*3</a>: もちろんContainer ViewControllerのChild ViewControllerもContainer ViewControllerである場合もありえます。しかしその場合も重要なのはChild ViewControllerであるContainer ViewControllerの中にあるContent ViewControllerの設計であり、そのContent ViewControllerの設計がしっかりなされれば大抵の場合はその親であるContainer ViewControllerの責務も限定され設計しやすくなるはずであり、またその親のContainer ViewControllerも...と連鎖的に解決していくはずです。  
 
 <a name="footnote4">*4</a>: Container ViewControllerの実装について知りたい場合はAppleの[こちら](https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS/ImplementingaContainerViewController.html)のドキュメントを読むことをおすすめします。日本語の記事を読みたい方は「Container ViewController Swift」等と調べればいくつか出てくるはずです。    
 
