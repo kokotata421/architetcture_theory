@@ -78,8 +78,8 @@ Container ViewControllerはあまり独自で定義することはないと思�
 そのため設計論においてContainer ViewControllerに関して固有に考えなくてはいけないことは特になく、本記事ではContent ViewControllerの設計に限定して話を進めることとします。<sup>[*4](#footnote4)</sup>   
 
 ## 現実のViewControllerの開発で起こる問題
-ドキュメントを参考にしながらViewControllerの基本について触れましたが、ここでは現実にViewControllerの開発(コードを読む、書く)で起こる問題点について説明します。  
-私はViewControllerで普及している一般的な手法で開発すると以下の問題が起こると考えています。  
+ドキュメントを参考にしながらViewControllerの基本について触れましたが、ここでは現実にViewControllerの開発で起こる問題点について説明します。  
+私はViewControllerをその一般的な手法で開発すると以下の問題が起こると考えています。  
 
 1. 「Viewの管理(Control)」と一言でいえど、実際には多種多様なプログラムが書かれる
 2.  命令的プログラミングと宣言的プログラミングが混在する
@@ -87,10 +87,10 @@ Container ViewControllerはあまり独自で定義することはないと思�
 
 ### 1&#046;&#x300C;Viewの管理&#40;Control&#41;&#x300D;と一言でいえど&#x3001;実際には多様なプログラムが書かれる
 #### コードレベルからViewControllerの責務が理解しにくい
-記事冒頭の「[ViewControllerの基本](#ViewControllerの基本)」では、[Appleのドキュメント](https://developer.apple.com/documentation/uikit/uiviewcontroller)を引用してViewControllerの主要な責務を4点紹介し、それらはさらに「Viewの管理」と要約できると説明しました。  
+記事冒頭の「[ViewControllerの基本](#ViewControllerの基本)」では、[Appleのドキュメント](https://developer.apple.com/documentation/uikit/uiviewcontroller)を引用してViewControllerの主要な責務を4点紹介し、それらはさらに「Viewの管理」へと要約できると説明しました。  
 しかしそのように責務を簡潔に表現できるのはあくまで概念上の話です。  
-実際のコードレベルにおいてViewControllerにはViewの操作、アニメーション、遷移処理、アラート操作、CollectionViewのデリゲート・データソース、その他オブジェクトの連携等、実にさまざまな処理が書かれており、時には簡単な状態変数の管理も行っているケースもあります。    
-MVCやレイヤードアーキテクチャといった設計理論の基礎を理解できている開発者であればこのように雑多に思えるコードにおいてもメタ認識によってその責務を理解することができると思います。      
+実際のコードレベルにおいてViewControllerにはViewの操作、アニメーション、遷移処理、アラート操作、CollectionViewのデリゲート・データソース、その他オブジェクトの連携等、実にさまざまな処理が書かれており、中には簡単な状態変数の管理も行っているケースもあります。    
+MVCやレイヤードアーキテクチャといった設計理論を理解できている開発者であればこのように雑多に思えるコードにおいてもメタ認識によってその責務を理解することができると思います。      
 ただそうでない開発者にとってはこれらのコードからViewControllerの責務を正しく理解するのは難しいはずです。    
 恐らく設計理論の理解よりも先にコード(実務)を通してプログラミングを学んでいる開発者の多くは上記のように様々な処理が含まれているViewControllerを「Viewを管理する存在」ではなく、「画面開発における便利屋的な存在」と認識してしまうのではないでしょうか。    
 私はレイヤードアーキテクチャの記事でFatViewController問題の原因としてViewController-Model間の関係の論理的な理解不足を指摘しましたが、このようにコードレベルにおいてViewControllerが雑多に思える処理を抱えている状況はその関係の理解を阻んでいる一因だと思います。    
