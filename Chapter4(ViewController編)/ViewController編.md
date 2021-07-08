@@ -90,10 +90,10 @@ Container ViewControllerはあまり独自で定義することはないと思�
 記事冒頭の「[ViewControllerの基本](#ViewControllerの基本)」では、[Appleのドキュメント](https://developer.apple.com/documentation/uikit/uiviewcontroller)を引用してViewControllerの主要な責務を4点紹介し、それらはさらに「Viewの管理」へと要約できると説明しました。  
 しかしそのように責務を簡潔に表現できるのはあくまで概念上の話です。  
 実際のコードレベルにおいてViewControllerにはViewの操作、アニメーション、遷移処理、アラート操作、CollectionViewのデリゲート・データソース、その他オブジェクトの連携等、実にさまざまな処理が書かれており、中には簡単な状態変数の管理も行っているケースもあります。    
-MVCやレイヤードアーキテクチャといった設計理論を理解できている開発者であればこのように雑多に思えるコードにおいてもメタ認識によってその責務を理解することができると思います。      
-ただそうでない開発者にとってはこれらのコードからViewControllerの責務を正しく理解するのは難しいはずです。    
-恐らく設計理論の理解よりも先にコード(実務)を通してプログラミングを学んでいる開発者の多くは上記のように様々な処理が含まれているViewControllerを「Viewを管理する存在」ではなく、「画面開発における便利屋的な存在」と認識してしまうのではないでしょうか。    
-私はレイヤードアーキテクチャの記事でFatViewController問題の原因としてViewController-Model間の関係の論理的な理解不足を指摘しましたが、このようにコードレベルにおいてViewControllerが雑多に思える処理を抱えている状況はその関係の理解を阻んでいる一因だと思います。    
+恐らくレイヤードアーキテクチャ等の設計理論を理解できている開発者であれば、こうした雑多に思えるコードにおいてもメタ認識によってその責務をある程度理解できるはずです。          
+しかしViewControllerの責務はMVCやMVPなどのアーキテクチャ、またアプリの仕様といった外部環境によって変化します。    
+そのため一般的な設計やViewControllerの知識からその責務を理解することは難しく、実際のコードを読んでいく必要があります。  
+
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/コードレベルにおけるViewController.png" alt="コードレベルにおけるViewController" width=60% > 
 
 
