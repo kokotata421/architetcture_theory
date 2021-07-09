@@ -392,7 +392,7 @@ ViewControllerの一部の責務を他コンポーネントに委譲しても全
    barView.image = userInteractionEnabled ? 有効の場合の画像 : 無効の場合の画像
    barView.backgroundColor = userInteractionEnabled ? UIColor.clear : UIColor.black.withAlphaComponent(0.6)
 ```
-上記のコードはたった3行ですが、ViewContrller内で直接View操作を行うと似たような処理があちこちで実装されることになるためコード全体が煩雑化していきます。  
+上記のコードはたった3行ですが、ViewContrller内で直接View操作を行うと似たような処理があちこちで実装されるのでコード全体が煩雑化していきます。  
   
 これに対して今回提案した設計では各ViewコンポーネントはRoot Viewと呼ばれる親Viewに宣言され(Root Viewに関しては後ほど詳細を説明します)、それらの直接的な操作もViewControllerで行うのではなくRoot View内で行われるようになります。    
 従ってViewController側の実装は以下のようになります。  
