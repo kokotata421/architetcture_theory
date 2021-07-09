@@ -477,7 +477,7 @@ iOSの基本的な設計ではViewはViewController自身に宣言すること�
 ##### プログラム構造の画一化
 これは既に[この章の冒頭](#イベントを中心に据えることでViewControllerのプログラム構造も決まってくる)でお伝えしたとおりです。  
 ViewControllerのコア責務を「イベント処理」と定義することで「入力イベントの処理」と「出力イベントの処理」が主要な責務として明確になりその基本的な構造が決定されます。    
-また実際の実装では「入力イベントの処理」と「出力イベントの処理」はさらにViewコンポーネント毎に分割されるため、ViewController内の自身のタスク関連する箇所を特定しやすくなり今まで以上にスムーズな開発ができるようになります。  
+また実際の実装ではこれらの「入力イベントの処理」と「出力イベントの処理」はさらにViewコンポーネント毎に分割されるため、ViewController内の自身のタスク関連する箇所を特定しやすくなり今まで以上にスムーズな開発が行えるはずです。    
 例えばFooViewControllerにはRoot View以外に「Aコンポーネント」「Bコンポーネント」「Cコンポーネント」と3つのViewコンポーネントがあるとして、その場合ViewControllerの構造は以下のようになります。  
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/実践におけるViewControllerの入出力イベントの構造.png" alt="実践におけるViewControllerの入出力イベントの構造" width=60% > 
 
