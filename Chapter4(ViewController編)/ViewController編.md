@@ -381,7 +381,7 @@ ViewControllerの一部の責務を他コンポーネントに委譲しても全
 ここではいくつか例を紹介することでViewControllerのコードが画一化され、読みやすくなったことを確認します。  
 ##### 例1:Viewの操作
 通常の実装であれば各ViewコンポーネントはViewControllerに宣言されているためそれらを操作する場合はViewControllerが直接行う必要があります。  
-例えばBarViewのインタラクションが変更される場合にその画像や背景色も変更される処理はViewControllerに以下のように実装することになります。  
+例えばBarViewのインタラクションの状態が変更される場合にその画像や背景色も変更される処理はViewControllerに以下のように実装することになります。  
   
 コード例: Viewの操作をViewControllerで直に行った場合の実装
 ```   
@@ -394,7 +394,7 @@ ViewControllerの一部の責務を他コンポーネントに委譲しても全
 ```
 上記のコードはたった3行ですが、ViewContrller内で直接View操作を行うと似たような処理があちこちで実装されるのでコード全体が煩雑化していきます。  
   
-これに対して今回提案した設計では各ViewコンポーネントはRoot Viewと呼ばれる親Viewに宣言され(Root Viewに関しては後ほど詳細を説明します)、それらの直接的な操作もViewControllerで行うのではなくRoot View内で行われるようになります。    
+これに対して今回提案した設計では各ViewコンポーネントはRoot Viewに宣言され(Root Viewに関しては後ほど詳細を説明します)、それらの直接的な操作もViewControllerではなくRoot View内で行われています。      
 従ってViewController側の実装は以下のようになります。  
   
 コード例: Viewの操作をRoot Viewに委譲した場合のViewControllerの実装
@@ -405,7 +405,7 @@ ViewControllerの一部の責務を他コンポーネントに委譲しても全
 
    self.rootView.setBarViewInteraction(enabled: userInteractionEnabled)
 ```
-こちらの設計ではHogeViewのインタラクションが変更された際のViewコンポーネントの操作はRoot View側に実装しているためViewControllerはRoot Viewの処理を呼び出すだけです。  
+こちらの設計ではBarViewのインタラクションの状態が変更された際のViewコンポーネントの操作はRoot View側に実装しているためViewControllerはRoot Viewの処理を呼び出すだけです。  
 
 ##### 例2:Alertの表示
 続いてAlertの表示を例に説明します。  
