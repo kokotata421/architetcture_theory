@@ -288,8 +288,8 @@ ViewControllerの問題点として基本的なプログラム構造の型が存
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/ViewControllerの構造.png" alt="ViewControllerの構造" width=55% > 
 
 プログラム構造として大分わかりやすくなったのではないでしょうか。  
-最初に紹介した[4点のViewControllerの責務](#ViewControllerの責務)は概念としてはわかりやすかったものの、実際にそれを基に実装するとなるとそれぞれの責務の関係に規則性が見えないためそれらがViewController内にどのように書かれ<sup>[*8](#footnote8)</sup>、また全体としてどのような構造になるのか客観的に決めることができませんでした。        
-しかしViewControllerのコア責務を「イベント処理」と定義することで「入力イベントの処理」と「出力イベントの処理」という対等な関係にある2つの責務がプログラムの骨格を担うようになった結果、その構造が明確になりました。      
+最初に紹介した[4点のViewControllerの責務](#ViewControllerの責務)は概念としてはわかりやすかったものの、実際にそれを基に実装するとなるとそれぞれの責務の関係に規則性が見えないためそれらがViewController内にどのように書かれ<sup>[*8](#footnote8)</sup>、また全体としてどのような構造になるのか客観的に決定できませんでした。        
+しかしViewControllerのコア責務を「イベント処理」と定義することで「入力イベントの処理」と「出力イベントの処理」という対等な関係にある2つの責務がプログラムの骨格を担うようになった結果、その構造が明確になります。      
 これによってViewControllerのプログラムは以下のような構造で統一化されると思います。(これはあくまで一例であり細かい箇所において異なる形式もありえますが、大枠などれも以下のようになっているはずです。)    
 
 
@@ -358,7 +358,7 @@ extension ViewController {
 
 ### View、Alert、遷移等の具体的な操作を他コンポーネントに委譲する
 ViewControllerのコアを「UI/システムから(への)イベントを処理する機構」と定義することで「View、Alert、遷移等の具体的な操作」が二次責務となりました。  
-このアーキテクチャではViewControllerのプログラム構造をよりシンプルかつ統一的にするためにこれらの二次責務をViewControllerから他のコンポーネントに委譲します。  
+この記事で提案するアーキテクチャではViewControllerのプログラム構造をよりシンプルかつ統一的にするためにこれらの二次責務をViewControllerから他のコンポーネントに委譲します。  
   
 その場合ViewControllerの構造とその周辺関係は以下のようになります。  
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter4(ViewController編)/Images/具体的な操作処理を外部に委譲したViewController.png" alt="具体的な操作処理を外部に委譲したViewController" width=60% > 
