@@ -654,19 +654,18 @@ final class HogeRootView: UIView, AppView {
 
 ```
 
-HogeRootViewはViewControllerからViewの責務を切り離すことが目的であり、そのためこのクラスには基本的にViewControllerの責務であるViewコンポーネントの宣言、Viewの操作の処理が実装されています。  
+HogeRootViewはViewControllerからViewの責務を切り離すことが目的であり、そのためこのクラスにはそれまで基本的にViewControllerの責務であったViewコンポーネントの宣言、Viewの操作の処理が実装されています。  
 
-具体的にはhogeLabel・hogeViewColorChangeButtonの宣言と初期化処理、また画面の色のモード(ライト/ダーク)が変更された時のView操作を行うsetColorMode(lightMode: Bool)メソッドが実装されています。  
+具体的にはhogeLabel・hogeViewColorChangeButtonの宣言と初期化処理、また画面の色のモード(ライト/ダーク)が変更された時のView操作を行う`setColorMode(lightMode: Bool)`メソッドが実装されています。  
 
 そしてHogeRootViewはViewControllerのRoot Viewであることを明示するため、[ルートViewControllerの説明](#ViewControllerのRootView型をジェネリクスで指定する)でも紹介したAppViewプロトコルに準拠しています。  
-Root View内で何かセットアップが必要な場合は、このAppViewプロトコルのsetup()メソッド内に記述しましょう。  
-このメソッドはViewControllerのloadView()メソッド内で呼び出されます。  
+Root View内で何かセットアップが必要な場合は、このAppViewプロトコルの`setup()`メソッド内に記述します。  
+このメソッドはViewControllerの`loadView()`メソッド内で呼び出されます。  
 
 HogeRootViewではsetupメソッドでhogeLabelとhogeViewColorChangeButtonにアクセスしてそれぞれの遅延初期化処理を呼び出しています。  
 
 #### HogePresenterのプログラム
-この記事ではViewController-Viewの関係が主題であるためPresenterの実装は重要ではありません。  
-しかしアプリ全体の様子をより詳しく理解してもらうためPresenterの実装も載せておきます。  
+この記事ではViewController-Viewの関係が主題ではありますが、アプリ全体の様子をより詳しく理解してもらうためPresenter説明もします。    
 HogeViewControllerより先にHogePresenterの説明をするのはHogeViewControllerはPresenter側に定義しているHogePresenterOutputに準拠しているためです。  
 
 HogePresenterクラスの実装  
@@ -695,21 +694,21 @@ final class HogePresenter: HogePresenterInputs {
 }
 ```
 
-クリーンアーキテクチャ編でも説明した通り、テスト等の観点から依存関係においてプロトコルを積極的に利用した方が良くここでもそのようにしています。  
+クリーンアーキテクチャ編でも説明した通り、テスト等の観点から依存関係においてはプロトコルを積極的に利用した方が良く、ここでもそのようにしています。  
 具体的に定義しているのはHogePresenterInputsとHogePresenterOutputsという2つのプロトコルです。  
-HogePresenterInputsは画面から流れてきた入力イベントを処理する機構であり、これはHogePresenter自身が準拠しています。  
-そしてHogePresenterOutputsはPresenterの処理結果を出力する機構であり、こちらはHogeViewControllerが準拠します。  
-全体としてはHogeViewController->HogePresenterInputs(HogePresenter)->HogePresenterOutputs(HogeViewController)という処理の流れです。  
+HogePresenterInputsは画面から流れてきた入力イベントを処理する機構であり、これはHogePresenter自身が準拠します。  
+そしてHogePresenterOutputsはPresenterの出力を受け取って処理する機構であり、こちらはHogeViewControllerが準拠します。  
+全体の処理の流れでいうとHogeViewController->HogePresenterInputs(HogePresenter)->HogePresenterOutputs(HogeViewController)という感じになります。    
 
-さて、ここでの本題であるHogePresenterクラスに話を移すと、このクラスは画面の色のモード(ライト/ダーク)の状態を管理しており、それが変更された時にHogePresenterOutputsに新しい状態を通知します。  
-具体的にはHogePresenterInputsで定義したchangeColorMode()メソッドの呼び出しによって現在の状態を変更して新しい状態をHogePresenterOutputsに通知しています。  
-また色のモードの管理管理はこのHogePresenterのみで行われるべきなので、HogeViewControllerもHogeRootViewも初期の色のモードに関する状態がわかりません。  
-そのためHogePresenterでは初期の色のモードの状態をinit()内でHogePresenterOutputsに通知します。 
+さて、HogePresenterクラスに話を移すと、このクラスでは画面の色の状態(ライト/ダーク)を管理しており、それが変更された時にHogePresenterOutputsに通知しています。    
+具体的にはHogePresenterInputsで定義した`changeColorMode()`メソッド呼び出し時に現在の状態を変更してHogePresenterOutputsに通知しています。  
+また色の状態の管理はこのHogePresenterのみで行われるべきなので、HogeViewControllerもHogeRootViewも最初の色の状態がわかりません。     
+そのためHogePresenterでは初期時の色のモードを`init()`内でHogePresenterOutputsに通知します。 
 
 > 補足:  
 > 依存関係においてはプロトコルを積極的に利用した方が良いと述べましたが、  
 > ViewController-View間ではAppViewという包括的なプロトコルしか利用しておらずHogePresenterInputsのように個々のコンポーネントに対応したプロトコルは定義していません。  
-> その理由は単純に私がサンプルプロジェクトにおいてその必要性を感じなかったからです。  
+> その理由はAppViewプロトコルはかなり抽象的な。  
 > ViewController-View間ではViewからViewControllerの呼び出しはないためプロトコルを定義する必要があるとしたら各RootView毎に作成することになると思います。  
 > しかし基本的にViewのレイアウトや挙動に関するテストはデザイン側のソフトウェアを使って行うことだと思いますし、実装の差し替えも考えにくいのでViewController-View間ではAppViewプロトコルのみで十分であるというのが私の考えです。  
 
