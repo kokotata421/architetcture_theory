@@ -786,21 +786,21 @@ HogeViewControllerにおいては`viewDidLoad()`内でHogeRootViewのhogeViewCol
 ##### HogeViewControllerの出力イベント処理
 最後に出力イベント処理の実装ですが、このHogeViewControllerに出力イベント処理の実装はHogePresenterOutputsに準拠することと同義です。  
 ViewControllerにおける出力イベント処理とは言い換えればPresenterもしくはViewModel等からの出力に対応することであり、それは今回の例ではHogeViewContrllerがHogePresenterOutputsに準拠することを意味します。  
-具体的にはHogePresenterOutputsに準拠した上でその`func updateColorMode(lightMode: Bool)`メソッド内で
+具体的にはHogePresenterOutputsに準拠してその`func updateColorMode(lightMode: Bool)`メソッド内で
 ```
    self.rootView.setColorMode(lightMode: lightMode)
 ```
-と自身のRoot ViewであるHogeRootViewのメソッドを呼び出しています。  
-ここに今回の設計の特徴が一番出ていると思います。  
-一般的なViewControllerの設計では具体的なViewの操作はViewController自身が行う必要がありました。    
-しかし今回の設計ではRootView側に具体的なViewの操作を実装しており、ViewController側では行う必要があるのはRootView側の処理の呼び出しのみとなっています。  
+と自身のRoot Viewに当たるHogeRootViewのメソッドを呼び出しています。  
+ここに今回のViewController設計の特徴が一番出ていると思います。  
+一般的なViewControllerの設計では具体的なViewの操作はViewController自身が行い、命令的プログラミングで実装していました。        
+しかし今回の設計ではRootView側に具体的なViewの操作を実装しているため、ViewController側ではRootView側の処理の呼び出しのみ行っています。    
 
 > 補足:  
 > この設計ではPresenterからViewController(HogePresenterOutputs)のupdateColorMode(lightMode: Bool)メソッドを呼び出し、またそこからHogeRootViewのsetColorMode(lightMode: Bool)メソッドを呼び出していますが、これがパフォーマンス的によくないのではと思う人がいるかもしれません。  
 > 確かにここではPresenter->ViewControlelr->Root Viewと処理依頼を垂れ流してオーバーヘッドが発生しているように見えます。  
-> しかしまだ確認できてないので断言はできませんが、恐らくここではコンパイル時の最適化により最終的なプロダクトコードではオーバーヘッドが起こっていないと思います。(そのうち確認します。)    
+> しかしまだ確認できてないので断言はできませんが、恐らくコンパイル時の最適化により最終的なプロダクトコードではオーバーヘッドが起こらないと思います。(そのうち確認します。)    
 > また先にお伝えした通りViewControllerにおいて一番重要な役割は画面全体の機能(イベント)を開発者に伝えることです。  
-> そのため仮にオーバーヘッドが起こっていたとしても、処理を外部に移譲してViewControllerの可読性を上げられるならば開発においてオーバーヘッド以上の価値があるというのが私の考えです。    
+> そのため仮にオーバーヘッドが起こっていたとしても、処理を外部に移譲してViewControllerの可読性を上げられるならば十分にその価値があると思います。      
 
 ## Hogeアプリを振り返る
 ViewControllerからViewを切り離した実装例としてHogeアプリを見てきました。  
