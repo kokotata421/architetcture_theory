@@ -496,17 +496,17 @@ ViewControllerの具体的な処理を外部に委譲するようになるとそ
 ViewControllerのコア責務を「UI/システムから(への)イベントを処理」と定義することで既存の問題が解決されることを説明しました。  
 ここではその実現のために実際にViewControllerをどのように実装すれば良いか説明します。   
 ### ViewControllerからどのようにViewを切り離すか
-ViewControllerのコアを「イベント処理」と定義することで具体的な操作をViewControllerの外部に委譲すると説明しましたが、その実装の際ポイントとなるのは**ViewControllerからViewを切り離す方法**です。  
+ViewControllerのコアを「イベント処理」と定義することで具体的な操作をViewControllerの外部に委譲すると説明しましたが、その実装の際ポイントとなるのは**ViewControllerとViewの切り離し**です。  
 View以外の責務の外部化については特別なテクニックが必要なわけではないので補論で簡単に取り上げる程度に留めています。(しかし外部化以上の話、つまり外部化した上でどのように設計するべきかについては次編以降で必要に応じて説明しています。)       
 ViewControllerとViewの分離の話に戻すと、[『命令的プログラミングと宣言的プログラミングが混在する』問題の解決](#命令的プログラミングと宣言的プログラミングが混在する問題の解決)でも述べたとおりUIKitを利用したiOSアプリ開発ではViewControllerとViewは密接に関わっておりそれらを完全に切り離すのが難しいです。      
 そのためもともとViewControllerが担っていた責務を外部に委譲する上で、どのように汎用性のある形でViewを切り離したViewControllerを設計するかが重要になってきます。  
 
 ### ViewControllerのRoot&nbsp;View型をジェネリクスで指定する
-結論から言うとViewControllerからViewを切り離すために以下のようにジェネリクスを利用して自身のRoot Viewのクラスを指定できるベースViewControllerを設計しました。  
-アプリケーション内の全てのViewControllerはこのベースViewControllerクラスを継承させます。    
+結論から言うとViewControllerからViewを切り離すためにジェネリクスを利用して自身のRoot Viewのクラスを指定できるベースViewControllerを設計しました。  
+アプリケーション内の全てのViewControllerにはこのベースViewControllerクラスを継承させます。    
 
 ちなみに以下のベースViewControllerクラスの実装はInterface Builder(Storyboard/Xib)を利用せずコードのみでViewを生成・管理することを前提としています。  
-そのためInterface Builderを利用する場合は多少実装が変わると思いますが、ただその場合もジェネリクスを利用して自身のRoot Viewのクラスを指定できる仕様は必要になるはずです。  
+そのためInterface Builderを利用する場合は多少実装が変わると思いますが、ただその場合もジェネリクスを利用してRoot Viewクラスを指定できる仕様は必要になります。    
 
 ```
 protocol AppView: UIView {
@@ -534,10 +534,10 @@ class ViewController<View: AppView>: UIViewController {
 
 ```
 デフォルトのUIViewControllerからViewを切り離すことが難しかった原因はUIViewControllerのviewプロパティにあります。    
-UIViewControllerではviewプロパティを通して自身のRoot Viewにアクセスできる仕様となっていましたが、このviewプロパティはUIViewクラスのインスタンスであるためそこからその画面独自で定義したViewコンポーネントやメソッドにアクセスできません。  
-そのためViewコンポーネントやView操作のメソッドはViewController内に定義され、その中で直接操作されることが基本でした。  
+UIViewControllerではviewプロパティを通して自身のRoot Viewにアクセスできる仕様となっていましたが、このviewプロパティはUIViewクラスのインスタンスであるためそこからアクセスできるのはUIViewのメソッド・プロパティのみとなります。    
+そのためRootView内で表示する各ViewコンポーネントはViewController内で宣言され、そこで直接操作されることが基本でした。  
 
-しかし上記で実装したベースViewControllerではジェネリクスを利用して自身のRoot Viewのクラスを指定しています。(Root Viewに指定するクラスはAppViewというプロトコルに準拠している必要があります。)   
+しかし上記で実装したベースViewControllerではジェネリクスを利用してRoot Viewのクラスを指定しています。(Root Viewに指定するクラスはAppViewというプロトコルに準拠している必要があります。)   
 これによりViewControllerのrootViewプロパティを通して自身が指定したRoot Viewクラスのインスタンスにアクセスできるようになるため、Root Viewクラスに各Viewコンポーネントの宣言とそれらの操作処理メソッドを実装しても問題なくViewControllerから利用できるようになります。  
 
 > 補足:  
