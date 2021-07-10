@@ -538,21 +538,21 @@ UIViewControllerではviewプロパティを通して自身のRoot Viewにアク
 そのためRootView内で表示する各ViewコンポーネントはViewController内で宣言され、そこで直接操作されることが基本でした。  
 
 しかし上記で実装したベースViewControllerではジェネリクスを利用してRoot Viewのクラスを指定しています。(Root Viewに指定するクラスはAppViewというプロトコルに準拠している必要があります。)   
-これによりViewControllerのrootViewプロパティを通して自身が指定したRoot Viewクラスのインスタンスにアクセスできるようになるため、Root Viewクラスに各Viewコンポーネントの宣言とそれらの操作処理メソッドを実装しても問題なくViewControllerから利用できるようになります。  
+これによりViewControllerのrootViewプロパティを通して自身が指定したRoot Viewクラスのインスタンスにアクセスできるようになるため、ViewControllerではなくRoot Viewクラスに各Viewコンポーネントの宣言しても問題なくViewの処理を行えるようになりViewControllerとViewの切り離しが可能になります。      
 
 > 補足:  
 > ベースViewController内部では初期化時にviewプロパティに自身が指定したRootViewクラスのインスタンスを代入しており、rootViewプロパティではviewプロパティをRootView型に強制キャストしています。  
-> そのためViewControllerは自身のviewプロパティにRootViewクラス以外のインスタンスを代入する恐れがある場合には安全ではなくなってしまうのですが、一般的な仕様を考えればViewControllerのRoot Viewが途中で差し替えられる可能性は限りなくゼロに近いので心配する必要はないと思います。  
+> そのためViewControllerは自身のviewプロパティにRootViewクラス以外のインスタンスを代入する恐れがある場合には安全ではなくなってしまうのですが、一般的な仕様を考えればViewControllerのRoot Viewが途中で差し替えられるゼロなので心配する必要はないと思います。  
 
 
 > 補足:  
 > このベースViewControllerのrequired init?(coder: NSCoder)メソッドには  
 > fatalError("init(coder:) has not been implemented")が実装されていますが、これは厳密にはよろしくないようです。  
 > 詳しくは[こちらの記事](https://qiita.com/coe/items/9723381ec0046fd8d8ad)を読んで欲しいのですが、
-> どうやらinit?(coder: NSCoder)はInterface Builder以外でもViewController復元時に呼び出されるためしっかり実装しておいた方が良いみたいなのです。  
+> どうやら`init?(coder: NSCoder)`はInterface Builder以外でもViewController復元時に呼び出されるためしっかり実装しておいた方が良いみたいです。  
 > そのため私はまだしっかり対応できていないため手をつけていませんが、  
-> required init?(coder: NSCoder)メソッドの実装はこの例を真似せず各自調べて適切に実装しましょう。  
-> この記事では他にもViewControllerやViewの実装例が紹介されますが、上記のinit?(coder: NSCoder)の実装に関してはそれらに対しても同様です。　　
+> `required init?(coder: NSCoder)`メソッドの実装はこの例を真似せず各自調べて適切に実装しましょう。  
+> この記事では他にもViewControllerやViewの実装例が紹介されますが、上記の`init?(coder: NSCoder)`の実装に関してはそれらに対しても同様です。　　
 
 ## 実装例
 最後に先程のベースViewControllerを利用してViewControllerからViewを切り離した簡単なアプリ実装例を紹介します。  
