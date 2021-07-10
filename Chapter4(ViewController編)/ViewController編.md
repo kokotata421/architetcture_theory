@@ -708,9 +708,9 @@ HogePresenterInputsは画面から流れてきた入力イベントを処理す�
 > 補足:  
 > 依存関係においてはプロトコルを積極的に利用した方が良いと述べましたが、  
 > ViewController-View間ではAppViewという包括的なプロトコルしか利用しておらずHogePresenterInputsのように個々のコンポーネントに対応したプロトコルは定義していません。  
-> これはViewController-View間でテスト等ためにコンポーネントを差し替える必要があまりないからです。  
+> これはViewController-View間でコンポーネントを差し替える必要があまりないからです。  
 > 基本的にViewのレイアウトや挙動に関するテストはデザイン側のソフトウェアを使って行うことが可能ですし、実装の差し替えのためにプロトコルが必要になるケースは考えにくいです。  
-> そのためViewController-View間ではAppViewプロトコルのみで十分だと思います。  
+> そのためViewController-View間ではAppViewプロトコルのみで十分で個々のRootView毎にプロトコルを定義する必要はないと思います。    
 
 #### HogeViewControllerのプログラム
 最後にここでの主題であるViewControllerの実装を見てみます。  
