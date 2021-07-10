@@ -546,13 +546,13 @@ UIViewControllerではviewプロパティを通して自身のRoot Viewにアク
 
 
 > 補足:  
-> このベースViewControllerの`required init?(coder: NSCoder)`メソッドには  
-> `fatalError("init(coder:) has not been implemented")`が実装されていますが、これは厳密にはよろしくないようです。  
+> このベースViewControllerのrequired init?(coder: NSCoder)メソッドには  
+> fatalError("init(coder:) has not been implemented")が実装されていますが、これは厳密にはよろしくないようです。  
 > 詳しくは[こちらの記事](https://qiita.com/coe/items/9723381ec0046fd8d8ad)を読んで欲しいのですが、
-> どうやら`init?(coder: NSCoder)`はInterface Builder以外でもViewController復元時に呼び出されるためしっかり実装しておいた方が良いみたいです。  
+> どうやらinit?(coder: NSCoder)はInterface Builder以外でもViewController復元時に呼び出されるためしっかり実装しておいた方が良いみたいです。  
 > そのため私はまだしっかり対応できていないため手をつけていませんが、  
-> `required init?(coder: NSCoder)`メソッドの実装はこの例を真似せず各自調べて適切に実装しましょう。  
-> この記事では他にもViewControllerやViewの実装例が紹介されますが、上記の`init?(coder: NSCoder)`の実装に関してはそれらに対しても同様です。　　
+> required init?(coder: NSCoder)メソッドの実装はこの例を真似せず各自調べて適切に実装しましょう。  
+> この記事では他にもViewControllerやViewの実装例が紹介されますが、上記のinit?(coder: NSCoder)の実装に関してはそれらに対しても同様です。　　
 
 ## 実装例
 最後に先程のベースViewControllerを利用してViewControllerからViewを切り離した簡単なアプリ実装例を紹介します。  
