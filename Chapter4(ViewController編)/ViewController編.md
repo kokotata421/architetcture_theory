@@ -514,19 +514,20 @@ protocol AppView: UIView {
 }
 
 class ViewController<View: AppView>: UIViewController {
-    var rootView: View { self.view as! View }
+    var rootView: View {
+        return self.view as! View
+    }
     
-    init(view: View = View(frame: .zero)) {
-        self.view = view
+    init() {
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
-    override func loadView() {
+        
+    final override func loadView() {
+        self.view = View()
         self.rootView.setup()
     }
 }
