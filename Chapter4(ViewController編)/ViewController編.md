@@ -819,7 +819,7 @@ ViewControllerからViewを切り離した実装例としてHogeアプリを見�
 - そうした再定義によりViewControllerは概念上のみならず実装上も単純な構造を持つようになり、プログラムの可読性・変更容易性は大きく向上する
 
 
-## 補論:七変化ViewController
+## 補論:コードから設計を学ぶことの限界
 ### ViewControllerの責務は状況によって変化する
 本記事内でViewControllerの責務が理解しづらいのはコードレベルにおいてViewControllerが雑多な処理を抱えているからであると述べたましたが、より本質的な原因としては責務が環境によって変化してしまうViewControllerの性質が挙げられると思います。  
 例えばそのアプリがMVPであるのかMVCであるのかによってViewControllerの責務は変わってきます。  
