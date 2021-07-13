@@ -893,9 +893,9 @@ NotificationCenterからの通知処理(出力)はViewControllerの入力処理�
 そのためNotificationCenterからの通知処理(出力)が連携するのはViewControllerの出力処理ではなく入力処理になります。  
   
 ### Delegate/DataSource
-ここではCollectionViewのDelegate/DataSourceについて説明します。  
+次にCollectionViewのDelegate/DataSourceについて説明します。  
 ちなみに直接言及はしませんが、ここでのCollectionViewの内容はそのままTableViewにも当てはまります。  
-またここでは概要の説明に留め、次のView/Alert編でもう少し詳細に触れようと思います。  
+またここでは概要のみ説明しますが、DataSourceに関しては次のView/Alert/Data Source編でもう少し詳細に触れる予定です。  
 #### Delegate-ViewControllerの入力処理、DataSource-ViewControllerの出力処理
 まず基本的なことから説明すると、CollectionViewのDelegateの実装はViewControllerにおける入力処理、DataSourceの実装は出力処理と関係しています。    
 これはDelegateに定義されているのがセルのタップ等CollectionViewにおけるイベント発生時の処理に関するメソッドであること、またDataSourceに定義されているのがセルの表示に関するメソッドであることを考えればわかると思います。  
@@ -903,9 +903,46 @@ NotificationCenterからの通知処理(出力)はViewControllerの入力処理�
 Delegateの実装に関してはいくつかパターンがあり、それぞれ一長一短あるためどの方法を採用するかは開発者自身で決めるのが良いでしょう。  
 
 ##### ViewControllerに直に実装する
-Delegateに関してはViewControllerに直接実装する方法もありだと思います。  
-本記事ではViewControllerの責務をイベント処理の機構として具体的な処理を外部に委譲することを提案しましたが、CollectionViewのDelegateメソッドはその一つ一つがCollectionViewからの入力処理に対応しており、また各Delegateメソッドの実装は対応するPresenter(ViewModel)側のメソッドの呼び出しに留まります。  
-そのためDelegateを直接ViewControllerで実装しても本記事が目的とする統一的なViewControllerの構造が破壊されることも、ViewController内の宣言的プログラミングの方針が破られる恐れもありません。  
+DelegateはViewControllerに直接実装するのも一つの手です。    
+本記事ではViewControllerの責務をイベント処理の機構として具体的な処理を外部に委譲することを提案しましたが、CollectionViewのDelegateメソッドはその一つ一つがCollectionViewからの入力処理に対応しており、また各Delegateメソッドの実装は対応するPresenter(ViewModel)側のメソッドの呼び出しのみとなるはずです。    
+そのためDelegateを直接ViewControllerで実装しても本記事が目的とする統一的なViewControllerの構造が破壊されることも、ViewController内の宣言的プログラミングの方針が破られる恐れもあまりありません。  
+
+ただ以下のコードで示すようにViewControllerをUICollectionViewDelegateに準拠させた場合、CollectionView以外のイベント入力処理はviewDidLoad()メソッド内でCollectionViewのイベントはDelegateメソッドで実装することになり若干統一性が落ちます。  
+またDelegateメソッドには純粋な入力処理以外にも入力処理に関する設定を定義する(インタラクションの管理)メソッドもあり、ここでロジック判定が必要な場合には手続き的プログラミングで実装する必要があるため他の方法を採用する等の検討が必要です。  
+
+HogeアプリでHogeViewControllerがUICollectionViewDelegateに準拠した場合のコード例
+```
+final class HogeViewController<Presenter: HogePresenterInputs>: ViewController<HogeRootView>, HogePresenterOutputs, UICollectionViewDelegate {
+    ...
+    
+    //MARK: HogeViewController Inputs
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.rootView
+            .hogeViewColorChangeButton
+            .addAction(
+                UIAction(handler: { [weak self] _ in
+                    self?.presenter.changeColorMode()
+                }),
+                for: .touchUpInside
+            )
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // セルTap時のイベントに対応したPresenterメソッドの呼び出し
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+        // セルハイライト時のイベントに対応したPresenterメソッドの呼び出し
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        // セルのインタラクションの有無
+        true
+    }
+    ...
+```
+
 
 ##### Delegateのラッパークラス/Delegateに準拠したベースCollectionViewクラスを実装する
 Delegateをラップしたクラスを実装のも一つの手でしょう。  
@@ -916,7 +953,7 @@ Delegateをラップしたクラスを実装のも一つの手でしょう。
 
 ##### RxCocoaを利用する
 RxCocoaを利用するのも一つの解決策です。  
-RxCocoaは外部ライブラリなので好き嫌いはあると思いますが、UI層自体がiOSアプリではUIKitフレームワークなのでここで外部ライブラリを利用することは設計論的観点からするとおかしなことではありません。  
+RxCocoaは外部ライブラリなので好き嫌いはあると思いますが、UI層自体がiOSアプリではUIKitフレームワークなのでここで外部ライブラリを利用することは設計論的には特に問題ありません。  
 何よりRxCocoaを利用することで以下のようにDelegateメソッドをCollectionView自身の一部のように扱うことができるようになり、さらに先程の自作ラッパークラスを実装する方法のように開発の手間が増えることもありません。    
 ```
 collectionView.rx.itemSelected
