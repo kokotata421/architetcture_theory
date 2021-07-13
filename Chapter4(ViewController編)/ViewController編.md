@@ -856,9 +856,10 @@ struct Landmark: Hashable, Codable {
 }
 ```
 <sup>引用元： [https://developer.apple.com/tutorials/swiftui/building-lists-and-navigation](https://developer.apple.com/tutorials/swiftui/building-lists-and-navigation)</sup>  
-しかし、Appleはここでの主旨がSwift UIのチュートリアルであることを考慮して、あえてDomainオブジェクトを便宜的に設計しているのだと思います。  
+ただこの例では、Appleはチュートリアルの趣旨がSwiftUIの実装方法にあることを考慮して、あえてDomainオブジェクトを便宜的に設計しているのだと思います。  
+私たちが普段目にするコードは特定の目的に伝えるためであり、そこで設計に忠実であろうと
 
-このように私たちが普段目にするコードは特定の目的に沿って便宜的に実装されており設計論的観点から正しくない例は多くあります。    
+便宜的に実装されており設計論的観点から正しくない例は多くあります。    
 そのため設計を理解を深めるためにはコードから学ぶだけではなく、理論を通して様々な状況に通底する原理・原則を学んでいく必要があります。  
 
 
