@@ -1035,10 +1035,8 @@ final class HogeViewController<Presenter: HogePresenterInputs>: ViewController<H
 
 ### DI実装時はConstructor Injectionの方法を模索する
 今回の例でみたようにDIを初期化時に行うことは(Constructor Injection)設計において重要です。  
-Constructor Injectionによってそのコンポーネントは挙動に関する原因を自身の実装内から見つけることができるため、 
-
-DIを初期化時に行うことで(Constructor Injection)そのコンポーネントは挙動を自分自身で制御しやすくなります。  
-
+Constructor Injectionによって長期的な開発で変更が頻発しても各コンポーネントの挙動は予測しやすくなります。    
+そのためDIを設計する際にはConstructor Injectionでできる方法はないか探してみると良いと思います。  
 
 ## 脚注
 <a name="footnote1">*1</a>: 複数点あり原文(英語)も載せると見づらくなってしまうため、意訳のみ載せています。  
