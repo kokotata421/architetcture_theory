@@ -856,7 +856,7 @@ struct Landmark: Hashable, Codable {
 }
 ```
 <sup>引用元： [https://developer.apple.com/tutorials/swiftui/building-lists-and-navigation](https://developer.apple.com/tutorials/swiftui/building-lists-and-navigation)</sup>  
-ただこの例では、Appleはチュートリアルの趣旨がSwiftUIの実装方法にあることを考慮して、あえてDomainオブジェクトを便宜的に設計しているのだと思います。  
+しかしこの例は決して間違っているわけではなく、Appleはチュートリアルの趣旨がSwiftUIの実装方法にあることを考慮してあえてDomainオブジェクトを便宜的に設計しているのだと思います。  
   
 このように私たちが普段ネットで目にするコードは特定の目的に沿って便宜的に実装されていて、設計論的観点からは正しくない場合が多いです。        
 そのため設計を理解を深めるためにはコードから学ぶだけではなく、理論を通して様々な状況に通底する原理・原則を学んでいく必要があります。  
@@ -866,7 +866,7 @@ struct Landmark: Hashable, Codable {
 本記事では本来ViewControllerに属していた責務を外部に委譲する設計を提案しましたが、その具体的な方法についてはView以外特別なテクニックを要するわけではないので言及はしませんでした。  
 しかしそれらに全く言及しないのもおかしいと思うので、ここでは本記事内で触れなかった責務の委譲方法について簡単に説明します。 
 ### Router
-まず基本的にこの記事にあるようにRouterにViewControllerを渡してそちらで通常の遷移処理を行うだけです。  
+まず基本的に[こちらのVIPERの記事](https://qiita.com/hicka04/items/09534b5daffec33b2bec)で述べられているようにRouterにViewControllerを渡してそちらで通常の遷移処理を行うだけです。  
 ただ遷移処理のRouterへの外部化ではなく遷移処理自体の実装に関しては独自な設計をしている箇所があり、その詳細は画面遷移編でお話しします。  
 ### Alert 
 AlertもRouterと同じです。  
@@ -881,7 +881,7 @@ NotificationCenterについてはデフォルトでViewControllerの外にある
 Combineを利用することで通常よりもスマートな実装が可能になるからです。  
 #### Notification CenterとViewController間の連携
 ##### Notification Centerへの通知の登録
-NotifactionCenterへの通知の登録をViewControllerで行う場合は初期設定時に行うことになります。  
+NotifactionCenterへの通知の登録はViewControllerの初期設定時に行います。    
 具体的にはViewControllerのviewDidLoadメソッドで行われることが多いでしょう。  
 ##### Notification Centerへの通知処理(入力処理)
 NotificationCenterへの通知の送信(入力)は画面の出力の結果として行われるため、ViewControllerの出力処理と連携する形となります。  
