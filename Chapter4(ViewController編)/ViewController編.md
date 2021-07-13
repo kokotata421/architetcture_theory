@@ -824,6 +824,7 @@ ViewControllerからViewを切り離した実装例としてHogeアプリを見�
 そのため設計論を押さえずにコードから設計を学ぼうとすると混乱してしまう場合があります。    
 
 例えばSwift UIの公式チュートリアルではLandmarkというDomainオブジェクトがSwift UIとCoreLocationのフレームワークをインポートしてそのAPIを利用していますが、このようなオブジェクト構造は本来、設計論的な観点からは正しくありません。   
+設計の基本原則からするとDomainオブジェクトはUIや外部フレームワークとは切り離されているべきです。
 ```
 import Foundation
 import SwiftUI
@@ -855,12 +856,10 @@ struct Landmark: Hashable, Codable {
 }
 ```
 <sup>引用元： [https://developer.apple.com/tutorials/swiftui/building-lists-and-navigation](https://developer.apple.com/tutorials/swiftui/building-lists-and-navigation)</sup>  
- 
-設計の基本原則からするとDomainオブジェクトはUIや外部フレームワークとは切り離されているべきです。
-しかしAppleはここでの主旨がSwift UIのチュートリアルであることを考慮して、あえてDomainオブジェクトを便宜的に設計しているのだと思います。  
+しかし、Appleはここでの主旨がSwift UIのチュートリアルであることを考慮して、あえてDomainオブジェクトを便宜的に設計しているのだと思います。  
 
-このように私たちが普段目にするコードは特定の目的に沿って便宜的に実装されており設計論的観点からは正しくない例も多くあります。    
-そのため設計を理解を深めるためにはコードから学ぶだけでは不十分であり、理論を通して様々な状況に通底する原理・原則を学んでいく必要があります。  
+このように私たちが普段目にするコードは特定の目的に沿って便宜的に実装されており設計論的観点から正しくない例は多くあります。    
+そのため設計を理解を深めるためにはコードから学ぶだけではなく、理論を通して様々な状況に通底する原理・原則を学んでいく必要があります。  
 
 
 ## 補論:View以外の責務の委譲
