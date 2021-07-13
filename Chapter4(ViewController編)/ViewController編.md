@@ -820,12 +820,9 @@ ViewControllerからViewを切り離した実装例としてHogeアプリを見�
 
 
 ## 補論:コードから設計を学ぶことの限界
-### ViewControllerの責務は状況によって変化する
 本記事内で説明したようにViewControllerの責務は採用しているアーキテクチャやアプリ規模等によって変化しますが、このように状況で責務が変化する性質は程度こそ小さくなりますが他のコンポーネントにもあります。  
 そのため設計論を押さえずにコードから設計を学ぼうとすると混乱してしまうケースがあると思います。  
-私たちが普段ネット上で見かけるコードは便宜的に実装されていることが多く、それぞれの責務が微妙に異なるため何が適切な設計であるのかわからなくなってしまいます。  
 
-### Appleなど信頼できるソースが例示するコードも設計的に必ず正しいわけではない
 例えばSwift UIの公式チュートリアルではLandmarkというDomainオブジェクトがSwift UIとCoreLocationのフレームワークをインポートしてそのAPIを利用しています。    
 ```
 import Foundation
@@ -858,7 +855,9 @@ struct Landmark: Hashable, Codable {
 }
 ```
 <sup>引用元： [https://developer.apple.com/tutorials/swiftui/building-lists-and-navigation](https://developer.apple.com/tutorials/swiftui/building-lists-and-navigation)</sup>  
-設計の基本原則からするとDomainオブジェクトでUIや外部フレームワークの情報を扱うのはよくありません。  
+このようなオブジェクト構造は設計論的な観点からは正しくありません。  
+設計の基本原則からするとDomainオブジェクトはUIや外部フレームワークとは切り離されているべきです。
+
 しかしこれも先ほどの例と同様で、ここでの主旨はSwift UIの実装方法にあるためDomainオブジェクトの設計は便宜的に済ましていて、決してAppleのコードが間違っているわけではありません。    
 
 ViewControllerは特に責務が定まっていないコンポーネントだと思いますが、このように私たちが普段目にするコードは特定の目的に沿って簡易的に実装されており設計論的観点からは良くない例も多い印象です。  
