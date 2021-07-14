@@ -1034,8 +1034,7 @@ final class HogeViewController<Presenter: HogePresenterInputs>: ViewController<H
 それによってHogeViewControllerはPresenterのDIを行う必要がなくなり、Setter Injection・Method Injectionを利用せずにPresenter側のConstructor Injectionのみで依存関係が解決することが可能になりました。  
 
 ### DI実装時はConstructor Injectionの方法を模索する
-今回の例でみたようにDIを初期化時に行うことは(Constructor Injection)設計において重要です。  
-Constructor Injectionによって長期的な開発で変更が頻発しても各コンポーネントの挙動は予測しやすくなります。    
+今回の例でみたようにConstructor Injectionによって長期的な開発で変更が頻発しても各コンポーネントの挙動は予測しやすくな理、 
 そのためDIを設計する際にはConstructor Injectionでできる方法はないか探してみると良いと思います。  
 
 ## 脚注
