@@ -34,10 +34,10 @@
 本記事ではそのようにViewControllerの外部へと移譲されたView、Alert、DataSourceをどのように設計・実装すれば良いかについて考えていきます。  
 
 ## Viewの設計を説明するにあたり
-前回のViewController設計の記事で、従来のiOSアプリの設計におけるViewControllerとViewの関係があまりに近しかったためViewの設計についても基本的なことはほとんど書いてしまいました。  
-ただ今回の設計においてViewはViewContorllerと明確に区別され独立した重要な機構として存在しているため、内容は前回記事と重複する箇所もありますが再度Viewの設計について書いていきます。    
-なのでViewControllerの記事でViewの概要について理解できている人は
-読んだ人はAlertの説明箇所まで読み飛ばしてもらって大丈夫です。    
+従来のiOSアプリの設計におけるViewControllerとViewの関係があまりに近しいため、前回のViewController設計の記事でViewの設計についても基本的なことはほとんど書いてしまいました。  
+ただ今回の設計においてViewはViewContorllerと明確に区別され独立した重要な機構です。  
+そのため内容は前回記事と重複する箇所もありますが再度Viewの設計について書いていきます。    
+前回の記事を読んだ人はAlertの説明箇所まで読み飛ばしてもらって大丈夫です。    
 
 ## Viewの設計
 さて既にお伝えした通り、今回の設計ではViewをViewControllerとは明確に切り離しており、そのための実装としてViewController毎に独自のRootViewクラスの定義を必須としています。  
