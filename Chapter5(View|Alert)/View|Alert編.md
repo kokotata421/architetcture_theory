@@ -40,8 +40,9 @@
 前回の記事を読んだ人はAlertの説明箇所まで読み飛ばしてもらって大丈夫です。    
 
 ## Viewの設計
-さて既にお伝えした通り、今回の設計ではViewをViewControllerとは明確に切り離しており、そのための実装としてViewController毎に独自のRootViewクラスの定義を必須としています。  
+さて、既にお伝えした通り今回の設計ではViewをViewControllerとは明確に切り離しており、実装においてViewController毎の独自RootViewクラスの指定を必須としています。  
 ここでは前回の記事の例でも出したHogeRootViewを参考にその独自のRootViewクラスをどのように定義、実装していけば良いか説明します。  
+なお冒頭の前提でも述べた通り、UIはInterface Builderを利用せずコードを使って生成しています。   
 
 
 ### HogeRootViewの例
