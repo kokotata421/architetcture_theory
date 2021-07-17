@@ -46,7 +46,7 @@
 
 
 ### HogeRootViewの例
-さっそくですが、HogeRootViewはHogeViewControllerのRootViewでありUI的には以下のような画面構成になっています。  
+さっそくですが、HogeRootViewはHogeViewControllerのRootViewであり画面の構成は以下のようになっています。    
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter5(View%7CAlert)/Images/RootViewの構成.png" alt="RootViewの構成" width=60% > 
 
 実装も以下に記載している通りです。  
