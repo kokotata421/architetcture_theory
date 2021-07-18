@@ -49,7 +49,7 @@
 さっそくですが、HogeRootViewはHogeViewControllerのRootViewであり画面の構成は以下のようになっています。    
 <img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter5(View%7CAlert)/Images/RootViewの構成.png" alt="RootViewの構成" width=60% > 
 
-実装も以下に記載している通りです。  
+実装も以下に記載します。  
 ```
 protocol AppView: UIView {
     func setup()
@@ -150,22 +150,24 @@ class ViewController<View: AppView>: UIViewController {
 ```
 指定したRootViewクラスのインスタンスにはrootViewプロパティからアクセス可能です。  
 
-今回のHogeRootViewに対応するViewControllerは
+今回のHogeRootViewに対応するHogeViewControllerは
 ```
 class HogeViewController: ViewController<HogeRootView> {
    ...
 }
 ```
-というように定義していきます。  
+というように定義しています。  
+またこれは後ほど詳しく説明しますが、RootViewクラスのインスタンスはloadView()メソッド内で生成して、自身のviewプロパティに代入しています。  
 #### RootViewクラスはAppViewプロトコルに準拠する
 次にHogeRootViewのコード冒頭に書かれているAppViewプロトコルについてです。  
 このAppViewは各ViewControllerのRootViewであることを明示するためのプロトコルであり、RootViewとなるViewはこのプロトコルに準拠している必要があります。  
 そして各RootViewでセットアップ処理を行いたい場合はこのAppViewプロトコルのsetup()メソッドにその処理を実装します。  
 今回の例ではsetup()メソッド内でhogeLabelとhogeViewColorChangeButtonにアクセスして、両UIコンポーネントの遅延生成処理を発動させています。  
-  
-次にHogeRootViewのsetColorMode(lightMode: Bool)メソッドについてです。  
-この画面ではhogeViewColorChangeButtonにタップすることで画面全体の色を変えられる仕様になっており、setColorMode(lightMode: Bool)はその色の変更を実行するメソッドとなります。  
+ちなみに先の基底ViewControllerクラスを見たらわかる通り、このsetup()メソッドはViewControllerのloadView()メソッド内で呼ばれます。  
 
+#### HogeRootViewのsetColorMode(lightMode: Bool)メソッド 
+この画面ではhogeViewColorChangeButtonにタップすることで画面全体の色を変えられる仕様になっており、setColorMode(lightMode: Bool)はその色の変更を実行するメソッドとなります。  
+今回のように
 
 
 ## Alertの設計
