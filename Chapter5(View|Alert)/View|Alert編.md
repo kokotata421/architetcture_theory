@@ -132,6 +132,23 @@ final class HogeRootView: UIView, AppView {
 ```
 
 最初に今回のケースの概要について簡単に説明をしておきます。  
+まず今回のViewの独立にあたり以下のようなViewControllerの基底クラスを作っています。(以下のコードではRootViewに関係のある箇所のみ抽出しています。)  
+```
+class ViewController<View: AppView>: UIViewController {
+    var rootView: View {
+        return self.view as! View
+    }
+    ...
+        
+    final override func loadView() {
+        self.view = View()
+        self.rootView.setup()
+    }
+    
+}
+```
+
+
 1点目は実装コードの冒頭に書かれているAppViewプロトコルについてです。  
 このAppViewは各ViewControllerのRootViewであることを明示するためのプロトコルであり、RootViewとなるViewはこのプロトコルに準拠している必要があります。  
 そして各RootViewでセットアップ処理を行いたい場合はこのAppViewプロトコルのsetup()メソッドにその処理を実装します。  
