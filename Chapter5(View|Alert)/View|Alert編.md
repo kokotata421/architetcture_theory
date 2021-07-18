@@ -170,4 +170,5 @@ class HogeViewController: ViewController<HogeRootView> {
 今回のようにViewをViewControllerから切り離した設計では、Viewに関する処理のメソッドは全てViewクラスに定義・実装していくことになります。  
 
 
+
 ## Alertの設計
