@@ -39,7 +39,7 @@
 そのため内容は前回記事と重複する箇所もありますが再度Viewの設計について書いていきます。    
 前回の記事を読んだ人はAlertの説明箇所まで読み飛ばしてもらって大丈夫です。    
 
-## Viewの設計
+## ViewControllerから独立したViewの実現
 さて、既にお伝えした通り今回の設計ではViewをViewControllerとは明確に切り離しており、実装においてViewController毎の独自RootViewクラスの指定を必須としています。  
 ここでは前回の記事の例でも出したHogeRootViewを参考にその独自のRootViewクラスをどのように定義、実装していけば良いか説明します。  
 なお冒頭の前提でも述べた通り、UIはInterface Builderを利用せずコードを使って生成しています。   
@@ -132,7 +132,7 @@ final class HogeRootView: UIView, AppView {
 ```
 
 最初に今回のケースの概要について簡単に説明をしておきます。  
-まず今回のViewの独立にあたり以下のようなViewControllerの基底クラスを作っています。(以下のコードではRootViewに関係のある箇所のみ抽出しています。)  
+まず今回のViewの独立にあたり以下のようなViewControllerを基底クラスとして利用しています。(以下のコードではRootViewに関係のある箇所のみ抽出しています。)  
 ```
 class ViewController<View: AppView>: UIViewController {
     var rootView: View {
@@ -147,9 +147,9 @@ class ViewController<View: AppView>: UIViewController {
     
 }
 ```
+このようにViewControllerのジェネリクスで自身のRootViewクラスを指定することにより、rootViewプロパティからRootViewクラスのインスタンスにアクセス可能になっています。  
 
-
-1点目は実装コードの冒頭に書かれているAppViewプロトコルについてです。  
+次にHogeRootViewのコード冒頭に書かれているAppViewプロトコルについてです。  
 このAppViewは各ViewControllerのRootViewであることを明示するためのプロトコルであり、RootViewとなるViewはこのプロトコルに準拠している必要があります。  
 そして各RootViewでセットアップ処理を行いたい場合はこのAppViewプロトコルのsetup()メソッドにその処理を実装します。  
 今回の例ではsetup()メソッド内でhogeLabelとhogeViewColorChangeButtonにアクセスして、両UIコンポーネントの遅延生成処理を発動させています。  
@@ -157,7 +157,6 @@ class ViewController<View: AppView>: UIViewController {
 次にHogeRootViewのsetColorMode(lightMode: Bool)メソッドについてです。  
 この画面ではhogeViewColorChangeButtonにタップすることで画面全体の色を変えられる仕様になっており、setColorMode(lightMode: Bool)はその色の変更を実行するメソッドとなります。  
 
-そして最後に
 
 
 ## Alertの設計
