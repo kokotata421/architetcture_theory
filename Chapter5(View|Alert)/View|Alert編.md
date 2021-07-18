@@ -167,7 +167,7 @@ class HogeViewController: ViewController<HogeRootView> {
 
 #### HogeRootViewのsetColorMode(lightMode: Bool)メソッド 
 この画面ではhogeViewColorChangeButtonにタップすることで画面全体の色を変えられる仕様になっており、setColorMode(lightMode: Bool)はその色の変更を実行するメソッドとなります。  
-今回のように
+今回のようにViewをViewControllerから切り離した設計では、Viewに関する処理のメソッドは全てViewクラスに定義・実装していくことになります。  
 
 
 ## Alertの設計
