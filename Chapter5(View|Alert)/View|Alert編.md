@@ -189,11 +189,12 @@ RootViewからの入力イベントは全てViewController側で管理するの�
 そのためViewにDIが必要な場合にはViewControllerの出力イベントに合わせて、ViewControllerからViewに対して行えば十分要件を満たすことが可能です。  
 またViewへ渡すデータは恐らく最終的にViewインスタンスのプロパティとして保持されると思うので、メソッドを通してDIを実行してもそれが原因で有値オプショナル(!)型の変数が発生することはありません。  
 
->補足:
+>補足:  
 >ViewController編の補論「3つのDI(Dependency Injection)」では初期化時のDIが理想であるといい、その根拠に「各挙動の原因はそのオブジェクト内部に限定できる」ことを挙げています。  
->しかし今回のケースでは上記のメリットよりデメリットの方が大きいので初期化時のDIは利用していません。
->その理由としては本文内でも述べた通りViewControllerの出力イベントに合わせて、ViewControllerからViewに対してDIを行っても不都合はないからです。  
->Viewの初期時に必要なコンポーネントがある場合もViewControllerのviewDidLoad()イベントに合わせて渡せば良いと思います。
+>ただ今回のケースでは上記のメリットよりデメリットの方が大きいので初期化時のDIは利用していません。
+>上記本文内でも述べた通りViewにコンポーネントを渡す必要があるのはView更新時であり、そのため初期化時ではなくViewControllerのイベント時にViewControllerからViewにコンポーネントを渡せば問題は起こりません。  
+>Viewの最初の状態のために必要のあるDIもViewControllerのviewDidLoad()を介したタイミングで行えば良いと思います。  
+>もし各RootViewで初期化時のDIを行うならば、様々な状況が想定しなければならず汎用性のあるViewControllerとViewを切り離した設計は非常に難しくなります。  
 >
 
 #### init(frame:CGRect)の実装が必須
