@@ -169,7 +169,11 @@ class HogeViewController: ViewController<HogeRootView> {
 この画面ではhogeViewColorChangeButtonにタップすることで画面全体の色を変えられる仕様になっており、setColorMode(lightMode: Bool)はその色の変更を実行するメソッドとなります。  
 今回のようにViewをViewControllerから切り離した設計では、Viewに関する処理のメソッドは全てViewクラスに定義・実装していくことになります。  
 
-### Viewの設計について
-
+### Viewの設計の基礎
+HogeRootViewの例をみて大体わかったと思いますが、ViewControllerから切り離されたRootViewではViewの宣言、生成処理(Interface Builderを利用していない場合)、View全体の初期化処理、Viewの操作処理、とViewに関わるあらゆる定義と実装がなされることになります。  
+そしてこれらをRootViewに定義・実装する際には、特に特別な工夫は必要ありません。    
+RootViewからの入力イベントは全てViewController側で管理するので、RootView自体は各Viewコンポーネントの出力に特化しており責務もデータフローも単純です。 
+そのため構造としての複雑性は非常に低く、責務をただ順々に書き連ねても開発で問題が起こることはないと思います。    
+あえて何かいうならば、一般的な感覚でいうと責務を書き連ねる順番は宣言(生成処理)->View全体の初期化->Viewの操作メソッドの順が妥当であるということぐらいでしょうか。    
 
 ## Alertの設計
