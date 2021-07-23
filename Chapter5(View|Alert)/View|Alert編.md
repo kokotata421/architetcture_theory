@@ -180,23 +180,14 @@ RootViewからの入力イベントは全てViewController側で管理するの�
 上記の通りViewの設計については基本的な責務さえ理解しているだけで十分です。  
 ただそれでも2点ほど留意しておきたい点があるのでここではそれらについて説明します。
 
-#### RootViewでは初期化時にDIを行わない
+#### RootViewでは初期化時にデータを渡さない
 既に示した基底ViewControllerを見てもわかる通り、ViewController内でRootViewは一切のパラメータなしで初期化されています。  
-基底ViewControllerクラスがこのように設計されていることによりどのRootViewも初期化時のデータの受け渡しを行うことができないわけですが、それが原因で何か問題が起きたりしないでしょうか。　　
+基底ViewControllerクラスがこのように設計されていることにより全てのRootViewで初期化時のデータの受け渡しができなくなるわけですが、それが原因で何か問題が起きたりしないでしょうか。　　
   
 結論を先に言うと、私は大丈夫だと思っています。  
 先ほども述べた通りRootView責務は各Viewコンポーネントの出力に特化していて、通常その出力はViewController側のイベントをトリガーに発生します。  
-そのためViewにDIが必要な場合にはViewControllerの出力イベントに合わせて、ViewControllerからViewに対して行えば十分要件を満たすことが可能です。  
-またViewへ渡すデータは恐らく最終的にViewインスタンスのプロパティとして保持されると思うので、メソッドを通してDIを実行してもそれが原因で有値オプショナル(!)型の変数が発生することはありません。  
-
->補足:  
->ViewController編の補論「3つのDI(Dependency Injection)」では初期化時のDIが理想であるといい、その根拠に「各挙動の原因はそのオブジェクト内部に限定できる」ことを挙げています。  
->ただ今回のケースでは上記のメリットよりデメリットの方が大きいので初期化時のDIは利用していません。  
->上記本文内でも述べた通りViewにコンポーネントを渡す必要があるのはView更新時であり、そのためRootView初期化時ではなくViewControllerのイベント時にViewControllerからViewにコンポーネントを渡せば特に問題は起こらないからです。  
->Viewの最初の状態のために必要なDIもViewControllerのviewDidLoad()を介したタイミングで行えば良いと思います。  
->もし各RootViewで初期化時のDIを行うならば、様々な状況が想定しなければならず汎用性のあるViewControllerとViewを切り離した設計を考えるのは非常に難しくなります。  
->そのため今回のRootViewの設計では初期化時のDIは不可で固定することで、単一の基底ViewControllerクラスのみでViewControllerとViewの切り離しを可能にしています。  
-
+そのためViewに外部からのデータが必要な場合にはViewControllerの出力イベントに合わせて、ViewControllerから渡せば十分要件を満たすことが可能です。  
+V
 #### init(frame:CGRect)の実装が必須
 RootViewでは
 
