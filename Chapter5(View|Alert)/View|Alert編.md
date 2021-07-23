@@ -187,7 +187,11 @@ RootViewからの入力イベントは全てViewController側で管理するの�
 結論を先に言うと、私は大丈夫だと思っています。  
 先ほども述べた通りRootView責務は各Viewコンポーネントの出力に特化していて、通常その出力はViewController側のイベントをトリガーに発生します。  
 そのためViewに外部からのデータが必要な場合にはViewControllerの出力イベントに合わせて、ViewControllerから渡せば十分要件を満たすことが可能です。  
-V
+Viewの初期状態に必要なデータもViewの初期化時ではなくViewControllerのviewDidLoad()メソッドを介したタイミングで行えば問題ないと思います。  
+
+もし各RootViewの初期化時のデータ受け渡しを許すのならば、その初期化のパターンに様々なケースが想定されるため汎用性のあるViewControllerとViewを切り離した設計を考えるのは非常に難しくなります。  
+なので今回のRootViewの設計では初期化時のデータ受け渡しを不可で固定することで、単一の基底ViewControllerクラスのみによってあらゆるViewControllerとViewの切り離しを可能にしています。  
+
 #### init(frame:CGRect)の実装が必須
 RootViewでは
 
