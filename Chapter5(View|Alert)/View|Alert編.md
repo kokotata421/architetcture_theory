@@ -193,6 +193,11 @@ Viewの初期状態に必要なデータもViewの初期化時ではなくViewCo
 なので今回のRootViewの設計では初期化時のデータ受け渡しを不可で固定することで、単一の基底ViewControllerクラスのみによってあらゆるViewControllerとViewの切り離しを可能にしています。  
 
 #### init(frame:CGRect)の実装が必須
-RootViewでは
+基底ViewControllerではプログラム上RootViewを
+```
+self.view = View() 
+```
+とパラメーター無しで生成していますが、実際にはこのRootViewの生成処理内部では`init(frame:CGRect)`を利用しているようです。  
+そのため各RootViewクラスでは`init(frame:CGRect)`を実装する必要があります。  
 
 ## Alertの設計
