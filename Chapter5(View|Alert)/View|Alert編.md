@@ -212,4 +212,31 @@ self.view = View()
 
 以下では簡単にそれぞれの説明をします。  
 #### 1.表示するための設定箇所が多くプログラムが命令的
+この1点目に関しては一般的に認識されているため、想像するのは難しくないでしょう。  
+以下では簡単なデフォルトAlertの実装例を紹介していますが、通常Alertの実装では
+- Alert自身のタイトル、メッセージ、スタイルの設定
+- 各アクションのタイトル、スタイル、タップ時の処理の設定
+- Alertの表示
+と表示のために様々な設定とメソッドの呼び出しを行う必要があります。  
+そのためAlertを一つ表示するだけでもそれなりの量かつ命令的な記述となり、ViewControllerの肥大化および可読性の低下につながってしまう恐れがあります。  
 
+```
+ // dataはPresenterから渡された引数とする
+
+   let alert: UIAlertController = UIAlertController(title: "データの保存確認",
+                                                    message: "データを保存してもいいですか？",
+                                                    preferredStyle:  UIAlertControllerStyle.Alert)
+    let defaultAction: UIAlertAction = UIAlertAction(title: "OK",
+                                                     style: UIAlertActionStyle.Default, 
+                                                     handler: { (action: UIAlertAction!) -> Void in
+                                                        presenter.save(data)
+                                                     })
+    let cancelAction: UIAlertAction = UIAlertAction(title: "キャンセル",
+                                                    style: UIAlertActionStyle.Cancel,
+                                                    handler:nil)
+    
+    alert.addAction(cancelAction)
+    alert.addAction(defaultAction)
+
+    presentViewController(alert, animated: true, completion: nil)
+```
