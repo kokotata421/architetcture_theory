@@ -201,3 +201,7 @@ self.view = View()
 そのため各RootViewクラスでは`init(frame:CGRect)`を実装する必要があります。  
 
 ## Alertの設計
+ここからはAlertの設計について説明していきます。  
+まずデフォルトのAlert開発時の問題点を示しながら、要改善箇所を確認します。  
+
+### デフォルトAlertの問題点
