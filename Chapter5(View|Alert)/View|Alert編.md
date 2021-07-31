@@ -284,5 +284,18 @@ enum AlertStyle {
 
 extension AlertStrategy: Error {}
 ```
-このようにラッパーを定義することで複数のデータを一括で管理するのはAlertの設計においてよく取られるアプローチだと思います。  
+このようにラッパーオブジェクトを定義することで複数のデータを一括で管理するというのはAlertの設計においてよく取られるアプローチなので目新しくはないと思いますが、やはりそれだけに非常に便利な手法です。  
 
+今回のAlertの設計では以下のAlertClientTypeに準拠したオブジェクトにこのAlertStrategyを渡すことでAlertを表示できる仕様になっています。(AlertClientTypeは後ほどまた詳しく説明します。)    
+```
+protocol AlertClientType: NSObject {
+    associatedtype Action: AlertActionType
+    init(viewController: UIViewController)
+    
+    func show(strategy: AlertStrategy<Action>,
+              animated: Bool,
+              completion: (() -> Void)?)
+   ...
+```
+
+しかし通常のラッパーオブジェクトと異なる点としてはAlertStrategyでジェネリクスとして宣言している`<Action: AlertActionType>`型によってアプリ機能に
