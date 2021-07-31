@@ -335,4 +335,4 @@ enum AlertActionStyle {
 }
 ```
 このAlertActionTypeに準拠する実体型では対応するモジュール名を型名として定義します。  
-これによってAlertの
+これによってAlertの開発時にはそのAlertActionTypeの実体型の名前によって
