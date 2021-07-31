@@ -317,4 +317,5 @@ extension UIAlertController.Style {
 ```
 
 また`extension AlertStrategy: Error {}`とAlertStrategy型をErrorプロトコルに準拠させているのは、性質上Result型のFailure型として扱われる場合があるためです。  
-```
+
+#### 「2.アプリ機能との連携が見えづらい」問題の解決
