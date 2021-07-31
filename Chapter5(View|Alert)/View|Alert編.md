@@ -268,5 +268,21 @@ self.view = View()
 ここからは各問題点をどのように解決していくのか一つ一つ説明していきます。  
 
 #### 「1.表示するために必要な設定が多くプログラムが命令的」問題の解決
-まずAlertの表示に際して種々の情報の
+まずAlertの表示に際してプログラムが煩雑になってしまう問題は、以下のように種々の情報を一括して扱うオブジェクト(この例では"AlertStrategy"型と命名)を定義して解決します。  
+```
+struct AlertStrategy<Action: AlertActionType> {
+    var title: String
+    var message: String
+    var actions: [Action]
+    var style: AlertStyle
+}
+
+enum AlertStyle {
+    case actionSheet
+    case alert
+}
+
+extension AlertStrategy: Error {}
+```
+このように
 
