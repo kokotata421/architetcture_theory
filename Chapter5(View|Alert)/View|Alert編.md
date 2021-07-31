@@ -359,6 +359,7 @@ enum FetchPhotoErrorAction: String, AlertActionType {
 まあいうまでもないと思いますが、AlertActionTypeの`title:String`はAlertボタンに表示される文言、`style: AlertActionStyle`は`UIAlertAction.Style`と同じです。  
 `UIAlertAction.Style`を使わずにわざわざAlertActionStyle型を自作で定義しているのは先程のAlertStyleと同じ理由です。  
 
+#### 「3.データフローが複雑になる」問題の解決
 
 
 
