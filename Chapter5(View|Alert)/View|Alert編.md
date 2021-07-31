@@ -336,4 +336,21 @@ enum AlertActionStyle {
 ```
 このAlertActionTypeに準拠する実体型では対応するモジュール名を型名として定義します。  
 これによってAlertの開発時には利用しているAlertActionTypeの実体型からそのコンテクストが一目わかるようになります。  
-例えば今回のサンプルプロジェクトでは写真アイテムの取得失敗時にアラートを表示する仕様になっているのですが、それに対応した
+例えば今回のサンプルプロジェクトでは写真アイテムの取得失敗時にアラートを表示する仕様になっているのですが、それに対応したAlertActionTypeとしてFetchPhotoErrorAction型を定義・実装しています。  
+```
+enum FetchPhotoErrorAction: String, AlertActionType {
+    case retry = "Retry"
+    case cancel = "Cancel"
+    case setting = "Setting"
+    case signIn = "Sign In"
+    case none = "Confirm"
+    
+    var title: String {
+        return self.rawValue
+    }
+    
+    var style: AlertActionStyle {
+        return self == .cancel ? .cancel : .default
+    }
+}
+```
