@@ -301,4 +301,20 @@ protocol AlertClientType: NSObject {
 しかし通常のラッパーオブジェクトと異なる点としてはAlertStrategyでジェネリクスとして宣言している`<Action: AlertActionType>`型によってアプリ機能に対応したAlertのモジュール化を可能にしています。  
 AlertActionTypeについても後ほど詳しく説明します。  
 
-ちなみにUIKitに`UIAlertController.Style`があるにも関わらず、わざわざ自作で
+ちなみにUIKitに｀UIAlertController.Style｀型があるにも関わらず、わざわざ自作でAlertStyle型を定義したのはAlertStrategy型は性質上ViewModel等でも利用するためUIKitに依存した設計にしたくなかったからであって深い理由はありません。  
+AlertのUI側では以下のように`UIAlertController.Style`に拡張的初期化処理を定義してAlertStyle型から生成できるようにしています。  
+```
+extension UIAlertController.Style {
+    init(style: AlertStyle) {
+        switch style {
+        case .alert:
+            self = .alert
+        case .actionSheet:
+            self = .actionSheet
+        }
+    }
+}
+```
+
+また`extension AlertStrategy: Error {}`とAlertStrategy型をErrorプロトコルに準拠させているのは、性質上Result型のFailure型として扱われる場合があるためです。  
+```
