@@ -319,7 +319,18 @@ extension UIAlertController.Style {
 また`extension AlertStrategy: Error {}`とAlertStrategy型をErrorプロトコルに準拠させているのは、性質上Result型のFailure型として扱われる場合があるためです。  
 
 #### 「2.アプリ機能との連携が見えづらい」問題の解決
-既に述べた通り、今回の設計ではAlertActionTypeプロトコルを利用することで、アプリ固有の機能に合わせたAlertのモジュール化を実現しています。  
-AlertActionTypeの定義は以下の通りです。  
+既に述べた通り、今回の設計ではAlertActionTypeプロトコルを利用することでアプリ固有の機能に合わせたAlertのモジュール化を実現しています。  
+AlertActionTypeとそれに関連する定義は以下の通りです。  
 ```
+protocol AlertActionType: Equatable {
+    var title: String { get }
+    var style: AlertActionStyle { get }
+}
+
+
+enum AlertActionStyle {
+    case `default`
+    case cancel
+    case destructive
+}
 ```
