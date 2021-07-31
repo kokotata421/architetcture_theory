@@ -298,4 +298,7 @@ protocol AlertClientType: NSObject {
    ...
 ```
 
-しかし通常のラッパーオブジェクトと異なる点としてはAlertStrategyでジェネリクスとして宣言している`<Action: AlertActionType>`型によってアプリ機能に
+しかし通常のラッパーオブジェクトと異なる点としてはAlertStrategyでジェネリクスとして宣言している`<Action: AlertActionType>`型によってアプリ機能に対応したAlertのモジュール化を可能にしています。  
+AlertActionTypeについても後ほど詳しく説明します。  
+
+
