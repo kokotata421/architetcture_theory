@@ -334,3 +334,4 @@ enum AlertActionStyle {
     case destructive
 }
 ```
+このAlertActionTypeに準拠する実体型ではその型名自体をA
