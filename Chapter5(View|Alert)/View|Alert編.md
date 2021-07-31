@@ -355,7 +355,10 @@ enum FetchPhotoErrorAction: String, AlertActionType {
 }
 ```
 そして、「写真アイテムの取得失敗」に関連するAlertを表示する際にはAlertを表示するクライアントは`AlertClient<FetchPhotoErrorAction>`、また表示時にそれに渡すAlertStrategyも`AlertStrategy<FetchPhotoErrorAction>`という型名になるため一眼でそれが写真取得失敗時に関するアラートであることがわかります。(AlertClient型については後ほど詳しく説明します。)  
-ちなみに基本的にAlertActionTypeの実体型は上記のようにEnumで定義します。  
+ちなみに基本的にAlertActionTypeの実体型は上記のようにEnumで定義し、ユーザーがAlertに対して取りうる手段をcaseとして宣言していきます。  
+まあいうまでもないと思いますが、AlertActionTypeの`title:String`はAlertボタンに表示される文言、`style: AlertActionStyle`は`UIAlertAction.Style`と同じです。  
+`UIAlertAction.Style`を使わずにわざわざAlertActionStyle型を自作で定義しているのは先程のAlertStyleと同じ理由です。  
+
 
 
 
