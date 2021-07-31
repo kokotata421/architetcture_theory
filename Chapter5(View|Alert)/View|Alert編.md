@@ -354,3 +354,6 @@ enum FetchPhotoErrorAction: String, AlertActionType {
     }
 }
 ```
+そして「写真アイテムの取得失敗」に関連するAlertを表示する際には
+
+
