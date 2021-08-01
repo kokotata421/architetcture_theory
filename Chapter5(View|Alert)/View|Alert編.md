@@ -397,4 +397,6 @@ protocol AlertClientType: NSObject {
 
 ```
 
-AlertClientの基本的な役割でAlertの表示は`func show(strategy: AlertStrategy<Action>, animated: Bool, completion: (() -> Void)?)`によって行われます。 
+AlertClientの基本的な役割でAlertの表示は上記の`func show(strategy: AlertStrategy<Action>, animated: Bool, completion: (() -> Void)?)`によって行われます。  
+そしてここで主題となっているAlertの入力と出力処理を切り離すのはregisterメソッドによって実現されています。  
+定義を見てわかると思いますが、このregisterメソッドではAlertボタンがタップされた時の処理を登録し、
