@@ -366,14 +366,14 @@ enum FetchPhotoErrorAction: String, AlertActionType {
 AlertClientは抽象レベルではAlertClientTypeに準拠するようになっており、これは既に説明した通りViewControllerの代理としてAlertの表示を行うコンポーネントです。    
 先程もAlertClientTypeの一部を示しましたが、その全体の定義は以下のようになっています。  
 ```
-public struct AtlerActionKey: Hashable {
+public struct RegistryKey: Hashable {
     private let _uuid: UUID
     
     init() {
         self._uuid = UUID()
     }
     
-    static func ==(lhs: Key, rhs: Key) -> Bool {
+    public static func ==(lhs: RegistryKey, rhs: RegistryKey) -> Bool {
         return lhs._uuid == rhs._uuid
     }
 }
@@ -386,14 +386,15 @@ protocol AlertClientType: NSObject {
               animated: Bool,
               completion: (() -> Void)?)
     
-    func register(handler: (Action) -> Void) -> AtlerActionKey
+    func register(handler: @escaping (Action) -> Void) -> RegistryKey
     
-    func register(on action: Action, handler: (Action) -> Void) -> AtlerActionKey
+    func register(on action: Action, handler: @escaping (Action) -> Void) -> RegistryKey
     
-    func register(on actions: [Action], handler: (Action) -> Void) -> AtlerActionKey
+    func register(on actions: [Action], handler: @escaping (Action) -> Void) -> RegistryKey
     
-    func unregister(key: AtlerActionKey) -> Void?
+    func unregister(key: RegistryKey) -> Void?
 }
 
 ```
 
+AlertClientの基本的な役割でAlertの表示は`func show(strategy: AlertStrategy<Action>, animated: Bool, completion: (() -> Void)?)`によって行われます。 
