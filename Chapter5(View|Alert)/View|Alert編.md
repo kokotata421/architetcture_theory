@@ -364,7 +364,7 @@ enum FetchPhotoErrorAction: String, AlertActionType {
 ここではAlertClient(Alertの表示を担うコンポーネント)を工夫してAlertの出力と入力を切り離す方法を説明します。  
 ただ「出力と入力の切り離し」の前にAlertClientの基本的な性質から確認していきます。  
 AlertClientは抽象レベルではAlertClientTypeに準拠するようになっており、これは既に説明した通りViewControllerの代理としてAlertの表示を行うコンポーネントです。    
-先程も一部その定義を示しましたが、その全体の定義は以下のようになっています。  
+先程もAlertClientTypeの一部を示しましたが、その全体の定義は以下のようになっています。  
 ```
 public struct AtlerActionKey: Hashable {
     private let _uuid: UUID
@@ -397,6 +397,3 @@ protocol AlertClientType: NSObject {
 
 ```
 
-        return self == .cancel ? .cancel : .default`
-        return self == .cancel ? .cancel : .default`
-        return self == .cancel ? .cancel : .default
