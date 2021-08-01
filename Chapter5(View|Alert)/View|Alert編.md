@@ -386,11 +386,11 @@ protocol AlertClientType: NSObject {
               animated: Bool,
               completion: (() -> Void)?)
     
-    func register(handler: @escaping (Action) -> Void) -> RegistryKey
+    func register(_ handler: @escaping (Action) -> Void) -> RegistryKey
     
-    func register(on action: Action, handler: @escaping (Action) -> Void) -> RegistryKey
+    func register(on action: Action,_ handler: @escaping (Action) -> Void) -> RegistryKey
     
-    func register(on actions: [Action], handler: @escaping (Action) -> Void) -> RegistryKey
+    func register(on actions: [Action],_ handler: @escaping (Action) -> Void) -> RegistryKey
     
     func unregister(key: RegistryKey) -> Void?
 }
@@ -400,5 +400,20 @@ protocol AlertClientType: NSObject {
 AlertClientの基本的な役割でAlertの表示は上記の`func show(strategy: AlertStrategy<Action>, animated: Bool, completion: (() -> Void)?)`によって行われます。  
 そしてここで主題となっているAlertの入力と出力処理を切り離すのはregisterメソッドによって実現されています。  
 定義を見てわかると思いますが、このregisterメソッドではクロージャをパラメーターとして渡して登録しており、Alertボタンタップ時にはここで登録したクロージャが呼び出されるようになっています。  
-ここでAlertClientと特定のAlertActionTypeを紐づけが有効であることがわかると思います。  
+例えばAlertClientが先程の`FetchPhotoErrorAction`をAction型として指定してる場合には以下のようにクロージャを渡すことでAlertボタンタップ時の処理を登録しています。  
+```
+//　alertClientはAction型に「FetchPhotoErrorAction」を指定したAlertClientTypeの実体型インスタンス
+
+　　　alertClient
+    　　　.register { action in
+                 　　　switch action {
+                 　　　case .retry: // retryボタンがタップされた時の処理
+                 　　　case .cancel: // cancelボタンがタップされた時の処理
+                 　　　case .setting: // settingボタンがタップされた時の処理
+                 　　　case .signIn: //signInボタンがタップされた時の処理
+                 　　　case .none: return //「確認」ボタン等、特にタップされても行う処理がない場合
+                 　　}
+              　　　}
+```
+
 
