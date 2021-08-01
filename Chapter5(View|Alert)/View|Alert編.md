@@ -362,5 +362,7 @@ enum FetchPhotoErrorAction: String, AlertActionType {
 #### 「3.データフローが複雑になる」問題の解決
 デフォルトのAlertでは出力(Alertの表示)と入力(Alertボタンタップ時の処理)を切り離せないため、ViewControllerのデータフローが複雑になってしまうと先程説明しました。  
 ここではAlertClient(Alertの表示を担うコンポーネント)を工夫してAlertの出力と入力を切り離す方法を説明します。  
+ただ「出力と入力の切り離し」の前にAlertClientの基本的な性質から確認していきます。  
+AlertClientは抽象レベルではAlertClientTypeに準拠しており、これは既に説明した通りViewControllerの代理としてAlertの表示を行う役割です。  
 
 
