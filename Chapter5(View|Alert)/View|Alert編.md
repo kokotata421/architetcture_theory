@@ -420,3 +420,74 @@ AlertClientの基本的な役割でAlertの表示は上記の`func show(strategy
 またRegistryKey型はAlertに登録した処理を管理するのに利用するキーであり、もし登録した処理が呼びされるのをやめた場合は該当の処理を登録時返り値として受け取ったRegistryKeyを`func unregister(key: RegistryKey) -> Void?`に渡すことで登録を解除できます。  
 
 
+このAlertClientTypeの実体型として私は以下のAlertClient型を定義しました。
+```
+final class AlertClient<Action: AlertActionType>: NSObject {
+    private weak var vc: UIViewController!
+    var handlers: [RegistryKey: (Action) -> Void] = [:]
+    
+    required init(viewController: UIViewController) {
+        self.vc = viewController
+    }
+    
+    
+    func show(strategy: AlertStrategy<Action>,
+              animated: Bool,
+              completion: (() -> Void)?) {
+
+        let alert: UIAlertController = UIAlertController(title: strategy.title,
+                                                         message: strategy.message,
+                                                         preferredStyle: UIAlertController.Style(style: strategy.style))
+
+        for action in strategy.actions {
+            alert.addAction(UIAlertAction(title: action.title,
+                                          style: UIAlertAction.Style(style: action.style),
+                                          handler: {(alertAction: UIAlertAction) -> Void in
+        
+                                            self.handlers.values.forEach{
+                                                $0(action)
+                                            }
+                                          }))
+        }
+        self.vc.present(alert,
+                          animated: animated,
+                          completion: completion)
+        
+    }
+    
+    func register(handler: @escaping (Action) -> Void) -> RegistryKey {
+        let key: RegistryKey = .init()
+        self.handlers[key] = handler
+    }
+    
+    func register(on action: Action, handler: @escaping (Action) -> Void) -> RegistryKey {
+        let key: RegistryKey = .init()
+        self.handlers[key] = { _action in
+            if action == _action {
+                handler(action)
+            }
+        }
+        return key
+    }
+    
+    func register(on actions: [Action], handler: @escaping (Action) -> Void) -> RegistryKey {
+        let key: RegistryKey = .init()
+        self.handlers[key] = { action in
+            if actions.contains(action) {
+                handler(action)
+            }
+        }
+        return key
+    }
+    
+    
+    func unregister(key: RegistryKey) -> Void? {
+        if let _ = self.handlers.removeValue(forKey: key) {
+            return ()
+        } else {
+            return nil
+        }
+    }
+}
+
+```
