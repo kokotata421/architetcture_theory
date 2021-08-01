@@ -360,6 +360,7 @@ enum FetchPhotoErrorAction: String, AlertActionType {
 `UIAlertAction.Style`を使わずにわざわざAlertActionStyle型を自作で定義しているのは先程のAlertStyleと同じ理由です。  
 
 #### 「3.データフローが複雑になる」問題の解決
-
+デフォルトのAlertでは出力(Alertの表示)と入力(Alertボタンタップ時の処理)を切り離せないため、ViewControllerのデータフローが複雑になってしまうと先程説明しました。  
+ここではAlertClient(Alertの表示を担うコンポーネント)を工夫してAlertの出力と入力を切り離す方法を説明します。  
 
 
