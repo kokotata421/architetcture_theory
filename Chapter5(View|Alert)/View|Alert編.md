@@ -415,5 +415,8 @@ AlertClientの基本的な役割でAlertの表示は上記の`func show(strategy
                  　　}
               　　　}
 ```
+デフォルトのAlert設計よりもこちらの方がAlertのボタンタップ時の処理を直感的に登録できていると思います。  
+ちなみに`func register(on action: Action,_ handler: @escaping (Action) -> Void) -> RegistryKey`と`func register(on actions: [Action],_ handler: @escaping (Action) -> Void) -> RegistryKey`は何か特定のActionが発生した場合のみ呼び出したい処理を登録する場合に利用します。  
+またRegistryKey型はAlertに登録した処理を管理するのに利用するキーであり、もし登録した処理が呼びされるのをやめた場合は該当の処理を登録時返り値として受け取ったRegistryKeyを`func unregister(key: RegistryKey) -> Void?`に渡すことで登録を解除できます。  
 
 
