@@ -349,7 +349,7 @@ enum AlertActionStyle {
     case destructive
 }
 ```
-AlertActionTypeの`var title: String`はAlertボタンのタイトルなる文字列、`var style: AlertActionStyle `はAlertボタンのスタイルを指しこれは`UIAlertAction.Style`と同じ役割を持っています。  
+AlertActionTypeの`var title: String`はAlertボタンのタイトルなる文字列、`var style: AlertActionStyle `はAlertボタンのスタイルを指し、これは`UIAlertAction.Style`と同じ役割を持っています。  
 
 アプリ内でAlertを表示したい場合には、そのアラート表示に関わる機能や状況が明示されるようなAlertActionTypeの実体型を定義します。  
 例えば今回のサンプルプロジェクトでは写真アイテムの取得失敗時にアラートを表示するのですが、その実装のためにAlertActionTypeに準拠したFetchPhotoErrorAction型を定義・実装しています。  
@@ -371,15 +371,35 @@ enum FetchPhotoErrorAction: String, AlertActionType {
 }
 ```
 
-このようにAlertActionTypeを使ってAlertの機能毎に定義、実装することによって、アプリケーションの要件に合わせて開発を行いやすくなります。  
-また実際にAlertを利用するプログラムでは`AlertClient<FetchPhotoErrorAction>`や`AlertStrategy<FetchPhotoErrorAction>`をインスタンスの型として宣言必要があり、これによって型名を確認するだけでそのAlertのコンテクストを確認できるようなります。　　
+このようにAlertActionTypeを使うと、Alertの機能毎に開発をしていくことになるので、アプリの仕様との親和性はとても高くなります。  
+また実際にAlertを利用するプログラムでは`AlertClient<FetchPhotoErrorAction>`や`AlertStrategy<FetchPhotoErrorAction>`等、AlertActionTypeの実態型を明示したAlertコンポーネントを宣言する必要があるため、開発者は利用されているAlertコンポーネントの型名を確認すればそのコンテクストを把握できます。  
 
+ちなみに基本的にAlertActionTypeの実体型は上記のようにEnumで定義し、ユーザーがAlertに対して取りうる手段をcaseとして宣言していくのが良いと思います。    
+また`UIAlertAction.Style`と同義であるにも関わらず、わざわざAlertActionStyle型を独自定義しているのは先程のAlertStyleと同じ理由です。  
+AlertActionStyle型もUI側でUIAlertAction.Styleへ変換できるように拡張実装を行なっています。  
+```
+extension UIAlertAction.Style {
+    init(style: AlertActionStyle) {
+        switch style {
+        case .default:
+            self = .default
+        case .cancel:
+            self = .cancel
+        case .destructive:
+            self = .destructive
+        }
+    }
+}
+```
 
-ちなみに基本的にAlertActionTypeの実体型は上記のようにEnumで定義し、ユーザーがAlertに対して取りうる手段をcaseとして宣言していくのが合理的だと思います。  
-これによってAlertの開発時には利用しているAlertActionTypeの実体型からそのコンテクストが一目わかるようになります。  
-まあいうまでもないと思いますが、AlertActionTypeの`title:String`はAlertボタンに表示される文言、`style: AlertActionStyle`は`UIAlertAction.Style`と同じです。  
-`UIAlertAction.Style`を使わずにわざわざAlertActionStyle型を自作で定義しているのは先程のAlertStyleと同じ理由です。  
-
+> 補足:
+> 例で示した`AlertClient<FetchPhotoErrorAction>`を見てもわかるとおり、AlertClientコンポーネントがモジュール化をジェネリクスで実現しているということはViewControllerで複数のAlertモジュールを利用したい場合にはその数だけAlertClientコンポーネントを宣言する必要があるということです。  
+> 冗長にも思えますが、これで良いのでしょうか。  
+>   
+> 結論だけいうとこれで良いです。  
+> プログラムには冗長さがあえて必要な場合がありますが、このケースがまさにそれです。  
+> もしここでAlertClientの汎用性を上げて
+> 
 #### 「3.データフローが複雑になる」問題の解決
 デフォルトのAlertでは出力(Alertの表示)と入力(Alertボタンタップ時の処理)を切り離せないため、ViewControllerのデータフローが複雑になってしまうと先程説明しました。  
 ここではAlertClient(Alertの表示を担うコンポーネント)を工夫してAlertの出力と入力を切り離す方法を説明します。  
