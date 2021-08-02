@@ -235,7 +235,7 @@ self.view = View()
     alert.addAction(cancelAction)
     alert.addAction(defaultAction)
 
-    presentViewController(alert, animated: true, completion: nil)
+    viewController.present(alert, animated: true, completion: nil)
 ```
 
 #### 2.アプリ機能との連携が見えづらい
@@ -265,8 +265,12 @@ Alertの読解がこのように面倒な原因として、プログラム上に
 
 #### ViewControllerの代理でAlertの表示を行うAlertClient
 本記事ではViewControllerの代理としてAlertの表示を行うコンポーネントはAlertClientとします。  
-その構造は基本的にはRouterと同じで、AlertClientにViewControllerを渡してそちら側でAlert表示の実装を行います。  
-これは
+その基本的な構造はRouterと同じで、AlertClientにViewControllerを渡してそちら側でAlert表示の実装を行います。  
+これはAlertの表示が技術的にはViewControllerの`present(_:animated:completion:)`メソッド、すなわち遷移処理によって実行されていることを考えれば当然のことです。  
+
+しかし、技術的には同類でもやはりサービスの観点からいうと「遷移」と「アラートの表示」は異なります。  
+そのためAlertの表示を行うコンポーネントをAlertClientとしてRouterと区別しているわけですが、本記事が提案する設計ではコンポーネントがAlertClientである条件としてAlertClientTypeというプロトコルに準拠しているものとします。  
+以下ではAlertClientTypeプロトコルのAlertの表示に関する定義のみ紹介します。(AlertClientTypeプロトコルの定義全体は後ほど示します。)　　
 
 ```
 protocol AlertClientType: NSObject {
