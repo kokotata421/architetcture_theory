@@ -265,12 +265,12 @@ Alertの読解がこのように面倒な原因として、プログラム上に
 
 #### ViewControllerの代理でAlertの表示を行うAlertClient
 本記事ではViewControllerの代理としてAlertの表示を行うコンポーネントをAlertClientとします。  
-その基本的な構造はRouterと同じで、AlertClientにViewControllerを渡してそちら側でAlert表示の実装を行います。  
-これはAlertの表示が技術的にはViewControllerの`present(_:animated:completion:)`メソッド、すなわち遷移処理によって実行されていることを考えれば当然のことです。  
+AlertClientの基本的な構造はRouterと同じで、AlertClientにViewControllerを渡してそちら側でAlert表示の実装を行います。  
+これはAlertの表示が技術的にはViewControllerの`present(_:animated:completion:)`メソッド、すなわち遷移処理によって実行されていることを考えればわかると思います。    
 
 しかし、技術的には同類でもやはりサービスの観点からいうと「遷移」と「アラートの表示」は異なります。  
-そのためAlertの表示を行うコンポーネントをAlertClientとしてRouterと区別しているわけですが、本記事が提案する設計ではコンポーネントがAlertClientである条件としてAlertClientTypeというプロトコルに準拠しているものとします。  
-以下ではAlertClientTypeプロトコルのAlertの表示に関する定義のみ紹介します。(AlertClientTypeプロトコルの定義全体は後ほど示します。)　　
+そのためAlertの表示を行うコンポーネントをAlertClientとしてRouterと区別しているわけですが、本記事が提案する設計ではAlertClientはAlertClientTypeプロトコルに準拠してAlert表示処理を実装しているものとします。      
+以下はAlertClientTypeプロトコルのAlertの表示に関する定義部分です。(AlertClientTypeプロトコルの定義全体は後ほど示します。)　　
 
 ```
 protocol AlertClientType: NSObject {
@@ -282,8 +282,8 @@ protocol AlertClientType: NSObject {
               completion: (() -> Void)?)
    ...
 ```
-
-これはデフォルトのViewControllerのAlert表示メソッドと似ているので理解するのは簡単なのではないでしょうか。  
+AlertClientはこの`show(strategy: AlertStrategy<Action>, animated: Bool, completion: (() -> Void)?)`メソッドによって
+AlertClientは
 ```
 func present(_ viewControllerToPresent: UIViewController, 
              animated flag: Bool, 
