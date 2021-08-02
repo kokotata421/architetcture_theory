@@ -392,11 +392,11 @@ extension UIAlertAction.Style {
 }
 ```
 
-> 補足:
-> 例で示した`AlertClient<FetchPhotoErrorAction>`を見てもわかるとおり、AlertClientコンポーネントがモジュール化をジェネリクスで実現しているということはViewControllerで複数のAlertモジュールを利用したい場合にはその数だけAlertClientコンポーネントを宣言する必要があるということです。  
-> 冗長にも思えますが、これで良いのでしょうか。  
+> 補足:  
+> 例で示した`AlertClient<FetchPhotoErrorAction>`を見てもわかるとおり、AlertClientコンポーネントがモジュール化をジェネリクスで実現しているということは、ViewControllerで複数のAlertモジュールを利用したい場合にはその数だけAlertClientコンポーネントを宣言する必要があるということです。  
+> これは一見すると冗長に思えます。      
 >   
-> 結論だけいうとこれが良いです。  
+> ただ結論だけいうとこれで良いです。  
 > プログラムには冗長さがあえて必要な場合がありますが、このケースがまさにそれです。  
 > もしここでAlertClientの汎用性を上げて
 > 
