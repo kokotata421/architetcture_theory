@@ -430,7 +430,7 @@ Alertの表示をViewControlerで直に行った場合以下のような実装�
     alert.addAction(cancelAction)
     alert.addAction(defaultAction)
 
-    presentViewController(alert, animated: true, completion: nil)
+    viewController.present(alert, animated: true, completion: nil)
 ```
 Alert表示の場合、View操作とは異なり単体でもそれなりのコード量になってコードの肥大化・煩雑化の原因になり得ます。  
 
