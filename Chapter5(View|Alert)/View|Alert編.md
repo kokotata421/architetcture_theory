@@ -310,13 +310,14 @@ enum AlertStyle {
 
 extension AlertStrategy: Error {}
 ```
-このようにラッパーオブジェクトを定義することで複数のデータを一括で管理するというのはAlertの設計においてよく取られるアプローチなので目新しくはないと思いますが、やはりそれだけに非常に便利な手法です。  
+AlertStategyは簡単に言えば、Alertに関する煩雑なデータ群を一括で操作するラッパーオブジェクトと言えます。
+これはAlertの設計においてよく取られるアプローチであるため目新しくはないと思いますが、やはりそれだけに非常に便利な手法であり、このAlertStrategyを利用することで煩雑なデータ操作は全てAlertの内部で実装されるため、Alertを表示する側で意識することはなくなります。  
 
-しかし通常のラッパーオブジェクトと異なる点としてはAlertStrategyでジェネリクスとして宣言している`<Action: AlertActionType>`型によってアプリ機能に対応したAlertのモジュール化を可能にしています。  
-AlertActionTypeについても後ほど詳しく説明します。  
+しかしAlertStategyが通常のAlertデータのラッパーオブジェクトと異なる点としては、ジェネリクスとして`Action: AlertActionType`を利用していることでしょうか。  
+この`Action: AlertActionType`はAlertのモジュール化、および入出力データフローの切り離しを可能にしているのですが、それについては後ほどまた説明します。  
 
-ちなみにUIKitに｀UIAlertController.Style｀型があるにも関わらず、わざわざ自作でAlertStyle型を定義したのはAlertStrategy型は性質上ViewModel等でも利用するためUIKitに依存した設計にしたくなかったからであって深い理由はありません。  
-AlertのUI側では以下のように`UIAlertController.Style`に拡張的初期化処理を定義してAlertStyle型から生成できるようにしています。  
+ちなみに`enum AlertStyle`はUIKitの`UIAlertController.Style`型と同義なのですが、わざわざ自作で定義し直しているのはAlertStrategy型はその性質上ViewModel等でも利用するためUIKitの型に依存した設計にしたくなかったからです。  
+AlertのUI側では以下のように`UIAlertController.Style`を拡張して`enum AlertStyle`から`UIAlertController.Style`型を生成できるように定義しています。  
 ```
 extension UIAlertController.Style {
     init(style: AlertStyle) {
@@ -330,7 +331,7 @@ extension UIAlertController.Style {
 }
 ```
 
-また`extension AlertStrategy: Error {}`とAlertStrategy型をErrorプロトコルに準拠させているのは、性質上Result型のFailure型として扱われる場合があるためです。  
+また`extension AlertStrategy: Error {}`とAlertStrategy型をErrorプロトコルに準拠させているのも、その性質上Result型のFailure型として扱われる場合があるためです。  
 
 #### 「2.アプリ機能との連携が見えづらい」問題の解決
 既に述べた通り、今回の設計ではAlertActionTypeプロトコルを利用することでアプリ固有の機能に合わせたAlertのモジュール化を実現しています。  
