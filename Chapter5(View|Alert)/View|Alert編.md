@@ -282,8 +282,8 @@ protocol AlertClientType: NSObject {
               completion: (() -> Void)?)
    ...
 ```
-AlertClientはこの`show(strategy: AlertStrategy<Action>, animated: Bool, completion: (() -> Void)?)`メソッドによって
-AlertClientは
+AlertClientはこの`show(strategy: AlertStrategy<Action>, animated: Bool, completion: (() -> Void)?)`メソッドの呼び出しによってAlertを表示します。  
+このshowメソッドはViewControllerでAlertを表示する際のpresentメソッドと非常によく似ているためiOS開発に慣れている人は特に違和感なく利用することができると思います。  
 ```
 func present(_ viewControllerToPresent: UIViewController, 
              animated flag: Bool, 
