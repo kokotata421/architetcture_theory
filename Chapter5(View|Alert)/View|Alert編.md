@@ -264,7 +264,7 @@ Alertの読解がこのように面倒な原因として、プログラム上に
 さて、それでは上記の問題に対して解決策を提案していこうと思いますが、ただその前に今回のAlert設計ではViewControllerの外部に委譲されているという大前提があるため、まずその外部化をどうやって実現方法から説明していきます。  
 
 #### ViewControllerの代理でAlertの表示を行うAlertClient
-本記事ではViewControllerの代理としてAlertの表示を行うコンポーネントはAlertClientとします。  
+本記事ではViewControllerの代理としてAlertの表示を行うコンポーネントをAlertClientとします。  
 その基本的な構造はRouterと同じで、AlertClientにViewControllerを渡してそちら側でAlert表示の実装を行います。  
 これはAlertの表示が技術的にはViewControllerの`present(_:animated:completion:)`メソッド、すなわち遷移処理によって実行されていることを考えれば当然のことです。  
 
@@ -283,6 +283,13 @@ protocol AlertClientType: NSObject {
    ...
 ```
 
+これはデフォルトのViewControllerのAlert表示メソッドと似ているので理解するのは簡単なのではないでしょうか。  
+```
+func present(_ viewControllerToPresent: UIViewController, 
+             animated flag: Bool, 
+             completion: (() -> Void)? = nil)
+```
+ただ定義を見てもわかるとおり本Alertの設計では**AlertStrategy**、**Action: AlertActionType**という独自の
 
 #### 「1.表示するために必要な設定が多くプログラムが命令的」問題の解決
 まずAlertの表示に際してプログラムが煩雑になってしまう問題は、以下のように種々のデータを一括して扱うオブジェクト(この例では"AlertStrategy"型と命名)を定義して解決します。  
