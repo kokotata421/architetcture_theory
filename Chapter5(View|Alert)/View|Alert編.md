@@ -293,7 +293,8 @@ func present(_ viewControllerToPresent: UIViewController,
 とりあえずここでは**AlertStrategy**、**Action: AlertActionType**という独自型を利用しながら、AlertClientTypeのshowメソッドでAlertを表示していることだけ理解してもらえれば十分です。  
 
 #### 「1.表示するために必要な設定が多くプログラムが命令的」問題の解決
-まずAlertの表示に際してプログラムが煩雑になってしまう問題は、以下のように種々のデータを一括して扱うオブジェクト(この例では"AlertStrategy"型と命名)を定義して解決します。  
+まずAlertの表示プログラムが煩雑になってしまう問題は、先で紹介したAlertStrategy型によって解決します。  
+以下その定義です。  
 ```
 struct AlertStrategy<Action: AlertActionType> {
     var title: String
@@ -310,18 +311,6 @@ enum AlertStyle {
 extension AlertStrategy: Error {}
 ```
 このようにラッパーオブジェクトを定義することで複数のデータを一括で管理するというのはAlertの設計においてよく取られるアプローチなので目新しくはないと思いますが、やはりそれだけに非常に便利な手法です。  
-
-今回のAlertの設計では以下のAlertClientTypeに準拠したオブジェクトにこのAlertStrategyを渡すことでAlertを表示できる仕様になっています。(AlertClientTypeは後ほどまた詳しく説明します。)    
-```
-protocol AlertClientType: NSObject {
-    associatedtype Action: AlertActionType
-    init(viewController: UIViewController)
-    
-    func show(strategy: AlertStrategy<Action>,
-              animated: Bool,
-              completion: (() -> Void)?)
-   ...
-```
 
 しかし通常のラッパーオブジェクトと異なる点としてはAlertStrategyでジェネリクスとして宣言している`<Action: AlertActionType>`型によってアプリ機能に対応したAlertのモジュール化を可能にしています。  
 AlertActionTypeについても後ほど詳しく説明します。  
