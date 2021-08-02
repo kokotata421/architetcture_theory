@@ -268,9 +268,9 @@ Alertの読解がこのように面倒な原因として、プログラム上に
 AlertClientの基本的な構造はRouterと同じで、AlertClientにViewControllerを渡してそちら側でAlert表示の実装を行います。  
 これはAlertの表示が技術的にはViewControllerの`present(_:animated:completion:)`メソッド、すなわち遷移処理によって実行されていることを考えればわかると思います。    
 
-しかし、技術的には同類でもやはりサービスの観点からいうと「遷移」と「アラートの表示」は異なります。  
-そのためAlertの表示を行うコンポーネントをAlertClientとしてRouterと区別しているわけですが、本記事が提案する設計ではAlertClientはAlertClientTypeプロトコルに準拠してAlert表示処理を実装しているものとします。      
-以下はAlertClientTypeプロトコルのAlertの表示に関する定義部分です。(AlertClientTypeプロトコルの定義全体は後ほど示します。)　　
+しかし、技術的には同類でもやはりサービスの観点からいうと「遷移」と「アラートの表示」は異なっているべきです。    
+そのためAlertの表示を行うコンポーネントをAlertClientとしてRouterと区別しているわけですが、本記事が提案する設計ではAlertClientはAlertClientTypeプロトコルに準拠する形式でAlert表示処理を実装されているものとします。      
+以下はAlertClientTypeプロトコルのAlertの表示に関する定義です。(AlertClientTypeプロトコルの定義全体は後ほど示します。)　　
 
 ```
 protocol AlertClientType: NSObject {
@@ -282,15 +282,15 @@ protocol AlertClientType: NSObject {
               completion: (() -> Void)?)
    ...
 ```
-AlertClientはこの`show(strategy: AlertStrategy<Action>, animated: Bool, completion: (() -> Void)?)`メソッドの呼び出しによってAlertを表示します。  
-このshowメソッドはViewControllerでAlertを表示する際のpresentメソッドと非常によく似ているためiOS開発に慣れている人は特に違和感なく利用することができると思います。  
+AlertClientはこの`show(strategy: AlertStrategy<Action>, animated: Bool, completion: (() -> Void)?)`メソッドの呼び出しによってAlertを表示しますが、このメソッドはViewControllerでAlertを表示する際のpresentメソッドと非常によく似ているためiOS開発者は特に違和感なく利用することができると思います。  
 ```
 func present(_ viewControllerToPresent: UIViewController, 
              animated flag: Bool, 
              completion: (() -> Void)? = nil)
 ```
-ただ定義を見てもわかるとおり本Alertの設計では**AlertStrategy**、**Action: AlertActionType**という独自の
+ただAlertClientTypeとそのshowメソッドで宣言、定義されている**AlertStrategy**、**Action: AlertActionType**は本設計で独自に定義している型であり、Alertはこれらの存在によって先に示された問題を解決しています。  
 
+なので**AlertStrategy**、**Action: AlertActionType*
 #### 「1.表示するために必要な設定が多くプログラムが命令的」問題の解決
 まずAlertの表示に際してプログラムが煩雑になってしまう問題は、以下のように種々のデータを一括して扱うオブジェクト(この例では"AlertStrategy"型と命名)を定義して解決します。  
 ```
