@@ -288,9 +288,10 @@ func present(_ viewControllerToPresent: UIViewController,
              animated flag: Bool, 
              completion: (() -> Void)? = nil)
 ```
-ただAlertClientTypeとそのshowメソッドで宣言、定義されている**AlertStrategy**、**Action: AlertActionType**は本設計で独自に定義している型であり、Alertはこれらの存在によって先に示された問題を解決しています。  
+ただAlertClientTypeとそのshowメソッドで宣言、定義されている**AlertStrategy**、**Action: AlertActionType**は本設計で独自に定義している型です。  
+これらの型については先に示したAlertの問題群の解決と不可分であるため、後ほどそれらとともに説明していきます。  
+とりあえずここでは**AlertStrategy**、**Action: AlertActionType**という独自型を利用しながら、AlertClientTypeのshowメソッドでAlertを表示していることだけ理解してもらえれば十分です。  
 
-なので**AlertStrategy**、**Action: AlertActionType*
 #### 「1.表示するために必要な設定が多くプログラムが命令的」問題の解決
 まずAlertの表示に際してプログラムが煩雑になってしまう問題は、以下のように種々のデータを一括して扱うオブジェクト(この例では"AlertStrategy"型と命名)を定義して解決します。  
 ```
