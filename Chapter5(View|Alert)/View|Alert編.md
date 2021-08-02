@@ -334,7 +334,7 @@ extension UIAlertController.Style {
 また`extension AlertStrategy: Error {}`とAlertStrategy型をErrorプロトコルに準拠させているのも、その性質上Result型のFailure型として扱われる場合があるためです。  
 
 #### 「2.アプリ機能との連携が見えづらい」問題の解決
-既に述べた通り、今回の設計ではAlertActionTypeプロトコルを利用することでアプリ固有の機能に合わせたAlertのモジュール化を実現しています。  
+既に簡単に触れましたが、今回の設計ではAlertActionTypeプロトコルを使ってアプリ固有の機能に合わせたAlertのモジュール化を実現しています。  
 AlertActionTypeとそれに関連する定義は以下の通りです。  
 ```
 protocol AlertActionType: Equatable {
@@ -349,9 +349,10 @@ enum AlertActionStyle {
     case destructive
 }
 ```
-このAlertActionTypeに準拠する実体型では対応するモジュール名を型名として定義します。  
-これによってAlertの開発時には利用しているAlertActionTypeの実体型からそのコンテクストが一目わかるようになります。  
-例えば今回のサンプルプロジェクトでは写真アイテムの取得失敗時にアラートを表示する仕様になっているのですが、それに対応したAlertActionTypeとしてFetchPhotoErrorAction型を定義・実装しています。  
+AlertActionTypeの`var title: String`はAlertボタンのタイトルなる文字列、`var style: AlertActionStyle `はAlertボタンのスタイルを指しこれは`UIAlertAction.Style`と同じ役割を持っています。  
+
+アプリ内でAlertを表示したい場合には、そのアラート表示に関わる機能や状況が明示されるようなAlertActionTypeの実体型を定義します。  
+例えば今回のサンプルプロジェクトでは写真アイテムの取得失敗時にアラートを表示するのですが、その実装のためにAlertActionTypeに準拠したFetchPhotoErrorAction型を定義・実装しています。  
 ```
 enum FetchPhotoErrorAction: String, AlertActionType {
     case retry = "Retry"
@@ -369,8 +370,13 @@ enum FetchPhotoErrorAction: String, AlertActionType {
     }
 }
 ```
-そして、「写真アイテムの取得失敗」に関連するAlertを表示する際にはAlertを表示するクライアントは`AlertClient<FetchPhotoErrorAction>`、また表示時にそれに渡すAlertStrategyも`AlertStrategy<FetchPhotoErrorAction>`という型名になるため一眼でそれが写真取得失敗時に関するアラートであることがわかります。(AlertClient型については後ほど詳しく説明します。)  
-ちなみに基本的にAlertActionTypeの実体型は上記のようにEnumで定義し、ユーザーがAlertに対して取りうる手段をcaseとして宣言していきます。  
+
+このようにAlertActionTypeを使ってAlertの機能毎に定義、実装することによって、アプリケーションの要件に合わせて開発を行いやすくなります。  
+また実際にAlertを利用するプログラムでは`AlertClient<FetchPhotoErrorAction>`や`AlertStrategy<FetchPhotoErrorAction>`をインスタンスの型として宣言必要があり、これによって型名を確認するだけでそのAlertのコンテクストを確認できるようなります。　　
+
+
+ちなみに基本的にAlertActionTypeの実体型は上記のようにEnumで定義し、ユーザーがAlertに対して取りうる手段をcaseとして宣言していくのが合理的だと思います。  
+これによってAlertの開発時には利用しているAlertActionTypeの実体型からそのコンテクストが一目わかるようになります。  
 まあいうまでもないと思いますが、AlertActionTypeの`title:String`はAlertボタンに表示される文言、`style: AlertActionStyle`は`UIAlertAction.Style`と同じです。  
 `UIAlertAction.Style`を使わずにわざわざAlertActionStyle型を自作で定義しているのは先程のAlertStyleと同じ理由です。  
 
