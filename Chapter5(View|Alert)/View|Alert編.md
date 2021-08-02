@@ -269,7 +269,7 @@ AlertClientの基本的な構造はRouterと同じで、AlertClientにViewContro
 これはAlertの表示が技術的にはViewControllerの`present(_:animated:completion:)`メソッド、すなわち遷移処理によって実行されていることを考えればわかると思います。    
 
 しかし、技術的には同類でもやはりサービスの観点からいうと「遷移」と「アラートの表示」は異なっているべきです。    
-そのためAlertの表示を行うコンポーネントをAlertClientとしてRouterと区別しているわけですが、本記事が提案する設計ではAlertClientはAlertClientTypeプロトコルに準拠する形式でAlert表示処理を実装されているものとします。      
+そのためAlertの表示を行うコンポーネントをAlertClientとしてRouterと区別しているわけですが、本記事が提案する設計ではAlertClientはAlertClientTypeプロトコルに準拠する形式でAlert表示処理を実装します。      
 以下はAlertClientTypeプロトコルのAlertの表示に関する定義です。(AlertClientTypeプロトコルの定義全体は後ほど示します。)　　
 
 ```
