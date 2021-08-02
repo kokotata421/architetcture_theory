@@ -261,7 +261,24 @@ Alertの読解がこのように面倒な原因として、プログラム上に
 この違いにはSwift UIのViewとUIKitのViewControllerのアプリ上での立ち位置が関係しているのですが、それについては後ほど補論にて説明します。  
 
 ### デフォルトAlertの問題を解決していく
-ここからは各問題点をどのように解決していくのか一つ一つ説明していきます。  
+さて、それでは上記の問題に対して解決策を提案していこうと思いますが、ただその前に今回のAlert設計ではViewControllerの外部に委譲されているという大前提があるため、まずその外部化をどうやって実現方法から説明していきます。  
+
+#### ViewControllerの代理でAlertの表示を行うAlertClient
+本記事ではViewControllerの代理としてAlertの表示を行うコンポーネントはAlertClientとします。  
+その構造は基本的にはRouterと同じで、AlertClientにViewControllerを渡してそちら側でAlert表示の実装を行います。  
+これは
+
+```
+protocol AlertClientType: NSObject {
+    associatedtype Action: AlertActionType
+    init(viewController: UIViewController)
+    
+    func show(strategy: AlertStrategy<Action>,
+              animated: Bool,
+              completion: (() -> Void)?)
+   ...
+```
+
 
 #### 「1.表示するために必要な設定が多くプログラムが命令的」問題の解決
 まずAlertの表示に際してプログラムが煩雑になってしまう問題は、以下のように種々のデータを一括して扱うオブジェクト(この例では"AlertStrategy"型と命名)を定義して解決します。  
