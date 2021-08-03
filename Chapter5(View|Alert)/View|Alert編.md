@@ -465,85 +465,14 @@ registerメソッドの呼び出し時にはタップ時の処理をクロージ
 ```
 従来のAlert実装よりも自然言語的なコードとなって大分読みやすくなったのではないでしょうか。  
   
-そしてここでもAlertClientTypeの`associatedtype Action: AlertActionType`によるモジュール化の効果が表れているのがわかります。  
-上記の例ではAlertClient<FetchPhotoErrorAction>型のジェネリクスによってregisterメソッドのクロージャが受け取るAction型が明確であるため、その登録処理内のswitch文による分岐は非常にシンプルで直感的です。    
-一つのAlertモジュールが一般的にユーザーに与える選択肢の数(Alertボタン、もしくはAlertActionTypeに準拠したEnumのcaseの数)を考えると、ジェネリクスを使ってAlertClientが対応するモジュールを一つに限定する限り、このクロージャ内の分岐が煩雑になる可能性はとても低いと思います。  
-もしここで`Action: AlertActionType`を型のジェネリクスとして利用していなければ、クロージャが受け取るAlertActionTypeの実体を想定することは非常に難しくなり、登録処理の内容も複雑になってしまうはずです。  
+そしてここにもAlertClientTypeの`associatedtype Action: AlertActionType`によるモジュール化の効果が現れています。  
+上記の例ではAlertClient<FetchPhotoErrorAction>型のジェネリクスによってregisterメソッドのクロージャが受け取るAction型が明確であるため、その登録処理内のswitch文による分岐は非常にシンプル直感的です。  
+これはFetchPhotoErrorActionだからというわけではなく、一つのAlertモジュールが一般的にユーザーに与える選択肢の数(良いかればAlertActionTypeに準拠したEnumのcaseの数)を考えると、ジェネリクスを使ってAlertClientが対応するモジュールを一つに限定する限り、クロージャ内の分岐が煩雑になる可能性はとても低いと思います。  
+もしここで`Action: AlertActionType`を型のジェネリクスとして利用していなければ、クロージャが受け取るAlertActionTypeの実体を想定することは非常に難しくなり、登録処理の内容は複雑になってしまうはずです。  
 このようにAlertClientTypeの`associatedtype Action: AlertActionType`によるモジュール化はAlertに関するコードを読みやすくさせるだけではなく、そのコードの記述にも役にたっています。  
 
 ちなみに`func register(on action: Action,_ handler: @escaping (Action) -> Void) -> RegistryKey`と`func register(on actions: [Action],_ handler: @escaping (Action) -> Void) -> RegistryKey`は特定のActionが発生した場合のみ呼び出したい処理を登録します。  
     
 そしてRegistryKeyという独自型を定義してAlertClientで利用していますが、これはAlertに登録した処理を管理するのに利用するキーの役割であり、もし登録した処理が呼びされるのをやめたい場合は、該当の処理登録時に返り値として受け取ったRegistryKeyを`func unregister(key: RegistryKey) -> Void?`に渡すことで登録を解除します。    
 
-
-このAlertClientTypeの実体型として私は以下のAlertClient型を定義しました。
-```
-final class AlertClient<Action: AlertActionType>: NSObject {
-    private weak var vc: UIViewController!
-    var handlers: [RegistryKey: (Action) -> Void] = [:]
-    
-    required init(viewController: UIViewController) {
-        self.vc = viewController
-    }
-    
-    
-    func show(strategy: AlertStrategy<Action>,
-              animated: Bool,
-              completion: (() -> Void)?) {
-
-        let alert: UIAlertController = UIAlertController(title: strategy.title,
-                                                         message: strategy.message,
-                                                         preferredStyle: UIAlertController.Style(style: strategy.style))
-
-        for action in strategy.actions {
-            alert.addAction(UIAlertAction(title: action.title,
-                                          style: UIAlertAction.Style(style: action.style),
-                                          handler: {(alertAction: UIAlertAction) -> Void in
-        
-                                            self.handlers.values.forEach{
-                                                $0(action)
-                                            }
-                                          }))
-        }
-        self.vc.present(alert,
-                          animated: animated,
-                          completion: completion)
-        
-    }
-    
-    func register(handler: @escaping (Action) -> Void) -> RegistryKey {
-        let key: RegistryKey = .init()
-        self.handlers[key] = handler
-    }
-    
-    func register(on action: Action, handler: @escaping (Action) -> Void) -> RegistryKey {
-        let key: RegistryKey = .init()
-        self.handlers[key] = { _action in
-            if action == _action {
-                handler(action)
-            }
-        }
-        return key
-    }
-    
-    func register(on actions: [Action], handler: @escaping (Action) -> Void) -> RegistryKey {
-        let key: RegistryKey = .init()
-        self.handlers[key] = { action in
-            if actions.contains(action) {
-                handler(action)
-            }
-        }
-        return key
-    }
-    
-    
-    func unregister(key: RegistryKey) -> Void? {
-        if let _ = self.handlers.removeValue(forKey: key) {
-            return ()
-        } else {
-            return nil
-        }
-    }
-}
-
-```
+ 
