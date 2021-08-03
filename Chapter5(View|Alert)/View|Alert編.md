@@ -476,6 +476,6 @@ registerメソッドの呼び出し時にはタップ時の処理をクロージ
  - `func register(on actions: [Action],_ handler: @escaping (Action) -> Void) -> RegistryKey`  
 は特定のActionが発生した場合のみ呼び出したい処理を登録します。  
      
-そしてRegistryKeyという独自型を定義してAlertClientで利用していますが、これはAlertに登録した処理を管理するのに利用するキーの役割であり、もし登録した処理が呼びされるのをやめたい場合は、該当の処理登録時に返り値として受け取ったRegistryKeyを`func unregister(key: RegistryKey) -> Void?`に渡すことで登録を解除します。    
+そしてRegistryKeyという独自型を利用していますが、これはAlertに登録した処理を管理するのに利用するキーの役割であり、もし登録した処理が呼びされるのをやめたい場合は、該当の処理登録時に返り値として受け取ったRegistryKeyを`func unregister(key: RegistryKey) -> Void?`に渡すことで登録を解除します。    
 
  
