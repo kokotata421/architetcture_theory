@@ -464,11 +464,11 @@ registerメソッドの呼び出し時にはタップ時の処理をクロージ
               　　　}
 ```
 従来のAlert実装よりも自然言語的なコードとなって大分読みやすくなったのではないでしょうか。  
+  
 そしてここでもAlertClientTypeの`associatedtype Action: AlertActionType`によるモジュール化の効果が表れているのがわかります。  
-上記の例ではAlertClient<FetchPhotoErrorAction>型のジェネリクスによってregisterメソッドのクロージャが受け取るAction型が明確であるため、その登録処理は非常にシンプルかつ直感的な記述形式となっています。  
-一つのAlertモジュールが一般的にユーザーに与える選択肢の数(Alertボタンの数)を考えると、ジェネリクスを使ってAlertClientが対応するモジュールに制約をかけている限り、registerメソッドに渡すクロージャが複雑になることはあり得ないと思います。  
-    
-もしここで`Action: AlertActionType`を型のジェネリクスとして利用していなければ、registerで受け取るAlertActionTypeの実体を想定することは非常に難しくなり、またそのようにあらゆるAlertActionTypeに対応しなければならないAlertClientの実装はかなり強引で型の安全性に欠けたものになっていたはずです。  
+上記の例ではAlertClient<FetchPhotoErrorAction>型のジェネリクスによってregisterメソッドのクロージャが受け取るAction型が明確であるため、その登録処理内のswitch文による分岐は非常にシンプルで直感的です。    
+一つのAlertモジュールが一般的にユーザーに与える選択肢の数(Alertボタン、もしくはAlertActionTypeに準拠したEnumのcaseの数)を考えると、ジェネリクスを使ってAlertClientが対応するモジュールを一つに限定する限り、このクロージャ内の分岐が煩雑にってしまう可能性はとても低いと思います。  
+もしここで`Action: AlertActionType`を型のジェネリクスとして利用していなければ、registerで受け取るAlertActionTypeの実体を想定することは非常に難しくなり、またそのようにあらゆるAlertActionTypeに対応しなければならないAlertClientの内部実装はかなり強引で型の安全性に欠けたものになっていたはずです。  
 
 
 ちなみに`func register(on action: Action,_ handler: @escaping (Action) -> Void) -> RegistryKey`と`func register(on actions: [Action],_ handler: @escaping (Action) -> Void) -> RegistryKey`は何か特定のActionが発生した場合のみ呼び出したい処理を登録する場合に利用します。  
