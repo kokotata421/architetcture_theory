@@ -408,8 +408,9 @@ extension UIAlertAction.Style {
   
   
 #### 「3.データフローが複雑になる」問題の解決
-それでは最後にAlertの入出力のデータフローを切り分ける方法を説明します。  
-
+それでは最後にAlertの入出力データフローを切り話す方法を説明しますが、今回の設計においてその役割を担っているのはAlertClientTypeです。  
+AlertClientTypeに関してはshowメソッドでAlertを代理で表示するコンポーネントと説明しましたが、それに加えて
+以下では先に示したshowメソッドも含め、AlertClientTypeプロトコル全体とその関連オブジェクトの定義を示します。  
 ```
 public struct RegistryKey: Hashable {
     private let _uuid: UUID
@@ -442,7 +443,6 @@ protocol AlertClientType: NSObject {
 
 ```
 
-AlertClientの基本的な役割でAlertの表示は上記の`func show(strategy: AlertStrategy<Action>, animated: Bool, completion: (() -> Void)?)`によって行われます。  
 そしてここで主題となっているAlertの入力と出力処理を切り離すのはregisterメソッドによって実現されています。  
 定義を見てわかると思いますが、このregisterメソッドではクロージャをパラメーターとして渡して登録しており、Alertボタンタップ時にはここで登録したクロージャが呼び出されるようになっています。  
 例えばAlertClientが先程の`FetchPhotoErrorAction`をAction型として指定してる場合には以下のようにクロージャを渡すことでAlertボタンタップ時の処理を登録しています。  
