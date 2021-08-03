@@ -478,4 +478,4 @@ registerメソッドの呼び出し時にはタップ時の処理をクロージ
      
 そしてRegistryKeyという独自型を利用していますが、これはAlertに登録した処理を管理するのに利用するキーの役割であり、もし登録した処理が呼びされるのをやめたい場合は、該当の処理登録時に返り値として受け取ったRegistryKeyを`func unregister(key: RegistryKey) -> Void?`に渡すことで登録を解除します。    
 
- 
+#### AlertClientTypeの実体型
