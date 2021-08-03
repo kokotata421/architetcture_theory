@@ -466,9 +466,10 @@ registerメソッドの呼び出し時にはタップ時の処理をクロージ
 従来のAlert実装よりも自然言語的なコードとなって大分読みやすくなったのではないでしょうか。  
 そしてここでもAlertClientTypeの`associatedtype Action: AlertActionType`によるモジュール化の効果が表れているのがわかります。  
 上記の例ではAlertClient<FetchPhotoErrorAction>型のジェネリクスによってregisterメソッドのクロージャが受け取るAction型が明確であるため、その登録処理は非常にシンプルかつ直感的な記述形式となっています。  
-一般的に
+一つのAlertモジュールが一般的にユーザーに与える選択肢の数(Alertボタンの数)を考えると、ジェネリクスを使ってAlertClientが対応するモジュールに制約をかけている限り、registerメソッドに渡すクロージャが複雑になることはあり得ないと思います。  
     
-もしここで`Action: AlertActionType`を型のジェネリクスとして利用していなければ、registerで受け取るAlertActionTypeの実体を想定することは非常に難しくなりますし、またそのようにあらゆるAlertActionTypeに対応する必要がある場合AlertClientの実装はかなり強引で型の安全性に欠けたものになってしまいます。  
+もしここで`Action: AlertActionType`を型のジェネリクスとして利用していなければ、registerで受け取るAlertActionTypeの実体を想定することは非常に難しくなり、またそのようにあらゆるAlertActionTypeに対応しなければならないAlertClientの実装はかなり強引で型の安全性に欠けたものになっていたはずです。  
+
 
 ちなみに`func register(on action: Action,_ handler: @escaping (Action) -> Void) -> RegistryKey`と`func register(on actions: [Action],_ handler: @escaping (Action) -> Void) -> RegistryKey`は何か特定のActionが発生した場合のみ呼び出したい処理を登録する場合に利用します。  
 またRegistryKey型はAlertに登録した処理を管理するのに利用するキーであり、もし登録した処理が呼びされるのをやめた場合は該当の処理を登録時返り値として受け取ったRegistryKeyを`func unregister(key: RegistryKey) -> Void?`に渡すことで登録を解除できます。  
