@@ -481,8 +481,9 @@ registerメソッドの呼び出し時にはタップ時の処理をクロージ
 ### AlertClientTypeの実体型
 デフォルトAlertの問題を独自に定義したAlertClientType、そしてAlertStrategy、AlertActionTypeを使いながら解決していきました。  
 しかし論理的には解決策を提示したものの、肝心のAlertを表示するAlertClientTypeの実装については触れていないのでここではそれについて説明したいと思います。  
-AlertClientTypeの実体型はそのテスト等、その実行環境によっていくつか定義する必要があるかもしれませんが、本番環境に限って言えばモジュールの多様性はジェネリクスによって実現しているためAlertClientの実体型は一つ定義すれば十分なはずであり、またAlertClientTypeの要件を考えるとそんなにいくつも実装パターンがあるとは思えません。  
-
+AlertClientTypeの実体型はそのテスト等、その実行環境によっていくつか定義する必要があるかもしれません。  
+ただ本番環境に限って言えばモジュールの多様性はジェネリクスによって実現しているためAlertClientの実体型は一つ定義すれば十分なはずであり、またAlertClientTypeの要件を考えるとそんなにいくつも実装パターンがあるとは思えません。  
+そのため本番用のAlertClientTypeの実体型は大体以下のような実装になるのではないでしょうか。  
 
 ```
 final class AlertClient<Action: AlertActionType>: AlertClientType {
@@ -579,6 +580,7 @@ extension UIAlertAction.Style {
 
 ```
 
+    
 
     
     
