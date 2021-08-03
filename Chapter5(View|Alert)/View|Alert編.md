@@ -273,7 +273,7 @@ AlertClientの基本的な構造はRouterと同じで、AlertClientにViewContro
 以下はAlertClientTypeプロトコルのAlertの表示に関する定義です。(AlertClientTypeプロトコルの定義全体は後ほど示します。)　　
 
 ```
-protocol AlertClientType: NSObject {
+protocol AlertClientType: AnyObject {
     associatedtype Action: AlertActionType
     init(viewController: UIViewController)
     
@@ -423,7 +423,7 @@ public struct RegistryKey: Hashable {
     }
 }
 
-protocol AlertClientType: NSObject {
+protocol AlertClientType: AnyObject {
     associatedtype Action: AlertActionType
     init(viewController: UIViewController)
     
@@ -481,12 +481,13 @@ registerメソッドの呼び出し時にはタップ時の処理をクロージ
 ### AlertClientTypeの実体型
 デフォルトAlertの問題を独自に定義したAlertClientType、そしてAlertStrategy、AlertActionTypeを使いながら解決していきました。  
 しかし論理的には解決策を提示したものの、肝心のAlertを表示するAlertClientTypeの実装については触れていないのでここではそれについて説明したいと思います。  
-AlertClientTypeの実体型はそのテスト等、実行環境によっていくつか定義する必要があるかもしれませんが、本番環境に限って言えばモジュールの多様性はジェネリクスによって実現しているためAlertClientの実体型は一つ定義すれば十分なはずであり、またAlertClientTypeの要件を考えると  
+AlertClientTypeの実体型はそのテスト等、その実行環境によっていくつか定義する必要があるかもしれませんが、本番環境に限って言えばモジュールの多様性はジェネリクスによって実現しているためAlertClientの実体型は一つ定義すれば十分なはずであり、またAlertClientTypeの要件を考えるとそんなにいくつも実装パターンがあるとは思えません。  
+
 
 ```
-final class AlertClient<Action: AlertActionType>: NSObject {
+final class AlertClient<Action: AlertActionType>: AlertClientType {
     private weak var vc: UIViewController!
-    var handlers: [RegistryKey: (Action) -> Void] = [:]
+    private var handlers: [RegistryKey: (Action) -> Void] = [:]
     
     required init(viewController: UIViewController) {
         self.vc = viewController
@@ -575,6 +576,7 @@ extension UIAlertAction.Style {
         }
     }
 }
+
 ```
 
 
