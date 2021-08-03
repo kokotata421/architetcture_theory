@@ -408,9 +408,9 @@ extension UIAlertAction.Style {
   
   
 #### 「3.データフローが複雑になる」問題の解決
-それでは最後にAlertの入出力データフローを切り話す方法を説明しますが、今回の設計においてその役割を担っているのはAlertClientTypeです。  
-AlertClientTypeに関してはshowメソッドでAlertを代理で表示するコンポーネントと説明しましたが、それに加えて
-以下では先に示したshowメソッドも含め、AlertClientTypeプロトコル全体とその関連オブジェクトの定義を示します。  
+それでは最後にAlertの入出力データフローを切り離す方法を説明しますが、今回の設計においてその役割を担っているのはAlertClientTypeです。  
+AlertClientTypeは既に説明したようにAlertを表示する役割を担っていますが、それに加えて入出力データフローを切り離しも行なっています。  
+以下では先に示したshowメソッドも含め、AlertClientTypeプロトコル全体とその関連オブジェクトの定義を示します。    
 ```
 public struct RegistryKey: Hashable {
     private let _uuid: UUID
@@ -442,9 +442,11 @@ protocol AlertClientType: NSObject {
 }
 
 ```
+上記のコードを見て大体察しはついていると思いますが、AlertClientはregisterメソッドを呼び出してAlertボタンタップ時(入力)の処理を登録します。  
+以前はAlertボタンタップ時の処理は、Alertを表示する際Alertボタンに直接定義していました。  
+それを考えると今回の設計ではAlertを表示する出力処理(showメソッド)とAlertのボタンが押された際の入力処理の登録(registerメソッド)は異なるタイミングで呼び出すことが可能で、両者が切り離されていることがわかると思います。  
 
-そしてここで主題となっているAlertの入力と出力処理を切り離すのはregisterメソッドによって実現されています。  
-定義を見てわかると思いますが、このregisterメソッドではクロージャをパラメーターとして渡して登録しており、Alertボタンタップ時にはここで登録したクロージャが呼び出されるようになっています。  
+
 例えばAlertClientが先程の`FetchPhotoErrorAction`をAction型として指定してる場合には以下のようにクロージャを渡すことでAlertボタンタップ時の処理を登録しています。  
 ```
 //　alertClientはAction型に「FetchPhotoErrorAction」を指定したAlertClientTypeの実体型インスタンス
