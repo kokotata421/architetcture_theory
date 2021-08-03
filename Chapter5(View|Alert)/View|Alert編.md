@@ -442,27 +442,34 @@ protocol AlertClientType: NSObject {
 }
 
 ```
-上記のコードを見て大体察しはついていると思いますが、AlertClientはregisterメソッドを呼び出してAlertボタンタップ時(入力)の処理を登録します。  
+上記のコードを見て大体察しはついていると思いますが、AlertClientはregisterメソッドを呼び出してAlertボタンタップ(入力)時の処理を登録します。  
 以前はAlertボタンタップ時の処理は、Alertを表示する際Alertボタンに直接定義していました。  
-それを考えると今回の設計ではAlertを表示する出力処理(showメソッド)とAlertのボタンが押された際の入力処理の登録(registerメソッド)が全く異なるタイミングで呼び出し可能で、両者が切り離されていることがわかると思います。  
+それを考えると今回の設計ではAlertを表示する出力処理(showメソッド)とAlertのボタンが押された際の入力処理の登録(registerメソッド)が全く異なるタイミングで呼び出し可能で、両者が切り離されたのがわかると思います。    
+registerメソッドの呼び出し時にはタップ時の処理をクロージャとして渡しますが、そのクロージャ内では引数として受け取る`Action: AlertActionType`から何のAlertボタンが押されたか判別します。  
+例えばAlertClientが先程例に出した`FetchPhotoErrorAction`をAction型として指定してる場合には以下のようにクロージャを渡すことでAlertボタンタップ時の処理を登録しています。  
 
-
-例えばAlertClientが先程の`FetchPhotoErrorAction`をAction型として指定してる場合には以下のようにクロージャを渡すことでAlertボタンタップ時の処理を登録しています。  
 ```
-//　alertClientはAction型に「FetchPhotoErrorAction」を指定したAlertClientTypeの実体型インスタンス
 
-　　　alertClient
-    　　　.register { action in
-                 　　　switch action {
-                 　　　case .retry: // retryボタンがタップされた時の処理
-                 　　　case .cancel: // cancelボタンがタップされた時の処理
-                 　　　case .setting: // settingボタンがタップされた時の処理
-                 　　　case .signIn: //signInボタンがタップされた時の処理
-                 　　　case .none: return //「確認」ボタン等、特にタップされても行う処理がない場合
-                 　　}
+　　　let alertClient: AlertClient<FetchPhotoErrorAction> = .init(viewController: viewContrller)
+   
+　　　let key:RegistryKey = alertClient
+    　                       .register { action in
+                 　　　            switch action {
+                 　　　            case .retry: // retryボタンがタップされた時の処理
+                 　　　            case .cancel: // cancelボタンがタップされた時の処理
+                 　　　            case .setting: // settingボタンがタップされた時の処理
+                 　　　            case .signIn: //signInボタンがタップされた時の処理
+                 　　　            case .none: return //「確認」ボタン等、特にタップされても行う処理がない場合
+                 　　         }
               　　　}
 ```
-デフォルトのAlert設計よりもこちらの方がAlertのボタンタップ時の処理を直感的に登録できていると思います。  
+従来のAlert実装よりも自然言語的なコードとなって大分読みやすくなったのではないでしょうか。  
+そしてここでもAlertClientTypeの`associatedtype Action: AlertActionType`によるモジュール化の効果が表れているのがわかります。  
+上記の例ではAlertClient<FetchPhotoErrorAction>型のジェネリクスによってregisterメソッドのクロージャが受け取るAction型が明確であるため、その登録処理は非常にシンプルかつ直感的な記述形式となっています。  
+一般的に
+    
+もしここで`Action: AlertActionType`を型のジェネリクスとして利用していなければ、registerで受け取るAlertActionTypeの実体を想定することは非常に難しくなりますし、またそのようにあらゆるAlertActionTypeに対応する必要がある場合AlertClientの実装はかなり強引で型の安全性に欠けたものになってしまいます。  
+
 ちなみに`func register(on action: Action,_ handler: @escaping (Action) -> Void) -> RegistryKey`と`func register(on actions: [Action],_ handler: @escaping (Action) -> Void) -> RegistryKey`は何か特定のActionが発生した場合のみ呼び出したい処理を登録する場合に利用します。  
 またRegistryKey型はAlertに登録した処理を管理するのに利用するキーであり、もし登録した処理が呼びされるのをやめた場合は該当の処理を登録時返り値として受け取ったRegistryKeyを`func unregister(key: RegistryKey) -> Void?`に渡すことで登録を解除できます。  
 
