@@ -479,4 +479,104 @@ registerメソッドの呼び出し時にはタップ時の処理をクロージ
 そしてRegistryKeyという独自型を利用していますが、これはAlertに登録した処理を管理するのに利用するキーの役割であり、もし登録した処理が呼びされるのをやめたい場合は、該当の処理登録時に返り値として受け取ったRegistryKeyを`func unregister(key: RegistryKey) -> Void?`に渡すことで登録を解除します。  
 
 ### AlertClientTypeの実体型
-デフォルトAlertの問題を独自いnAlertClientType、
+デフォルトAlertの問題を独自に定義したAlertClientType、そしてAlertStrategy、AlertActionTypeを使いながら解決していきました。  
+しかし論理的には解決策を提示したものの、肝心のAlertを表示するAlertClientTypeの実装については触れていないのでここではそれについて説明したいと思います。  
+AlertClientTypeの実体型はそのテスト等、実行環境によっていくつか定義する必要があるかもしれませんが、本番環境に限って言えばモジュールの多様性はジェネリクスによって実現しているためAlertClientの実体型は一つ定義すれば十分なはずであり、またAlertClientTypeの要件を考えると  
+
+```
+final class AlertClient<Action: AlertActionType>: NSObject {
+    private weak var vc: UIViewController!
+    var handlers: [RegistryKey: (Action) -> Void] = [:]
+    
+    required init(viewController: UIViewController) {
+        self.vc = viewController
+    }
+    
+    
+    func show(strategy: AlertStrategy<Action>,
+              animated: Bool,
+              completion: (() -> Void)?) {
+
+        let alert: UIAlertController = UIAlertController(title: strategy.title,
+                                                         message: strategy.message,
+                                                         preferredStyle: UIAlertController.Style(style: strategy.style))
+
+        for action in strategy.actions {
+            alert.addAction(UIAlertAction(title: action.title,
+                                          style: UIAlertAction.Style(style: action.style),
+                                          handler: {(alertAction: UIAlertAction) -> Void in
+        
+                                            self.handlers.values.forEach{
+                                                $0(action)
+                                            }
+                                          }))
+        }
+        self.vc.present(alert,
+                          animated: animated,
+                          completion: completion)
+        
+    }
+    
+    func register(handler: @escaping (Action) -> Void) -> RegistryKey {
+        let key: RegistryKey = .init()
+        self.handlers[key] = handler
+    }
+    
+    func register(on action: Action, handler: @escaping (Action) -> Void) -> RegistryKey {
+        let key: RegistryKey = .init()
+        self.handlers[key] = { _action in
+            if action == _action {
+                handler(action)
+            }
+        }
+        return key
+    }
+    
+    func register(on actions: [Action], handler: @escaping (Action) -> Void) -> RegistryKey {
+        let key: RegistryKey = .init()
+        self.handlers[key] = { action in
+            if actions.contains(action) {
+                handler(action)
+            }
+        }
+        return key
+    }
+    
+    
+    func unregister(key: RegistryKey) -> Void? {
+        if let _ = self.handlers.removeValue(forKey: key) {
+            return ()
+        } else {
+            return nil
+        }
+    }
+}
+
+extension UIAlertController.Style {
+    init(style: AlertStyle) {
+        switch style {
+        case .alert:
+            self = .alert
+        case .actionSheet:
+            self = .actionSheet
+        }
+    }
+}
+
+extension UIAlertAction.Style {
+    init(style: AlertActionStyle) {
+        switch style {
+        case .default:
+            self = .default
+        case .cancel:
+            self = .cancel
+        case .destructive:
+            self = .destructive
+        }
+    }
+}
+```
+
+
+    
+    
