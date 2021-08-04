@@ -581,7 +581,13 @@ extension UIAlertAction.Style {
 ```
 最初にインスタンス変数の説明からすると、宣言されているのは`private weak var vc: UIViewController!`と`private var handlers: [RegistryKey: (Action) -> Void] = [:]`の2つだけです。  
 ViewControllerがAlertClientを保持するおり循環参照を避けるため、AlertClient側ではViewControllerを弱参照(weak)しています。  
-そしてhandlers変数はRegistryKeyをキーとして登録されたタップ時の処理を保持するディクショナリー型です。  
+handlers変数はRegistryKeyをキーとして登録されたタップ時の処理を保持するディクショナリー型です。  
     
 次にメソッドの説明をしようと思いますが、showメソッドの前にregister/unregisterメソッドから見ていきます。  
+まず各registerメソッドは引数の違いによって登録処理にフィルター機能を追加するといった違いはありますが、基本的には
+1. RegistryKeyインスタンスを生成
+2. 生成したRegistryKeyインスタンスをキーとして、引数で渡されたクロージャをhandlers変数に格納
+3. ViewController側で登録処理を解除できるようにRegistryKeyインスタンスを返り値として渡す
+だけであってとてもシンプルだと思います。  
+そしてunregisterメソッドはRegistryKeyを受け取り、該当の登録処理がhandlers変数に含まれていたら削除します。  
     
