@@ -589,3 +589,5 @@ handlers変数はRegistryKeyをキーとして登録されたタップ時の処�
 これら4つの変更によってViewControllerにおけるAlertのコードは*簡潔かつ宣言的*に記述できるようになります。  
 
 以下イメージとして先に示した`enum FetchPhotoErrorAction: String, AlertActionType`を使ったViewControllerの実装例を示します。   
+    
+``
