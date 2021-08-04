@@ -588,6 +588,6 @@ handlers変数はRegistryKeyをキーとして登録されたタップ時の処�
 4. AlertClientTypeのregisterメソッドと前述のAlertActionによって、Alertボタンタップ時の処理の登録(入力)とAlertの表示(出力)を切り離す  
 これら4つの変更によってViewControllerにおけるAlertのコードは*簡潔かつ宣言的*に記述できるようになります。  
 
-以下イメージとして先に示した`enum FetchPhotoErrorAction: String, AlertActionType`を使ったViewControllerの実装例を示します。   
+以下イメージとして先に示した`enum FetchPhotoErrorAction: String, AlertActionType`を使ったViewControllerの実装例を示します。(もう少し本格的な例は本記事の最後に紹介します)    
     
 ``
