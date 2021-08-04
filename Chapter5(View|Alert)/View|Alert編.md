@@ -579,11 +579,13 @@ handlers変数はRegistryKeyをキーとして登録されたタップ時の処�
 
 ### Alert設計のまとめ
 デフォルトAlertの問題点を挙げ、それに対応する形の新しいAlert設計を考えていきました。  
-後で簡単な例を使って、実際にこの新しいAlertを使ったアプリの実装がどのようなものになるのか見ていきたいと思いますが、一度ここで本記事のAlert設計の内容をまとめたいと思います。  
+後で簡単な例を使って、実際にこの新しいAlertを使ったアプリの実装がどのようなものになるのか見ていきたいと思いますが、一度ここで本記事のAlert設計の内容をまとめます。  
     
 今回の設計においてデフォルトAlertに加えた変更は以下4点です。
 1. AlertClientTypeとそのshowメソッドによって、ViewControllerが行っていたAlertの表示を代わりに行う
 2. AlertStrategyによるAlert関連のデータの一括化によって、Alertの煩雑なデータ設定を内部実装に閉じ込める
 3. AlertActionによってモジュール毎のAlert開発を可能にさせ、また各Alertモジュールがユーザーに提示する選択肢を記号化(Enumのcase)する
-4. AlertClientTypeのregisterメソッドと前述のAlertActionによって、Alertボタンタップ時の処理の登録(入力)とAlertの表示(出力)を切り離す
-    
+4. AlertClientTypeのregisterメソッドと前述のAlertActionによって、Alertボタンタップ時の処理の登録(入力)とAlertの表示(出力)を切り離す  
+これら4つの変更によってViewControllerにおけるAlertのコードは*簡潔かつ宣言的*に記述できるようになります。  
+
+以下イメージとして先に示した`enum FetchPhotoErrorAction: String, AlertActionType`を使ったViewControllerの実装例を示します。   
