@@ -595,5 +595,7 @@ handlers変数はRegistryKeyをキーとして登録されたタップ時の処�
 処理登録といっても辞書に格納するだけなので、とてもシンプルな実装だと思います。  
 そしてunregisterメソッドはRegistryKeyを受け取り、該当の登録処理がhandlers変数に含まれていたら削除します。  
 
-さて、それでは最後にAlertClientの肝であるshowメソッドについてですが、これも基本的にはAletStrategyとそれが保持しているAlertActionのデータからUIAlertControllerとUIAlertActionを生成、
-処理登録といっても辞書に格納するだけなので、とてもシンプルな実装だと思います。  生成
+さて、それでは最後にAlertClientの肝であるshowメソッドについてですが、これも基本的にはAletStrategyとそれが保持しているAlertActionのデータからUIAlertControllerとUIAlertActionを生成、セットアップしていっているだけでとりわけ説明しなければいけないことはありません。  
+しかし、一つだけ
+しかし、一つだけ十
+
