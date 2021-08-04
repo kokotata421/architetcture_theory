@@ -588,6 +588,8 @@ handlers変数はRegistryKeyをキーとして登録されたタップ時の処�
 1. RegistryKeyインスタンスを生成
 2. 生成したRegistryKeyインスタンスをキーとして、引数で渡されたクロージャをhandlers変数に格納
 3. ViewController側で登録処理を解除できるようにRegistryKeyインスタンスを返り値として渡す  
+    
+
 だけです。  
 処理登録といっても辞書に格納するだけなので、とてもシンプルな実装だと思います。  
 そしてunregisterメソッドはRegistryKeyを受け取り、該当の登録処理がhandlers変数に含まれていたら削除します。  
