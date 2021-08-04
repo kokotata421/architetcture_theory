@@ -579,8 +579,9 @@ extension UIAlertAction.Style {
 }
 
 ```
-インスタンス変数は`private weak var vc: UIViewController!`と`private var handlers: [RegistryKey: (Action) -> Void] = [:]`の2つが宣言されているだけです。  
-ViewControllerがAlertClientを保持するので循環参照を避けるため、AlertClient側ではViewControllerを弱参照(weak)しています。  
-handlers変数はRegistryKeyをキーとして登録されたタップ時の処理を保持するディクショナリー型です。
+最初にインスタンス変数の説明からすると、宣言されているのは`private weak var vc: UIViewController!`と`private var handlers: [RegistryKey: (Action) -> Void] = [:]`の2つだけです。  
+ViewControllerがAlertClientを保持するおり循環参照を避けるため、AlertClient側ではViewControllerを弱参照(weak)しています。  
+そしてhandlers変数はRegistryKeyをキーとして登録されたタップ時の処理を保持するディクショナリー型です。  
     
+次にメソッドの説明をしようと思いますが、showメソッドの前にregister/unregisterメソッドから見ていきます。  
     
