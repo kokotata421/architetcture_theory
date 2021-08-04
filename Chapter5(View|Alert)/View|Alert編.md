@@ -554,29 +554,6 @@ final class AlertClient<Action: AlertActionType>: AlertClientType {
     }
 }
 
-extension UIAlertController.Style {
-    init(style: AlertStyle) {
-        switch style {
-        case .alert:
-            self = .alert
-        case .actionSheet:
-            self = .actionSheet
-        }
-    }
-}
-
-extension UIAlertAction.Style {
-    init(style: AlertActionStyle) {
-        switch style {
-        case .default:
-            self = .default
-        case .cancel:
-            self = .cancel
-        case .destructive:
-            self = .destructive
-        }
-    }
-}
 
 ```
 #### AlertClientのインスタンス変数
@@ -596,6 +573,6 @@ handlers変数はRegistryKeyをキーとして登録されたタップ時の処�
 そしてunregisterメソッドはRegistryKeyを受け取り、該当の登録処理がhandlers変数に含まれていたら削除します。  
 
 さて、それでは最後にAlertClientの肝であるshowメソッドについてですが、これも基本的にはAletStrategyとそれが保持しているAlertActionのデータからUIAlertControllerとUIAlertActionを生成、セットアップしていっているだけでとりわけ説明しなければいけないことはありません。  
-しかし、一つだけ
-しかし、一つだけ十
-
+しかし、設計上重要な点はUIAlertAction、つまりAlertボタンタップ時の処理としてhandlers変数が持っている登録処理群を呼び出していることです。  
+そしてこの登録処理呼び出しの際、引数には自身のAlertボタンに照応したAlertActionを渡しています。  
+このようにAlertボタンタップ時の処理として登録処理を呼び出すようにすることで、データ入出力の切り離し、またタップ時の処理の集約化(各UIAlertAction一つ一つにタップ時の処理定義していくのではなく、Alertモジュール毎に一括したタップ時の処理を定義)が可能になりました
