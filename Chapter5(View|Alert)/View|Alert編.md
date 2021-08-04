@@ -482,8 +482,8 @@ registerメソッドの呼び出し時にはタップ時の処理をクロージ
 デフォルトAlertの問題を独自に定義したAlertClientType、そしてAlertStrategy、AlertActionTypeを使いながら解決していきました。  
 しかし論理的には解決策を提示したものの、肝心のAlertを表示するAlertClientTypeの実装については触れていないのでここではそれについて説明したいと思います。  
 AlertClientTypeの実体型はそのテスト等、その実行環境によっていくつか定義する必要があるかもしれません。  
-ただ本番環境に限って言えばモジュールの多様性はジェネリクスによって実現しているためAlertClientの実体型は一つ定義すれば十分なはずであり、またAlertClientTypeの要件を考えるとそんなにいくつも実装パターンがあるとは思えません。  
-そのため本番用のAlertClientTypeの実体型は大体以下のような実装になるのではないでしょうか。  
+ただ本番環境に限って言えばモジュールの多様性はジェネリクスによって実現しているためAlertClientの実体型は一つ定義すれば十分なはずであり、またAlertClientTypeの要件を考えてもその実装内容も大きく変わることはないと思います。    
+以下では私が実装したAlertClientクラスを示します。  
 
 ```
 final class AlertClient<Action: AlertActionType>: AlertClientType {
@@ -579,8 +579,8 @@ extension UIAlertAction.Style {
 }
 
 ```
-
-    
-
+インスタンス変数は`private weak var vc: UIViewController!`と`private var handlers: [RegistryKey: (Action) -> Void] = [:]`の2つが宣言されているだけです。  
+ViewControllerがAlertClientを保持するので循環参照を避けるため、AlertClient側ではViewControllerを弱参照(weak)しています。  
+handlers変数はRegistryKeyをキーとして登録されたタップ時の処理を保持するディクショナリー型です。
     
     
