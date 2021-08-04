@@ -583,4 +583,5 @@ handlers変数はRegistryKeyをキーとして登録されたタップ時の処�
     
 今回の設計においてデフォルトAlertに加えた変更は以下4点です。
 1. AlertClientTypeとそのshowメソッドによって、ViewControllerが行っていたAlertの表示を代わりに行う
-2. AlertStrategyによるAlert関連のデータの一括化によって、煩雑なデータ設定を
+2. AlertStrategyによるAlert関連のデータの一括化によって、Alertの煩雑なデータ設定を内部実装に閉じ込める
+3. A
