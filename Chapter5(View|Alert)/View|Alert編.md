@@ -592,7 +592,7 @@ handlers変数はRegistryKeyをキーとして登録されたタップ時の処�
     
 
 ```
-    struct Photo {
+struct Photo {
     //写真に関するデータ...
 }
 protocol ExamplePresenterInputs: AnyObject {
