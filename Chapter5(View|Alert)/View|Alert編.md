@@ -658,3 +658,26 @@ class ExampleViewController<Presenter: ExamplePresenterInputs,
 }
 
 ```
+
+どうでしょう、デフォルトAlertと比べてその構造が洗練され、直感的に理解しやすくなったのではないでしょうか。  
+デフォルトAlertの実装も下に載せときますが、Alertを表示する際に行っていた細々とした処理を利用する側から意識することがなくなったのがわかります。  
+```
+ // dataはPresenterから渡された引数とする
+
+   let alert: UIAlertController = UIAlertController(title: "データの保存確認",
+                                                    message: "データを保存してもいいですか？",
+                                                    preferredStyle:  UIAlertControllerStyle.Alert)
+    let defaultAction: UIAlertAction = UIAlertAction(title: "OK",
+                                                     style: UIAlertActionStyle.Default, 
+                                                     handler: { (action: UIAlertAction!) -> Void in
+                                                        presenter.save(data)
+                                                     })
+    let cancelAction: UIAlertAction = UIAlertAction(title: "キャンセル",
+                                                    style: UIAlertActionStyle.Cancel,
+                                                    handler:nil)
+    
+    alert.addAction(cancelAction)
+    alert.addAction(defaultAction)
+
+    viewController.present(alert, animated: true, completion: nil)
+```
