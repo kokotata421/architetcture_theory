@@ -685,4 +685,7 @@ class ExampleViewController<Presenter: ExamplePresenterInputs,
 しかしここで重要なのはAlertがそれを利用するコンポーネントに適した設計になったということです。  
 PresenterはView関係のデータを操作するコンポーネントなので、そこでAlertStrategyを生成することはなんの問題もありません。  
 そしてViewControllerは「画面入出力イベントを管理する」(ViewController編参照)のが責務であり、また開発者にとっては「その画面がアプリ上どのような役割を持っているか」把握するためにあります。  
-そのためViewControllerからするとAlertのタイトルやメッセージの文言は究極的にはどうでもよく、そこで重要なの
+これは言い換えれば、ViewControllerからするとAlertのタイトルやメッセージの文言やその詳細の設定は究極的にはどうでもよく、重要なのは「何が原因でアラートを表示するのか(利用状況)」、「そのAlertの対応としてViewControllerはどのように振る舞うのか」にあるということです。  
+
+
+
