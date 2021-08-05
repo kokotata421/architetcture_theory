@@ -691,6 +691,6 @@ PresenterはView関係のデータを操作するコンポーネントなので�
 
 ## CollectionViewのDataSource
 本記事で取り上げたコンポーネント設計を簡単なアプリを例で実践しようと思いますが、その前にCollectionViewのDataSourceについて簡単に話します。  
-この設計ではAlertと同様にCollectionViewのDataSourceもViewControllerから外部化しています。 
-そのためその外部化の方法について説明していこうと思うのですが、
+この設計ではAlertと同様にCollectionViewのDataSourceもViewControllerから外部化しています。   
+そのためその方法について説明していこうと思うのですが、ただCollectionViewのDataSourceの設計はAlertn
 
