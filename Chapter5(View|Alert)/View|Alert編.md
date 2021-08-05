@@ -590,4 +590,71 @@ handlers変数はRegistryKeyをキーとして登録されたタップ時の処�
 
 以下イメージとして先に示した`enum FetchPhotoErrorAction: String, AlertActionType`を使ったViewControllerの実装例を示します。(もう少し本格的な例は本記事の最後に紹介します)    
     
-``
+
+```
+    struct Photo {
+    //写真に関するデータ...
+}
+protocol ExamplePresenterInputs: AnyObject {
+    
+    init(outputs: ExamplePresenterOutputs)
+    func fetchPhotos()
+    func goToSetting()
+    func signIn()
+}
+
+protocol ExamplePresenterOutputs: AnyObject {
+    func showPhotos(photos: [Photo])
+    func fetchPhotosfailed(strategy: AlertStrategy<FetchPhotoErrorAction>)
+}
+
+class ExampleViewController<Presenter: ExamplePresenterInputs,
+                            FetchPhotoErrorAlertClient: AlertClientType>: UIViewController,
+                                                                          ExamplePresenterOutputs
+                            where FetchPhotoErrorAlertClient.Action == FetchPhotoErrorAction {
+    
+    
+    private var presenter: Presenter!
+    private var alertClient: FetchPhotoErrorAlertClient!
+    
+    init() {
+        self.presenter = Presenter.init(outputs: self)
+        self.alertClient = FetchPhotoErrorAlertClient.init(viewController: self)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    //入力処理の登録
+    override func viewDidLoad() {
+        //その他の入力処理
+        //...
+        
+        
+        // Alertボタンタップ時の入力処理
+        _ = alertClient
+            .register { action in
+                switch action {
+                case .retry: self.presenter.fetchPhotos()
+                case .setting: self.presenter.goToSetting()
+                case .signIn: self.presenter.signIn()
+                case .cancel, .none: return
+                }
+            }
+    }
+    
+    func showPhotos(photos: [Photo]) {
+        //写真の表示
+    }
+    
+    //写真取得失敗時にAlertを表示
+    func fetchPhotosfailed(strategy: AlertStrategy<FetchPhotoErrorAction>) {
+        self.alertClient
+            .show(strategy: strategy,
+                  animated: true,
+                  completion: nil)
+    }
+}
+
+```
