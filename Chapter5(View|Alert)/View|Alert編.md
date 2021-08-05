@@ -682,6 +682,7 @@ class ExampleViewController<Presenter: ExamplePresenterInputs,
     viewController.present(alert, animated: true, completion: nil)
 ```
 もちろん変更後の設計ではAlertStrategyの生成処理をPresenterで行っており、上記の両者のコードを単純に比較できない面はあります。  
-しかしここで重要なのはAlertがそれを利用するコンポーネントに適した設計を持つようになったということです。  
+しかしここで重要なのはAlertがそれを利用するコンポーネントに適した設計になったということです。  
 PresenterはView関係のデータを操作するコンポーネントなので、そこでAlertStrategyを生成することはなんの問題もありません。  
 そしてViewControllerは「画面入出力イベントを管理する」(ViewController編参照)のが責務であり、また開発者にとっては「その画面がアプリ上どのような役割を持っているか」把握するためにあります。  
+そのため
