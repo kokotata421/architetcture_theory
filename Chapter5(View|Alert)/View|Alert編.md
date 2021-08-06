@@ -819,3 +819,6 @@ class HomeCollectionDataSourceWrapper<CellViewModel: HomeCollectionCellViewModel
 
 ```
 
+init内でCellの生成処理、またCellに関する入出力イベントの設定を行っています。  
+上記の例は比較的単純なケースであって、他にもヘッダーやフッターを表示したり、UICollectionViewDataSourceプロトコルに関して実装したいメソッドがあった場合はinitのパラメーターを追加して適宜init内で処理、設定を行う必要があるでしょう。  
+    
