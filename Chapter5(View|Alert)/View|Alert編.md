@@ -739,4 +739,5 @@ class HomeViewController: UIViewController {
 ViewControllerからDataSourceを利用する場合、その要件はケースによって変わることが多いと思うのでラッパーオブジェクトとして定義して各ケースに必要なAPIのみを公開する設計が良いと思います。  
 
 ### 表示するための前準備も必要
-ただ、Collec
+ただ、CollectionViewの内容を表示するだけというのはあくまで外的な役割であり、実際にはその表示をするための定義を内部で行う必要があります。  
+そのような表示のための準備処理は基本的にDataSourceのinit内で実装されることになると思います。  
