@@ -743,6 +743,8 @@ ViewControllerからDataSourceを利用する場合、その要件はケース�
 そしてそのような準備処理は基本的にDataSourceのinit内で実装されることになると思います。  
 以下では先程例に挙げたHomeCollectionDataSourceWrapperの準備処理を含めたコードを示します。  
 なおこのHomeCollectionDataSourceWrapperは私のサンプルプロジェクトで使っているDataSourceであるため、ViewModelおよびRxSwift、RxCocoaを利用しています。  
+できれば本記事の流れに沿ってViewModelをPresenterに書き換えたかったのですが、技術的な理由で諦めました。  
+その理由も後ほど説明します。  
 ```
 class HomeCollectionDataSourceWrapper<CellViewModel: HomeCollectionCellViewModelPort> {
     enum Section {
