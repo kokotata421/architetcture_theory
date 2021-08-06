@@ -739,5 +739,80 @@ class HomeViewController: UIViewController {
 ViewControllerからDataSourceを利用する場合、その要件はケースによって変わることが多いと思うのでラッパーオブジェクトとして定義して各ケースに必要なAPIのみを公開する設計が良いと思います。  
 
 ### 表示するための前準備も必要
-ただ、CollectionViewの内容を表示するだけというのはあくまで外的な役割であり、実際にはその表示をするための定義を内部で行う必要があります。  
-そのような表示のための準備処理は基本的にDataSourceのinit内で実装されることになると思います。  
+ただ、CollectionViewの内容を表示するだけというのはあくまで外から見た役割であり、実際にはその表示をするための定義を内部で行う必要があります。  
+そしてそのような準備処理は基本的にDataSourceのinit内で実装されることになると思います。  
+以下では先程例に挙げたHomeCollectionDataSourceWrapperの準備処理を含めたコードを示します。(このHomeCollectionDataSourceWrapperは私のサンプルプロジェクトで使っているDataSourceであるため、ViewModelおよびRxSwift、RxCocoaを利用しています。)  
+```
+class HomeCollectionDataSourceWrapper<CellViewModel: HomeCollectionCellViewModelPort> {
+    enum Section {
+        case homePhotos
+    }
+    
+    typealias CellRegistration = UICollectionView.CellRegistration<PhotoViewCell, CellViewModel>
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, Photo>
+    typealias ViewModelProvider = (_ photoData: Photo,
+                                   _ indexPath: IndexPath) -> CellViewModel
+    private let _datasource: DataSource
+   
+    init(collectionView: UICollectionView,
+         viewModelProvider: ViewModelProvider) {
+        
+        let selectedItem = collectionView
+                                .rx
+                                .itemSelected
+                                .share(replay: 1, scope: .forever)
+        let willDisplayCell = collectionView
+                                .rx
+                                .willDisplayCellIndex
+                                .share(replay: 1, scope: .forever)
+                
+        self._datasource = DataSource(collectionView: collectionView) {
+            (collectionView: UICollectionView,
+             indexPath: IndexPath,
+             photo: Photo) -> UICollectionViewCell? in
+            let registration: CellRegistration = .init(handler: { cell, indexPath, viewModel in
+                
+                viewModel.disposeBag.extension.addDisposables(disposables:
+                        selectedItem
+                                .bind(to: viewModel.inputs.selectedIndexPath),
+                        willDisplayCell
+                            .bind(to: viewModel.inputs.displayIndexPath)
+                )
+                
+                viewModel.disposeBag.extension.addDisposables(disposables:
+                    viewModel
+                        .outputs
+                        .photoImageData
+                        .do(onNext: { [weak cell] _ in
+                            cell?.isUserInteractionEnabled = true
+                        })
+                        .bind(to: cell.rx.imageData),
+                    viewModel
+                        .outputs
+                        .highlight
+                        .bind(to: cell.rx.highlight)
+                )
+            })
+            return collectionView
+                .dequeueConfiguredReusableCell(using: registration,
+                                               for: indexPath,
+                                                item: viewModelProvider(photo,
+                                                                    indexPath)
+                                                )
+            
+      
+        }
+        
+    }
+    
+    func update(newItems: [Photo]) {
+        let snapshot: NSDiffableDataSourceSnapshot<Section, Photo> = .init()
+        snapshot.appendSections([.homePhotos])
+        snapshot.appendItems(newItems,
+                             toSection: .homePhotos)
+        self._datasource.apply(snapshot)
+    }
+}
+
+```
+    
