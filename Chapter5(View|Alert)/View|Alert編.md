@@ -738,5 +738,5 @@ class HomeViewController: UIViewController {
 ちなみにDataSourceの外部化をラッパーオブジェクトによって実現している理由は、直にUIKitのUICollectionViewDataSourceプロトコルを準拠・もしくはUICollectionViewDiffableDataSourceを継承したオブジェクトだとそのDataSourceの利用ケースに必要のないAPIまで晒してしまうことになるからです。  
 ViewControllerからDataSourceを利用する場合、その要件はケースによって変わることが多いと思うのでラッパーオブジェクトとして定義して各ケースに必要なAPIのみを公開する設計が良いと思います。  
 
-### ただ表示するための前準備も必要
-   
+### 表示するための前準備も必要
+ただ、Collec
