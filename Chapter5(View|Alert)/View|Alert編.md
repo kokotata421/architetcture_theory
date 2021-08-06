@@ -695,5 +695,7 @@ PresenterはView関係のデータを操作するコンポーネントなので�
 ただその外部化の設計はAlertに比べると配慮すべき点が少なくとても単純で、基本的にはそのCollectionViewが表示するアイテムを渡したら内容が更新されるようなDataSourceのラッパーオブジェクトを作成するだけです。  
     
 ### ViewControllerからみたDataSource
-  
-
+それを示すためにここではDataSourceの一部とそれを利用しているViewControllerの例を紹介します。  
+ちなみにD
+ちなみにa
+ちなみに
