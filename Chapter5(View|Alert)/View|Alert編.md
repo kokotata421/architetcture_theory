@@ -731,4 +731,5 @@ class HomeViewController: UIViewController {
 }
 
 ```
-わざわざ実例出すまでもなかったかもしれませんが、DataSourceはCollectionViewの内容の表示、もしくは更新を行うためであり、そのための処理をラップしてViewControllerから宣言的に利用できるようにす
+わざわざ実例出すまでもなかったかもしれませんが、DataSourceはCollectionViewの内容の表示、もしくは更新を行うためであり、基本的にはそのための処理をラップしてViewControllerから宣言的に利用できるようにするだけです。  
+ちなみにここで
