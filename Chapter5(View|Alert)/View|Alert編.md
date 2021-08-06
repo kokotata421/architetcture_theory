@@ -731,5 +731,7 @@ class HomeViewController: UIViewController {
 }
 
 ```
-わざわざ実例出すまでもなかったかもしれませんが、DataSourceはCollectionViewの内容の表示、もしくは更新を行うためであり、基本的にはそのための処理をラップしてViewControllerから宣言的に利用できるようにするだけです。  
-ちなみにここで
+わざわざ実例出すまでもなかったかもしれませんが、DataSourceの役割はCollectionViewの内容の表示、もしくは更新を行うためであり、基本的にはそのための処理をラップしてViewControllerから宣言的に利用できるようにするだけです。  
+もちろん状況によっては、現在の表示内容、状態の取得等を行いたい場合もあると思うので、その際は適宜機能を追加していけば良いと思います。  
+    
+ちなみにDataSourceの外部化をラッパーオブジェクトによって実現している理由は、直にUIKitのUICollectionViewDataSourceプロトコルを準拠・もしくはUICollectionViewDiffableDataSourceを継承したオブジェクトだとそのDataSourceの利用ケースに必要のないAPIまで晒してしまうことになるからです。 
