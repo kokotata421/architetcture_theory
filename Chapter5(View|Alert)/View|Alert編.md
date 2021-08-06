@@ -691,6 +691,7 @@ PresenterはView関係のデータを操作するコンポーネントなので�
 
 ## CollectionViewのDataSource
 本記事で取り上げたコンポーネント設計を簡単なアプリを例で実践しようと思いますが、その前にCollectionViewのDataSourceについて簡単に話します。  
+ちなみに今回の記事で扱うDataSourceはUICollectionViewDataSourceに準拠した実体型ではなく、それを内包したラッパーオブジェクトを指しています。  
 今回の設計ではAlertと同様にCollectionViewのDataSourceもViewControllerから外部化しています。   
 ただその外部化の設計はAlertに比べると配慮すべき点が少なくとても単純で、基本的にはそのCollectionViewが表示するアイテムを渡したら内容が更新されるようなDataSourceのラッパーオブジェクトを作成するだけです。  
     
@@ -732,7 +733,10 @@ class HomeViewController: UIViewController {
 
 ```
 わざわざ実例出すまでもなかったかもしれませんが、DataSourceの役割はCollectionViewの内容の表示、もしくは更新を行うためであり、基本的にはそのための処理をラップしてViewControllerから宣言的に利用できるようにするだけです。  
-もちろん状況によっては、現在の表示内容、状態の取得等を行いたい場合もあると思いますが、それらがDataSourceの構造を変えるようなことはなく、追加で機能が必要な際には適宜行えば  
+もちろん状況によっては、現在の表示内容、状態の取得等を行いたい場合もあると思いますが、それらがDataSourceの構造を変えるようなことはなく、追加で機能が必要な際には適宜行っていけば問題ありません。  
     
 ちなみにDataSourceの外部化をラッパーオブジェクトによって実現している理由は、直にUIKitのUICollectionViewDataSourceプロトコルを準拠・もしくはUICollectionViewDiffableDataSourceを継承したオブジェクトだとそのDataSourceの利用ケースに必要のないAPIまで晒してしまうことになるからです。  
-ViewControllerからDataSourceを利用する場合、その要件はケースバイケースであることが多いと思うのでラッパーオブジェクトとして定義して各ケースに必要なAPIのみを公開するのが良いと思います。  
+ViewControllerからDataSourceを利用する場合、その要件はケースによって変わることが多いと思うのでラッパーオブジェクトとして定義して各ケースに必要なAPIのみを公開する設計が良いと思います。  
+
+### ただ表示するための前準備も必要
+   
