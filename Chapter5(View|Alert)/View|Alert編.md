@@ -696,6 +696,40 @@ PresenterはView関係のデータを操作するコンポーネントなので�
     
 ### ViewControllerからみたDataSource
 それを示すためにここではDataSourceの一部とそれを利用しているViewControllerの例を紹介します。  
-ちなみにD
-ちなみにa
-ちなみに
+ちなみにDataSourceとしてはUICollectionViewDiffableDataSourceを利用します。  
+```
+// DataSourceのラッパーオブジェクト
+class HomeCollectionDataSourceWrapper {
+    enum Section {
+        case homePhotos
+    }
+    ...
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, Photo>
+    
+    ...
+    
+    private let _datasource: DataSource
+   
+    ...
+    
+    func update(newItems: [Photo]) {
+        let snapshot: NSDiffableDataSourceSnapshot<Section, Photo> = .init()
+        snapshot.appendSections([.homePhotos])
+        snapshot.appendItems(newItems,
+                             toSection: .homePhotos)
+        self._datasource.apply(snapshot)
+    }
+}
+    
+class HomeViewController: UIViewController {
+    private var datasource: HomeCollectionDataSourceWrapper
+    ...
+    
+    func updateItems(_ photos: [Photo]) {
+       self.datasource.update(newItems: photos)
+    }
+}
+
+```
+
+わざわざ実例出すまでもなかったかもしれませんが、DataSourceはCollectionViewの内容の表示、もしくは更新を行うためであり、その
