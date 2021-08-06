@@ -741,7 +741,8 @@ ViewControllerからDataSourceを利用する場合、その要件はケース�
 ### 表示するための前準備も必要
 ただ、CollectionViewの内容を表示するだけというのはあくまで外から見た役割であり、実際にはその表示をするための定義を内部で行う必要があります。  
 そしてそのような準備処理は基本的にDataSourceのinit内で実装されることになると思います。  
-以下では先程例に挙げたHomeCollectionDataSourceWrapperの準備処理を含めたコードを示します。(このHomeCollectionDataSourceWrapperは私のサンプルプロジェクトで使っているDataSourceであるため、ViewModelおよびRxSwift、RxCocoaを利用しています。)  
+以下では先程例に挙げたHomeCollectionDataSourceWrapperの準備処理を含めたコードを示します。  
+なおこのHomeCollectionDataSourceWrapperは私のサンプルプロジェクトで使っているDataSourceであるため、ViewModelおよびRxSwift、RxCocoaを利用しています。  
 ```
 class HomeCollectionDataSourceWrapper<CellViewModel: HomeCollectionCellViewModelPort> {
     enum Section {
@@ -815,4 +816,4 @@ class HomeCollectionDataSourceWrapper<CellViewModel: HomeCollectionCellViewModel
 }
 
 ```
-    
+
