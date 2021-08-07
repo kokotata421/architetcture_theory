@@ -743,7 +743,7 @@ ViewControllerからDataSourceを利用する場合、その要件はケース�
 そしてそのような準備処理は基本的にDataSourceのinit内で実装されることになると思います。  
 以下では先程例に挙げたHomeCollectionDataSourceWrapperの準備処理を含めたコードを示します。  
 なおこのHomeCollectionDataSourceWrapperは私のサンプルプロジェクトで使っているDataSourceであるため、ViewModelおよびRxSwift、RxCocoaを利用しています。  
-できれば本記事の流れに沿ってViewModelをPresenterに書き換えたかったのですが、技術的な理由で諦めました。  
+できれば本記事の流れに沿ってViewModelをPresenterに書き換えたかったのですが、技術的な理由で手間がかかりすぎると思い諦めました。  
 その理由も後ほど説明します。  
 ```
 class HomeCollectionDataSourceWrapper<CellViewModel: HomeCollectionCellViewModelPort> {
@@ -841,3 +841,4 @@ Cellの出力イベントもその画面の一部なのではないでしょう�
  
 このようにCellの性質を考えるとその入出力イベントがDataSource内部に閉じていることは設計要件的には問題なく、また無理に実現しようとしてもコストがかかるためそのままで良いと思います。  
     
+### Cellの入出力イベントの処理をDataSoure内で実装しようとするときの問題
