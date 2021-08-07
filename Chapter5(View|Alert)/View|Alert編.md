@@ -739,8 +739,8 @@ class HomeViewController: UIViewController {
 ViewControllerからDataSourceを利用する場合、その要件はケースによって変わることが多いと思うのでラッパーオブジェクトとして定義して各ケースに必要なAPIのみを公開する設計が良いと思います。  
 
 ### 表示するための前準備も必要
-ただ、CollectionViewの内容を表示するだけというのはあくまで外から見た役割であり、実際にはその表示をするための定義を内部で行う必要があります。  
-そしてそのような準備処理は基本的にDataSourceのinit内で実装されることになると思います。  
+ただ、CollectionViewの内容を表示するだけというのはあくまで外から見た構造で、実際にはその表示をするための準備処理を内部で行う必要があります。  
+基本的にそうした準備処理はDataSourceのinit内で実装されることになると思います。  
 以下では先程例に挙げたHomeCollectionDataSourceWrapperの準備処理を含めたコードを示します。  
 なおこのHomeCollectionDataSourceWrapperは私のサンプルプロジェクトで使っているDataSourceであるため、ViewModelおよびRxSwift、RxCocoaを利用しています。  
 できれば本記事の流れに沿ってViewModelをPresenterに書き換えたかったのですが、技術的な理由で手間がかかりすぎると思い諦めました。  
