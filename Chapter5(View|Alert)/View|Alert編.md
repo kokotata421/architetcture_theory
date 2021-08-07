@@ -691,7 +691,7 @@ PresenterはView関係のデータを操作するコンポーネントなので�
 
 ## CollectionViewのDataSource
 本記事で取り上げたコンポーネント設計を簡単なアプリを例で実践しようと思いますが、その前にCollectionViewのDataSourceについて簡単に話します。  
-ちなみに今回の記事で扱うDataSourceはUICollectionViewDataSourceに準拠した実体型ではなく、それを内包したラッパーオブジェクトを指しています。  
+ちなみにここでのDataSourceはUICollectionViewDataSourceに準拠した実体型ではなく、それを内包したラッパーオブジェクトを指しています。  
 今回の設計ではAlertと同様にCollectionViewのDataSourceもViewControllerから外部化しています。   
 ただその外部化の設計はAlertに比べると配慮すべき点が少なくとても単純で、基本的にはそのCollectionViewが表示するアイテムを渡したら内容が更新されるようなDataSourceのラッパーオブジェクトを作成するだけです。  
     
