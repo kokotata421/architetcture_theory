@@ -845,4 +845,4 @@ UICellConfigurationStateはiOS14で加わったAPIであり、Cellはこれに�
 
 ### 外部を介したイベント処理が必要な場合
 しかしそれでもアプリのiOSバージョンやプロダクトの仕様によっては、CellでもViewModel/Presenterを介したイベント処理が必要になることもあるかと思います。  
-先に示したHomeCollectionDataSourceWrapperでも通信処理でURLから取得した画像をCellに表示するためにV
+先に示したHomeCollectionDataSourceWrapperでも通信処理でURLから画像を取得、また取得
