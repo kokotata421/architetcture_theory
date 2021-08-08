@@ -834,18 +834,16 @@ UICellConfigurationStateはiOS14で加わったAPIであり、Cellはこれに�
 このUICellConfigurationStateを使えばCellにおけるViewModelやPresenterを介したイベント処理はほとんど必要なくなるかと思います。  
 
 ### 外部を介したイベント処理が必要な場合の問題
-それでもアプリのiOSバージョンやプロダクトの仕様によっては、CellでもViewModel/Presenterを介したイベント処理が必要になることもあるかと思います。  
+それでもアプリのiOSバージョンやプロダクトの仕様によっては、CellでもViewModel/Presenterを介したイベント処理が必要になることもあります。    
 先に示したHomeCollectionDataSourceWrapperでも通信処理でURLから画像を取得、また取得失敗した場合にはCellをタップすることで再取得を試みる仕様であったため、ViewModelを介したイベント処理が必要でした。  
 
 ただこうしたCellのイベント処理に関しては注意しなければならない点があり、私も未だに具体的に良いと思える設計を見つけれていません。  
 これは先ほどHomeCollectionDataSourceWrapperの例でViewModelをPresenterに書き換えるのやめた原因と関係しています。  
 HomeCollectionDataSourceWrapperではCollectionViewの選択イベントを`collectionView.rx.itemSelected`を使ってCellViewModelに伝達していますが、これはRxCocoaによってはじめて実現できています。    
-通常のCollectionViewの選択イベントは単一のデリゲートオブジェクトに実装されるため、「通常のイベントはViewControllerで処理する」設計と「Cellに関わるイベントはDataSourceの内部で処理する」設計が両立できません。  
-Cellに関わるイベントはDataSource内部で扱うということを基本的な方針を決めながら、その
-
+通常のCollectionViewの選択イベントは単一のデリゲートオブジェクトに実装されるため、「通常のイベントはViewControllerで処理する」設計と「Cellに関わるイベントはDataSourceの内部で処理する」設計が両立することができません。  
+設計の基本的な方針としてCellに関するイベントと他のイベントとの切り離しを挙げているのならば、RxCocoaに依存しなくともそれを実現できる方法が必要です。  
+    
 ### 「外部を介したイベント処理が必要な場合の問題」の対処
-  
-やはりCellのイベントは他のViewのイベント比べると特殊であり、他のViewイベント区別してDataSource内部で処理された方がわかりやすいと思います。  
-    
-    
-
+上記の問題の対処を考えていきたいのですが、大前提として「Cellに関するイベントと他のイベントとの切り離し」は第一優先すべき項目だと思います。  
+やはりCellのイベントは他のViewのイベント比べると特殊であり、他のViewイベントとは
+せいしt
