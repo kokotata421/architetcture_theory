@@ -848,6 +848,17 @@ HomeCollectionDataSourceWrapperではCollectionViewの選択イベントを`coll
 やはりCellのイベントは他のViewのイベント比べると特殊であり、他のViewイベントとは性質が異なります。  
 そしてViewControllerが責務としているのが「画面に関するイベント処理」であることを考えても、あらかじめ例外としてわかっているCellのイベントはDataSourceで別個に処理された方がプログラム構造としてわかりやすいと思います。  
     
-その上でRxCocoa以外でこの問題を対処する方法としては、Cellで自身の状態の変更を検知して
+その上でRxCocoa以外でこの問題を対処として、Cellで自身の状態の変更を検知してイベント処理する方法があると思います。  
+具体的には以下のようにCellでイベントのトリガーとなる状態変数をオーバーライドして、変更検知するように実装を上書きする方法です。  
+```
+override var isSelected: Bool {
+   didSet { 
+    if oldValue != self.isSelected {
+        // ViewModel,Presenterにイベント通知処理
+    }
+   }
+}
+```
+こうして自身の状態変更をイベントのトリガーとすれば、CollectioViewのデリゲート側でCellのイベント処理を行う必要はなくなります。  
   
 
