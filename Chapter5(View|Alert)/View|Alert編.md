@@ -765,11 +765,7 @@ class HomeCollectionDataSourceWrapper<CellViewModel: HomeCollectionCellViewModel
                                 .rx
                                 .itemSelected
                                 .share(replay: 1, scope: .forever)
-        let willDisplayCell = collectionView
-                                .rx
-                                .willDisplayCellIndex
-                                .share(replay: 1, scope: .forever)
-                
+  
         self._datasource = DataSource(collectionView: collectionView) {
             (collectionView: UICollectionView,
              indexPath: IndexPath,
@@ -778,9 +774,7 @@ class HomeCollectionDataSourceWrapper<CellViewModel: HomeCollectionCellViewModel
                 
                 viewModel.disposeBag.extension.addDisposables(disposables:
                         selectedItem
-                                .bind(to: viewModel.inputs.selectedIndexPath),
-                        willDisplayCell
-                            .bind(to: viewModel.inputs.displayIndexPath)
+                                .bind(to: viewModel.inputs.selectedIndexPath)
                 )
                 
                 viewModel.disposeBag.extension.addDisposables(disposables:
@@ -790,11 +784,7 @@ class HomeCollectionDataSourceWrapper<CellViewModel: HomeCollectionCellViewModel
                         .do(onNext: { [weak cell] _ in
                             cell?.isUserInteractionEnabled = true
                         })
-                        .bind(to: cell.rx.imageData),
-                    viewModel
-                        .outputs
-                        .highlight
-                        .bind(to: cell.rx.highlight)
+                        .bind(to: cell.rx.imageData)
                 )
             })
             return collectionView
@@ -847,4 +837,4 @@ UICellConfigurationStateはiOS14で加わったAPIであり、Cellはこれに�
 それでもアプリのiOSバージョンやプロダクトの仕様によっては、CellでもViewModel/Presenterを介したイベント処理が必要になることもあるかと思います。  
 先に示したHomeCollectionDataSourceWrapperでも通信処理でURLから画像を取得、また取得失敗した場合にはCellをタップすることで再取得を試みる仕様であったため、ViewModelを介したイベント処理が必要でした。  
 
-ただこうしたCellに関するイベント処理の具体的な設計は私も未だに
+ただこうしたCellのイベント処理に関しては注意しなければならない点があり、私も未だに具体的に良いと思える設計を見つけれていません。  
