@@ -690,8 +690,9 @@ PresenterはView関係のデータを操作するコンポーネントなので�
 そのようにアプリケーション内のコンポーネントの責務を考えた場合、今回の変更後のAlertはそれを扱う各コンポーネントにおける要件に適宜応えており、実装しやすい設計となっていると思います。    
 
 ## CollectionViewのDataSource
-本記事で取り上げたコンポーネント設計を簡単なアプリを例で実践しようと思いますが、その前にCollectionViewのDataSourceについて話します。  
+最後に本記事で取り上げたコンポーネント設計を簡単なアプリで実践しようと思いますが、その前にCollectionViewのDataSourceについて話します。  
 ちなみにここでのDataSourceはUICollectionViewDataSourceに準拠した実体型ではなく、それを内包したラッパーオブジェクトを指しています。  
+    
 今回の設計ではAlertと同様にCollectionViewのDataSourceもViewControllerから外部化しています。   
 ただその外部化の構造はAlertに比べると単純で、基本的にはそのCollectionViewが表示するアイテムを渡したら内容が更新されるようなDataSourceのラッパーオブジェクトを作成するだけです。  
     
@@ -736,7 +737,7 @@ class HomeViewController: UIViewController {
 もちろん状況によっては、現在の表示内容、状態の取得等を行いたい場合もあると思いますが、それらがDataSourceの構造を変えるようなことはなく、機能が必要な際にはそこに適宜追加していけば問題ありません。  
     
 ちなみにDataSourceの外部化をラッパーオブジェクトによって実現している理由は、直にUIKitのUICollectionViewDataSourceプロトコルを準拠・もしくはUICollectionViewDiffableDataSourceを継承したオブジェクトを利用するとそのケースに必要のないAPIまで晒してしまうことになるからです。  
-ViewControllerからDataSourceを利用する場合、その要件はケースによって変わることが多いと思うのでラッパーオブジェクトとして定義して各ケースに必要なAPIのみを公開する設計が良いと思います。  
+ViewControllerからDataSourceを利用する場合、その要件はケースによって振り幅が大きいと思うのでラッパーオブジェクトとして定義して各ケースに必要なAPIのみを公開する設計が良いと思います。  
 
 ### 表示するための前準備も必要
 ただ、CollectionViewの内容を表示するだけというのはあくまで外から見た構造で、実際にはその表示をするための準備処理を内部で行う必要があります。  
@@ -820,7 +821,7 @@ class HomeCollectionDataSourceWrapper<CellViewModel: HomeCollectionCellViewModel
 ```
 
 init内でCellの生成処理、またCellに関する入出力イベントの設定を行っています。  
-上記の例は比較的単純なケースであって、他にもヘッダーやフッターを表示したり、UICollectionViewDataSourceプロトコルに関して実装したいメソッドがあった場合はinitのパラメーターを追加して適宜init内で処理、設定を行う必要があるでしょう。  
+上記の例は比較的単純なケースであって、他にもヘッダーやフッターを表示したり、UICollectionViewDataSourceプロトコルに関して実装したい処理があった場合はinitのパラメーターを追加して適宜処理、設定を行って行きます。    
 
 ### ラッパーオブジェクトはCell毎に定義した方が良さそう
 DataSourceの設計としては今回のようにCellの種類毎にラッパーオブジェクトを定義していくか、もしくは汎用性のあるラッパーオブジェクトを作りそれを使い回す方向があると思いますが、私は前者の方が良いと思います。  
