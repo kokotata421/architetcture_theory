@@ -836,6 +836,8 @@ DataSourceの設計としては先ほどの例のようにCellの種類毎にラ
 CollectionViewのCellはUIの中でもとても特殊な立ち位置にあるコンポーネントです。  
 UIKitでもCellが選択されるそのイベントはCell自身ではなく、CollectionView側で検知するような設計になっています。  
 そのためアプリ側でもCellは画面機能とは切り離し、そのイベント処理をDataSource内部で行っても問題ないような設計にするべきです。  
-具体的にはCellのイベントはCell自身の視覚的な操作に限定するべきでしょう。  
+具体的にはCellのイベントはCell自身の視覚的な操作に限定しましょう。  
 
-### Cellの入出力イベントの処理をDataSoure内で実装しようとするときの問題
+### UICellConfigurationStateを積極的に利用する
+またCellに関する視覚的な操作はCollectionViewのイベント発生時に行いたいことがほとんどだと思いますが、このような場合には外部からイベントを受け取って処理するのではなく極力UICellConfigurationStateを利用して自身で状態の変化を検知して処理するようにしましょう。  
+UICellConfigurationStateは 
