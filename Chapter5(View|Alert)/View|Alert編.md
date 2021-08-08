@@ -744,7 +744,7 @@ ViewControllerからDataSourceを利用する場合、その要件はケース�
 基本的にそうした準備処理はDataSourceのinit内で実装されることになると思います。  
 以下では先程例に挙げたHomeCollectionDataSourceWrapperの準備処理を含めたコードを示します。  
 なおこのHomeCollectionDataSourceWrapperは私のサンプルプロジェクトで使っているDataSourceであるため、ViewModelおよびRxSwift、RxCocoaを利用しています。  
-できれば本記事の流れに沿ってViewModelをPresenterに書き換えたかったのですが、技術的な理由で手間がかかりすぎると思い諦めました。  
+できれば本記事の流れに沿ってViewModelをPresenterに書き換えたかったのですが、技術的な理由でやめました。  
 その理由も後ほど説明します。  
 ```
 class HomeCollectionDataSourceWrapper<CellViewModel: HomeCollectionCellViewModelPort> {
@@ -838,3 +838,4 @@ UICellConfigurationStateはiOS14で加わったAPIであり、Cellはこれに�
 先に示したHomeCollectionDataSourceWrapperでも通信処理でURLから画像を取得、また取得失敗した場合にはCellをタップすることで再取得を試みる仕様であったため、ViewModelを介したイベント処理が必要でした。  
 
 ただこうしたCellのイベント処理に関しては注意しなければならない点があり、私も未だに具体的に良いと思える設計を見つけれていません。  
+これは先ほどHomeCollectionDataSourceWrapperの例でViewModelをPresenterに書き換えるのやめた原因と繋がっています。  
