@@ -843,4 +843,6 @@ UIKitでもCellが選択されるそのイベントはCell自身ではなく、C
 UICellConfigurationStateはiOS14で加わったAPIであり、Cellはこれによって自身の状態が変わった際の処理を実装できるようになりました。  
 このUICellConfigurationStateを使えばCellにおけるViewModelやPresenterを介したイベント処理はほとんど必要なくなるかと思います。  
 
-###　
+###　外部を介したイベント処理が必要な場合
+しかしそれでもアプリのiOSバージョンやプロダクトの仕様によっては、CellでもViewModel、Presenterを介したイベント処理が必要になることもあるかと思います。  
+    
