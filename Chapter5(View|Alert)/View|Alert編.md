@@ -405,6 +405,16 @@ extension UIAlertAction.Style {
 > 
 > またこの後説明しますが、今回のケースではAlertClientコンポーネントのジェネリクスは入出力処理の切り分けでもとても重要な役割を担っています。  
   
+ちなみにAlertStrategyをAction型の制約付きで拡張することで、Action型毎の初期化処理を定義することが可能です。  
+```
+// RepositoryDomainError型はRepository関係のError型
+extension AlertStrategy where Action == FetchPhotoErrorAction {
+    
+    init(error: RepositoryDomainError) {
+        // ActionがFetchPhotoErrorAction型である時の初期化処理
+    }
+}
+```
   
 #### 「3.データフローが複雑になる」問題の解決
 それでは最後にAlertの入出力データフローを切り離す方法を説明しますが、今回の設計においてその役割を担っているのはAlertClientTypeです。  
