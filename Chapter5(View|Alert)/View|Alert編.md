@@ -891,3 +891,4 @@ override var isSelected: Bool {
 アプリの内容は以下に動画で示します。  
 ただ動物の写真を切り替えているだけです。  
 切り替え時にわざわざアラートで確認を取っている等アプリの仕様は不可解で、PresenterやDomainデータ型の設計もよろしくない箇所がありますが、とりあえずここではプログラム上のViewController-AlertClient/DataSourceの関係に注目してみてください。  
+<img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter5(View%7CAlert)/Images/sample-app.gif" alt="サンプルアプリ" width=80% > 
