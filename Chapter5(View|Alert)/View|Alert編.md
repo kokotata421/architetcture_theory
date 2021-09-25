@@ -887,3 +887,4 @@ override var isSelected: Bool {
 - UIにおいてCellの存在は特殊であるため、多少変則的になろうともCellに関する実装はDataSource内部に閉じ込め設計全体への影響がでないようにする
 
 ## AlertとDataSourceのサンプルアプリ
+では最後に本記事で説明したAlertとDataSourceの設計に基づいたサンプルアプリを紹介します。  
