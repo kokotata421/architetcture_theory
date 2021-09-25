@@ -888,3 +888,4 @@ override var isSelected: Bool {
 
 ## AlertとDataSourceのサンプルアプリ
 では最後に本記事で説明したAlertとDataSourceの設計に基づいたサンプルアプリを紹介します。  
+アプリの内容は以下に動画
