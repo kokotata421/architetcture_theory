@@ -886,4 +886,4 @@ override var isSelected: Bool {
 - DataSourceの役割はCellの表示であり、DataSourceではCell表示メソッドとそのための準備処理を実装する
 - UIにおいてCellの存在は特殊であるため、多少変則的になろうともCellに関する実装はDataSource内部に閉じ込め設計全体への影響がでないようにする
 
-## 
+## AlertとDataSourceのサンプルアプリ
