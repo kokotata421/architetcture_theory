@@ -899,3 +899,14 @@ override var isSelected: Bool {
 下部のボタンを押した際には一度確認のAlertが表示され、そこで「See cats(dogs)」ボタンを押すと写真の動物が切り替わります。  
 また上部のラベルの文言には現在表示中の動物名、下部のボタンの文言は切り替える動物名(犬が表示されているなら「See cats」、猫なら「See dogs」)が表示されます。  
 
+### アプリの各コンポーネントの紹介
+
+#### View
+
+#### Alert
+
+#### DataSource
+
+#### Presenter
+    
+#### ViewController
