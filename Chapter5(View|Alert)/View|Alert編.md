@@ -888,7 +888,11 @@ override var isSelected: Bool {
 
 ## AlertとDataSourceのサンプルアプリ
 では最後に本記事で説明したView、Alert、そしてDataSourceの設計に基づいたサンプルアプリを紹介します。  
-アプリの内容は以下に動画で示します。  
+アプリの内容は以下に示します。  
 ただ動物の写真を切り替えているだけです。  
 切り替え時にわざわざアラートで確認を取っている等アプリの仕様は不可解で、PresenterやDomainデータ型の設計もよくない箇所がありますが、とりあえずここではプログラム上のViewController-AlertClient/DataSourceの関係にのみ注目してみてください。  
-<img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter5(View%7CAlert)/Images/sample-app.gif" alt="サンプルアプリ" width=20% > 
+<img src="https://github.com/kokotata421/architetcture_theory/blob/main/Chapter5(View%7CAlert)/Images/sample-app.gif" alt="サンプルアプリ" width=20% >  
+
+### アプリの概要
+まず簡単にアプリの概要を説明します。  
+内容としては先ほどの画像を見ればわかる通り、犬or
