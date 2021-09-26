@@ -887,7 +887,7 @@ override var isSelected: Bool {
 - UIにおいてCellの存在は特殊であるため、多少変則的になろうともCellに関する実装はDataSource内部に閉じ込め設計全体への影響がでないようにする
 
 ## AlertとDataSourceのサンプルアプリ
-では最後に本記事で説明したAlertとDataSourceの設計に基づいたサンプルアプリを紹介します。  
+では最後に本記事で説明したView、Alert、そしてDataSourceの設計に基づいたサンプルアプリを紹介します。  
 アプリの内容は以下に動画で示します。  
 ただ動物の写真を切り替えているだけです。  
 切り替え時にわざわざアラートで確認を取っている等アプリの仕様は不可解で、PresenterやDomainデータ型の設計もよくない箇所がありますが、とりあえずここではプログラム上のViewController-AlertClient/DataSourceの関係にのみ注目してみてください。  
