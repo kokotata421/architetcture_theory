@@ -1116,5 +1116,24 @@ class AnimalCollectionDataSourceWrapper {
 Presenterに関して本記事では主題として扱っていないですが、サンプルアプリの挙動を示すために簡単に説明します。(Presenterのデータ設計も妥協して実装しており、参考にしない方が良いと思います。)  
 ViewController編でも説明しましたが、Presenterの設計はViewからの入力を処理する「PresenterInputs」プロトコルとその結果の出力先である「PresenterOutputs」プロトコルが基礎となっていて、
 通常それぞれの実体型はPresenterクラス、ViewControllerクラスであるため全体のデータフローとしてはViewController->PresenterInputs(Presenterクラス)->PresenterOutputs(ViewController)となっています。  
-そしてこのサンプルアプリではPresenterInputsの責務としてはセットアップ/下部ボタン・Alertのボタンのタップの処理、PresenterOutputsの責務としてはアラートの表示と動物写真の表示があるため、
+そしてこのサンプルアプリではPresenterInputsの責務としてはセットアップ/下部ボタン・Alertのボタンのタップの処理、PresenterOutputsの責務としてはアラートの表示と動物写真の表示があるため、それぞれの定義はコード上以下のようになされます。  
+```
+protocol HogePresenterInputs: AnyObject {
+    func setup()
+    func tryChangeAnimalPhotoAlbum()
+    func changeAnimalAlbum()
+    
+    init(initialDisplayAnimal: Animal,
+         dogPhotoData: [Data],
+         catPhotoData: [Data],
+         output: HogePresenterOutputs)
+}
+```
+
+```
+protocol HogePresenterOutputs: AnyObject {
+    func confirmChangeAnimal(strategy: AlertStrategy<ConfirmChangeAnimalAction>)
+    func showAninmalAlbum(album: AnimalAlbum)
+}
+```
 #### ViewController
