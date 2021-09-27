@@ -1113,5 +1113,8 @@ class AnimalCollectionDataSourceWrapper {
 ちなみに`AnimalCollectionDataSourceWrapper`クラス内部でCell生成処理のため使用している`UICollectionView.CellRegistration`はiOS14以降で利用できます。  
 
 #### Presenter
+Presenterに関して本記事では主題として扱っていないですが、サンプルアプリの挙動を示すために簡単に説明します。(Presenterのデータ設計も妥協して実装しており、参考にしない方が良いと思います。)  
+Presenterの設計は
+    
     
 #### ViewController
