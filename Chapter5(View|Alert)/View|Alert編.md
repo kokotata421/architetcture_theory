@@ -997,6 +997,7 @@ class HogeRootView: UIView, AppView {
     }
 }
 ```
+`func setup()`で自身の背景色の設定と各Viewの生成を行い、また`func update(animalType type: Animal)`で表示動物が切り替わった際のLabelとButtonの文言の変更を行なっています。  
     
 #### Alert
 
