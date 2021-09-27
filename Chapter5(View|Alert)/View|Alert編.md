@@ -900,9 +900,10 @@ override var isSelected: Bool {
 また上部のラベルの文言には現在表示中の動物名、下部のボタンの文言は切り替える動物名(犬が表示されているなら「See cats」、猫なら「See dogs」)が表示されます。  
 
 ### アプリの各コンポーネントの紹介
-
+それではView、Alert、DataSource、Presenterとアプリに登場する各コンポーネントを紹介して、最後にそれらがViewControllerでどのように利用されるのかみていきます。
 #### View
-
+まず最初にViewについて説明します。  
+本記事で
 #### Alert
 
 #### DataSource
