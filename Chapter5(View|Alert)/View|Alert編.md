@@ -1033,6 +1033,8 @@ enum ConfirmChangeAnimalAction: AlertActionType {
 enum Animal: String, Equatable {
     case cat = "Cat"
     case dog = "Dog"
+    
+    ...
 }
 ```
 そしてAlertStarategy側ではそのAction型が`ConfirmChangeAnimalAction`である時のメッセージとタイトルは定式化されており、複数箇所から利用される際にコードの重複を避けるため以下のような拡張実装を行います。  
@@ -1113,10 +1115,11 @@ class AnimalCollectionDataSourceWrapper {
 ちなみに`AnimalCollectionDataSourceWrapper`クラス内部でCell生成処理のため使用している`UICollectionView.CellRegistration`はiOS14以降で利用できます。  
 
 #### Presenter
-Presenterに関して本記事では主題として扱っていないですが、サンプルアプリの挙動を示すために簡単に説明します。(Presenterのデータ設計も妥協して実装しており、参考にしない方が良いと思います。)  
+Presenterに関して本記事では主題として扱っていないですが、サンプルアプリの挙動を示すために簡単に説明します。(Presenterのデータ設計も妥協して実装しており、参考にしない方が良いと思います。)
+##### Presenterに関するプロトコル
 ViewController編でも説明しましたが、Presenterの設計はViewからの入力を処理する「PresenterInputs」プロトコルとその結果の出力先である「PresenterOutputs」プロトコルが基礎となっていて、
 通常それぞれの実体型はPresenterクラス、ViewControllerクラスであるため全体のデータフローとしてはViewController->PresenterInputs(Presenterクラス)->PresenterOutputs(ViewController)となっています。  
-そしてこのサンプルアプリではPresenterInputsの責務としてはセットアップ/下部ボタン・Alertのボタンのタップの処理、PresenterOutputsの責務としてはアラートの表示と動物写真の表示があるため、それぞれの定義はコード上以下のようになされます。  
+そしてこのサンプルアプリではPresenterInputsの責務として「セットアップ/下部ボタン・Alertのボタンのタップの処理」、PresenterOutputsの責務として「アラートの表示と動物写真の表示」があり、それぞれの定義はコードでは以下のようになされます。  
 ```
 protocol HogePresenterInputs: AnyObject {
     func setup()
@@ -1136,4 +1139,86 @@ protocol HogePresenterOutputs: AnyObject {
     func showAninmalAlbum(album: AnimalAlbum)
 }
 ```
+##### Presenterの実体型
+先ほども述べた通りPresenterInputsプロトコルの実体型がPresenterクラスとなるのですが、今回のアプリではPresenterの設計は主題にはなっていないためその詳細については触れません。  
+とりあえずここではPresenterはViewControllerから入力イベントを受け取って、View側で「Alertを表示する」また「新しい動物の写真を表示する」ための処理をして表示に必要なデータをHogePresenterOutputs(ViewController)に出力していることだけ把握してもらえれば十分です。  
+
+実際のコードは以下のようになっています。  
+```
+final class HogePresenter: HogePresenterInputs {
+    
+    private var displayingAnimal: Animal
+    private let dogPhotoData: [Data]
+    private let catPhotoData: [Data]
+    private weak var output: HogePresenterOutputs!
+    
+    init(initialDisplayAnimal: Animal,
+         dogPhotoData: [Data],
+         catPhotoData: [Data],
+         output: HogePresenterOutputs) {
+        self.displayingAnimal = initialDisplayAnimal
+        self.dogPhotoData = dogPhotoData
+        self.catPhotoData = catPhotoData
+        self.output = output
+    }
+    
+    func setup() {
+        self._showAnimal()
+    }
+    
+    func tryChangeAnimalPhotoAlbum() {
+        let to: Animal = self.displayingAnimal.nextAnimal
+        self.output
+            .confirmChangeAnimal(strategy: AlertStrategy(animal: to))
+    }
+    
+    func changeAnimalAlbum() {
+        displayingAnimal.toggle()
+        self._showAnimal()
+    }
+    
+    @inline(__always)
+    func _showAnimal() {
+        let data: [Data]
+        switch self.displayingAnimal {
+        case .cat:
+            data = self.catPhotoData
+        case .dog:
+            data = self.dogPhotoData
+        }
+        self.output.showAninmalAlbum(album: AnimalAlbum(animal: displayingAnimal,
+                                                        photoData: data))
+    }
+}
+```
+    
+ちなみにPresenterクラス内ではAnimal型のdisplayingAnimalインスタンスが`nextAnimal`変数と`toggle()`メソッドにアクセスしていますが、これは先ほど紹介したAnimal型の定義は全体としては以下のようになっておりこれらのプロパティ、メソッドにアクセスしています。  
+    
+```
+enum Animal: String, Equatable {
+    case cat = "Cat"
+    case dog = "Dog"
+    
+    var nextAnimal: Animal {
+        switch self {
+        case .cat:
+            return .dog
+        case .dog:
+            return .cat
+        }
+    }
+    
+    mutating fileprivate func toggle() {
+        switch self {
+        case .cat:
+            self = .dog
+        case .dog:
+            self = .cat
+        }
+    }
+}
+```
+    
+    
 #### ViewController
+    
