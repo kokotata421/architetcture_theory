@@ -1046,7 +1046,7 @@ extension AlertStrategy where Action == ConfirmChangeAnimalAction {
     }
 }
 ```
-
+そしてここで定義した`ConfirmChangeAnimalAction`をAction型としてAlertStarategyはのちに見るようにPresenter側でそのインスタンスが生成され、ViewController側でAlertを表示するためのパラメーターとして利用されます。  
 #### DataSource
 
 #### Presenter
