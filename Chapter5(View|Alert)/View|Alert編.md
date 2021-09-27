@@ -1048,6 +1048,68 @@ extension AlertStrategy where Action == ConfirmChangeAnimalAction {
 ```
 そしてここで定義した`ConfirmChangeAnimalAction`をAction型としてAlertStarategyはのちに見るようにPresenter側でそのインスタンスが生成され、ViewController側でAlertを表示するためのパラメーターとして利用されます。  
 #### DataSource
+記事で説明したように本設計におけるDataSourceはUIKitで提供される既存のDataSourceのラッパークラスとなります。  
+既存のDataSourceをラッピングすることでCellの生成処理を主とした様々な実装をViewControllerの外部へと移譲して、ViewControllerの責務を「イベント処理」に限定することを目的としています。  
+さて本記事ではiOS13で登場したUICollectionViewDiffableDataSourceして以下のようなDataSourceラッパークラスを定義、実装しています。  
+```
+class AnimalCollectionDataSourceWrapper {
+    enum Section {
+        case animalPhotos
+    }
+    
+    typealias CellRegistration = UICollectionView.CellRegistration<UICollectionViewCell, Data>
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, Data>
+    
+    private let _datasource: DataSource
+   
+    init(collectionView: UICollectionView) {
+
+        self._datasource = DataSource(collectionView: collectionView) {
+            (collectionView: UICollectionView,
+             indexPath: IndexPath,
+             imageData: Data) -> UICollectionViewCell? in
+            let registration: CellRegistration = .init(handler: { cell, indexPath, data in
+                
+                guard let image: UIImage = UIImage(data: data) else {
+                    return
+                }
+                
+                cell.contentMode = .scaleToFill
+                let imageView: UIImageView = .init(image: image)
+                imageView.contentMode = .scaleToFill
+               
+                imageView.translatesAutoresizingMaskIntoConstraints = false
+                cell.contentView.addSubview(imageView)
+             
+                NSLayoutConstraint.activate([
+                    imageView.topAnchor
+                        .constraint(equalTo: cell.contentView.topAnchor),
+                    imageView.centerXAnchor
+                        .constraint(equalTo: cell.contentView.centerXAnchor),
+                    imageView.heightAnchor.constraint(equalTo: cell.contentView.heightAnchor),
+                    imageView.widthAnchor.constraint(equalTo: cell.contentView.widthAnchor)
+                ])
+            })
+            return collectionView
+                .dequeueConfiguredReusableCell(using: registration,
+                                               for: indexPath,
+                                                item: imageData)
+            
+      
+        }
+        
+    }
+    
+    func update(newItems: [Data]) {
+        var snapshot: NSDiffableDataSourceSnapshot<Section, Data> = .init()
+        snapshot.appendSections([.animalPhotos])
+        snapshot.appendItems(newItems,
+                             toSection: .animalPhotos)
+        self._datasource.apply(snapshot)
+    }
+}
+```
+具体的にはCe
 
 #### Presenter
     
