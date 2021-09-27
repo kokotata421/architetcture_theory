@@ -1109,7 +1109,8 @@ class AnimalCollectionDataSourceWrapper {
     }
 }
 ```
-具体的にはCe
+具体的にはCellの生成処理と更新処理を実装し、更新処理`func update(newItems: [Data])`をインターフェースとして外部に公開することでViewControllerはCollectioViewのアイテム更新時に新しいアイテムを引数としてこのメソッドを呼び出しています。  
+ちなみに`AnimalCollectionDataSourceWrapper`クラス内部でCell生成処理のため使用している`UICollectionView.CellRegistration`はiOS14以降で利用できます。  
 
 #### Presenter
     
