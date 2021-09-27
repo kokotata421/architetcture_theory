@@ -903,7 +903,101 @@ override var isSelected: Bool {
 それではView、Alert、DataSource、Presenterとアプリに登場する各コンポーネントを紹介して、最後にそれらがViewControllerでどのように利用されるのかみていきます。
 #### View
 まず最初にViewについて説明します。  
-本記事で
+本記事で[既に述べたとおり](#RootViewクラスはAppViewプロトコルに準拠する)、本設計でViewControllerのRootViewとして定義されるViewはAppViewプロトコルに準拠した上でViewに関するあらゆる定義や処理が実装されます。  
+具体的に本アプリでは「上部のLabel」、「CollectionView」、「下部のButton」の各Viewの定義、セットアップ処理、そして表示動物変更時のLabelとButtonの文言を変更する操作が実装されます。  
+コードは以下の通りです。  
+```
+class HogeRootView: UIView, AppView {
+
+
+    private(set) lazy var label: UILabel = {
+        let label = UILabel(frame: .zero)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.addSubview(label)
+        NSLayoutConstraint.activate([
+            label.topAnchor
+                .constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 20),
+            label.centerXAnchor
+                .constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
+            label.heightAnchor.constraint(equalToConstant: 50),
+            label.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.4)
+        ])
+        label.textAlignment = .center
+        
+        return label
+    }()
+    
+    private(set) lazy var collectionView: UICollectionView = {
+       
+
+        let layout: UICollectionViewCompositionalLayout = {
+            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.333),
+                                                  heightDimension: .fractionalHeight(1.0))
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+            item.contentInsets = NSDirectionalEdgeInsets(top: 2,
+                                                         leading: 2,
+                                                         bottom: 2,
+                                                         trailing: 2)
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                   heightDimension: .fractionalWidth(0.333))
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+                                                           subitems: [item])
+            
+            let section = NSCollectionLayoutSection(group: group)
+            return .init(section:section)
+        }()
+        
+        let collectionView = UICollectionView(frame: .zero,
+                                              collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.addSubview(collectionView)
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor
+                .constraint(equalTo: self.label.bottomAnchor, constant: 20),
+            collectionView.centerXAnchor
+                .constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
+            collectionView.heightAnchor.constraint(equalToConstant: 390),
+            collectionView.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor)
+        ])
+        
+        return collectionView
+    }()
+    
+    private(set) lazy var button: UIButton = {
+        let button = UIButton(frame: .zero)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.addSubview(button)
+        NSLayoutConstraint.activate([
+            button.topAnchor
+                .constraint(equalTo: collectionView.bottomAnchor, constant: 50),
+            button.centerXAnchor
+                .constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
+            button.heightAnchor.constraint(equalToConstant: 25),
+            button.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.25)
+        ])
+        button.setTitleColor(.black, for: .normal)
+        
+        return button
+    }()
+
+    func setup() {
+        self.backgroundColor = .white
+        _ = label
+        _ = collectionView
+        _ = button
+    }
+    
+    func update(animalType type: Animal) {
+        self.label.text = type.rawValue
+        button.setTitle("See \(type.nextAnimal)", for: .normal)
+    }
+}
+```
+    
 #### Alert
 
 #### DataSource
