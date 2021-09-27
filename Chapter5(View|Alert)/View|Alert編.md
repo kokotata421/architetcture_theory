@@ -1000,6 +1000,52 @@ class HogeRootView: UIView, AppView {
 `func setup()`で自身の背景色の設定と各Viewの生成を行い、また`func update(animalType type: Animal)`で表示動物が切り替わった際のLabelとButtonの文言の変更を行なっています。  
     
 #### Alert
+Alertに関しては、AlertClientType、AlertClientの実体型、AlertStrategyは本記事で紹介したものをそのまま流用するためアプリ側で実装する必要があるのはモジュールに応じたAlertActionTypeの実体型の実装のみになります。(しかしコードの重複を避けるためこの後説明するモジュール毎のAlertStarategyの初期化処理も拡張実装をすることも勧めます。)  
+本アプリでは動物の切り替えの際に確認を行うための`ConfirmChangeAnimalAction`を定義しており、そこで「変更」するか「キャンセル」するかの選択をするようにしています。  
+`ConfirmChangeAnimalAction`の定義、実装のコードは以下のようになっています。  
+```
+enum ConfirmChangeAnimalAction: AlertActionType {
+    var title: String {
+        switch self {
+        case .change(let animal):
+            return "See \(animal)s"
+        case .cancel:
+            return "Stay"
+        }
+    }
+    
+    var style: AlertActionStyle {
+        switch self {
+        case .change:
+            return .default
+        case .cancel:
+            return .cancel
+        }
+    }
+    
+    case change(to: Animal)
+    case cancel
+}
+```
+ちなみに上記で登場するAnimal型は単純なEnum型です  
+    
+```
+enum Animal: String, Equatable {
+    case cat = "Cat"
+    case dog = "Dog"
+}
+```
+そしてAlertStarategy側ではそのAction型が`ConfirmChangeAnimalAction`である時のメッセージとタイトルは定式化されており、複数箇所から利用される際にコードの重複を避けるため以下のような拡張実装を行います。  
+```
+extension AlertStrategy where Action == ConfirmChangeAnimalAction {
+    init(animal: Animal) {
+        self.init(title: "Change Animal Photos",
+                  message: "Are you sure to see \(animal)'s photos?",
+                  actions: [.change(to: animal),
+                            .cancel])
+    }
+}
+```
 
 #### DataSource
 
