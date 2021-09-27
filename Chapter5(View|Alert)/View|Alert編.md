@@ -1114,7 +1114,8 @@ class AnimalCollectionDataSourceWrapper {
 
 #### Presenter
 Presenterに関して本記事では主題として扱っていないですが、サンプルアプリの挙動を示すために簡単に説明します。(Presenterのデータ設計も妥協して実装しており、参考にしない方が良いと思います。)  
-Presenterの設計は
+ViewController編でも説明しましたが、Presenterの設計は「PresenterInputs」プロトコルと「PresenterOutputs」プロトコル、つまり入力用プロトコルと出力用プロトコル、が基礎となっていて
+    
     
     
 #### ViewController
