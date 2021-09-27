@@ -1114,10 +1114,7 @@ class AnimalCollectionDataSourceWrapper {
 
 #### Presenter
 Presenterに関して本記事では主題として扱っていないですが、サンプルアプリの挙動を示すために簡単に説明します。(Presenterのデータ設計も妥協して実装しており、参考にしない方が良いと思います。)  
-ViewController編でも説明しましたが、Presenterの設計は「PresenterInputs」プロトコルと「PresenterOutputs」プロトコル、つまり入力用プロトコルと出力用プロトコル、が基礎となっていて「PresenterInputs」はViewControllerからの命令で処理を行う機構を、「PresenterOutputs」は「PresenterInputs」での処理結果を出力する機構を指しています。  
-そして基本的には「PresenterInputs」の実体型がPresenterクラス、「PresenterOutputs」の実体型はViewControllerクラスとなります。  
-データの流れでいうとViewControllerからPresenterInputsであるPresenterクラスに処理依頼がいき、処理が完了したらその結果をPresenterOutputsであるViewControllerに渡す、つまりViewController->PresenterInputs(Presenterクラス)->PresenterOutputs(ViewController)という流れになります。    
-
-    
-    
+ViewController編でも説明しましたが、Presenterの設計はViewからの入力を処理する「PresenterInputs」プロトコルとその結果の出力先である「PresenterOutputs」プロトコルが基礎となっていて、
+通常それぞれの実体型はPresenterクラス、ViewControllerクラスであるため全体のデータフローとしてはViewController->PresenterInputs(Presenterクラス)->PresenterOutputs(ViewController)となっています。  
+そしてこのサンプルアプリではPresenterInputsの責務としてはセットアップ/下部ボタン・Alertのボタンのタップの処理、PresenterOutputsの責務としてはアラートの表示と動物写真の表示があるため、
 #### ViewController
