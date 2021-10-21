@@ -1300,16 +1300,26 @@ class HogeViewController<Presenter: HogePresenterInputs,
 ```
 override func viewDidLoad() {
    ...
+    
    self.presenter.setup()
    ...
 }
 ```
 ###### 画面下部ボタンタップ時の登録
-こちらも
+画面下部のボタンタップ時の処理を登録する、至って普通の処理です。  
+ここではボタンのタップ時に動物の切り替え確認を行うアラートの表示処理をPresenterに命令するように処理登録を行なっています。  
 ```
-    
+ 
+override func viewDidLoad() {
+    ...
+    self.rootView
+        .button
+        .addAction(UIAction(handler: { [weak self] _ in
+                         self?.presenter.tryChangeAnimalPhotoAlbum()
+                         }),
+                     for: .touchUpInside)
+     ...
+}
 ```
-こちらも`
-こちらも`
     
 ##### ViewControllerの出力処理
