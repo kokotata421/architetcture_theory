@@ -1346,3 +1346,7 @@ override func viewDidLoad() {
 ```
     
 ##### ViewControllerの出力処理
+出力処理には「Alertの表示」と「表示動物の切り替え」があります。
+###### Alertの表示
+    
+
