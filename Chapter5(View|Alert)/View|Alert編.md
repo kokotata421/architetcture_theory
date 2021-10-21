@@ -1424,4 +1424,6 @@ override func viewDidLoad() {
    self.datasource = .init(collectionView: self.rootView.collectionView)
 }
 ```
-    
+
+####　本記事のまとめ
+本記事ではView・Alert・DataSourceの設計について説明していきました。  
