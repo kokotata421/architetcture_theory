@@ -1222,7 +1222,9 @@ enum Animal: String, Equatable {
     
 #### ViewController
 そして、これらView、Alert、PresenterのハブとしてViewControllerが存在します。  
-ここでは最初にViewControllerのコードをお見せした上で、その入力処理と出力処理がどのように行われているかを説明します。  
+ここでは最初にViewControllerのコードをお見せした上で、その入力処理と出力処理がどのように行われているか中心に説明していきます。    
+    
+    
 ViewControllerのコード
 ```
 class HogeViewController<Presenter: HogePresenterInputs,
