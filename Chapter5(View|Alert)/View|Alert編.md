@@ -1221,4 +1221,73 @@ enum Animal: String, Equatable {
     
     
 #### ViewController
+そして、これらView、Alert、PresenterのハブとしてViewControllerが存在します。  
+ここでは最初にViewControllerのコードをお見せした上で、その入力処理と出力処理がどのように行われているかを説明します。  
+ViewControllerのコード
+```
+class HogeViewController<Presenter: HogePresenterInputs,
+                         SelectAnimalAlertClient: AlertClientType>: ViewController<HogeRootView>, HogePresenterOutputs
+                            where SelectAnimalAlertClient.Action == ConfirmChangeAnimalAction {
+    
+    private var presenter: Presenter!
+    private var datasource: AnimalCollectionDataSourceWrapper!
+    private var alertClient: SelectAnimalAlertClient!
+    init(initialAnimal: Animal,
+         dogPhotoData: [Data],
+         catPhotoData: [Data]) {
+        super.init()
+        self.alertClient = .init(viewController: self)
+        self.presenter = .init(initialDisplayAnimal: .dog,
+                               dogPhotoData: dogPhotoData,
+                               catPhotoData: catPhotoData,
+                               output: self)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+        
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.datasource = .init(collectionView: self.rootView.collectionView)
+        
+        // MARK: Inputs
+        
+        self.presenter.setup()
+        
+        self.rootView
+            .button
+            .addAction(UIAction(handler: { [weak self] _ in
+                            self?.presenter.tryChangeAnimalPhotoAlbum()
+                            }),
+                        for: .touchUpInside)
+        
+        _ = self.alertClient
+            .register(handler: { [weak self] (action: ConfirmChangeAnimalAction) in
+                switch action {
+                case .change:
+                    self?.presenter.changeAnimalAlbum()
+                    return
+                case .cancel:
+                    return
+                }
+            })
+    }
+    
+    // MARK: Outputs
+    func confirmChangeAnimal(strategy: AlertStrategy<ConfirmChangeAnimalAction>) {
+        self.alertClient
+            .show(strategy: strategy,
+                  animated: true,
+                  completion: nil)
+    }
+    
+    func showAninmalAlbum(album: AnimalAlbum) {
+        self.rootView.update(animalType: album.animal)
+        self.datasource.update(newItems: album.photoData)
+    }
+}
+
+```
+    
     
