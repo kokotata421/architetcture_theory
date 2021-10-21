@@ -1348,5 +1348,38 @@ override func viewDidLoad() {
 ##### ViewControllerの出力処理
 出力処理には「Alertの表示」と「表示動物の切り替え」があります。
 ###### Alertの表示
+以下が「動物の切り替え確認用Alert」を表示するconfirmChangeAnimalメソッドです。  
+従来のAlert表示に比べ、非常に簡潔で自然言語に近くなったのが改めてわかると思います。  
+```
+func confirmChangeAnimal(strategy: AlertStrategy<ConfirmChangeAnimalAction>) {
+        self.alertClient
+            .show(strategy: strategy,
+                  animated: true,
+                  completion: nil)
+}
+```
+また本文内でも既に説明していますが、本設計のAlert表示機構であるAlertClientはそれぞれが特定のモジュールを担当する形式になっていて、本アプリの場合モジュールとして「表示動物の切り替え確認」を表す`ConfirmChangeAnimalAction`が指定されています。  
+そしてAlertClientのshowメソッドの引数として渡すAlertStrategyには同様のモジュールが指定されている必要があります。(本アプリで言えば、AlertClient<ConfirmChangeAnimalAction>のshowメソッドに引数として渡されるのはAlertStarategy<ConfirmChangeAnimalAction>でなくてはなりません。)      
+```
+class HogeViewController<Presenter: HogePresenterInputs,
+                         SelectAnimalAlertClient: AlertClientType>: ViewController<HogeRootView>, HogePresenterOutputs
+                            where SelectAnimalAlertClient.Action == ConfirmChangeAnimalAction {
     
+    ...
+    private var alertClient: SelectAnimalAlertClient!
+    ...
+}
+```
 
+###### 表示動物の切り替え処理
+表示動物の切り替えはshowAninmalAlbumメソッドで行います。  
+切り替え処理の内実としては画面上部のラベルと画面下部のボタンの文言変更とCollectionViewに表示している画像の変更を行なっているわけですが、ここでもそれぞれの処理をRootViewとDataSourceに委譲する設計のおかげで、ViewController上のプログラムが単純かつわかりやすくなっているのがわかります。  
+```
+func showAninmalAlbum(album: AnimalAlbum) {
+     self.rootView.update(animalType: album.animal)
+     self.datasource.update(newItems: album.photoData)
+}
+```
+##### 入力・出力処理以外の説明
+V
+    
