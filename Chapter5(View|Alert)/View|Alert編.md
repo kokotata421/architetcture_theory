@@ -1381,5 +1381,47 @@ func showAninmalAlbum(album: AnimalAlbum) {
 }
 ```
 ##### 入力・出力処理以外の説明
-V
+ViewControllerの責務は基本的には入力/出力処理に限られるのですが、最後にそれ以外の箇所についても簡単に説明します。  
+
+###### ViewControllerの初期化処理
+今回はViewControllerは初期化時にパラメーターとして「最初の動物の種類」、「犬の画像」、「猫の画像」を受け取っており、それらをpresenterの初期化のために使用しています。  
+またインスタンス変数であるpresenter、alertClient、datasourceの型は有値オプショナル型となっています。  
+この理由はこれらのインスタンスの初期化パラメーターとしてViewControllerが必要だからです。  
+インスタンスが自身を指すselfを使用できるのは初期化完了後となりますが、もしpresenter/alertClient/datasourceがオプショナル型でない場合ViewCotnrollerは自身の初期化を完了させるためにこれらのインスタンスの初期化も完了させなければなりません。  
+しかしこれらのインスタンスもまたViewControllerを初期化のために必要としているため、その矛盾を解決するために有値オプショナル型で宣言しています。(有値オプショナル型の場合、そのインスタンスの初期化が完了していなくともViewControllerは自身の初期化が完了したものとして扱えるようになります。つまりpresenter/alertClient/datasourceの初期化が完了していなくとも、ViewControllerはselfを呼び出せる。)    
+```
+class HogeViewController<Presenter: HogePresenterInputs,
+                         SelectAnimalAlertClient: AlertClientType>: ViewController<HogeRootView>, HogePresenterOutputs
+                            where SelectAnimalAlertClient.Action == ConfirmChangeAnimalAction {
+    
+    private var presenter: Presenter!
+    private var datasource: AnimalCollectionDataSourceWrapper!
+    private var alertClient: SelectAnimalAlertClient!
+    init(initialAnimal: Animal,
+         dogPhotoData: [Data],
+         catPhotoData: [Data]) {
+        super.init()
+        self.alertClient = .init(viewController: self)
+        self.presenter = .init(initialDisplayAnimal: .dog,
+                               dogPhotoData: dogPhotoData,
+                               catPhotoData: catPhotoData,
+                               output: self)
+    }
+    ...
+}
+           
+```
+    
+###### DataSourceの初期化
+またpresenter/alertClientはViewContnrollerの初期化処理内で行なっていますが、datasourceの初期化はviewDidLoad()内で行なっています。  
+これは一言でViewControllerのrootViewを呼び出せるタイミングの問題です。  
+datasourceはその初期化のために自身と紐づくcollectionViewをパラメーターとして受け取る必要がありますが、ViewContnrollerがrootViewにアクセスできるのはviewLoad()以降のタイミングになります。  
+そのためdatasource変数は有値オプショナル型として宣言された上で、viewDidLoad()メソッドで初期化されています。  
+これはいささか不恰好にも思えますが、Viewの責務をViewControllerの外部に委譲することによるメリットを考えると私は致し方ないことだと考えています。  
+```
+override func viewDidLoad() {
+   ...
+   self.datasource = .init(collectionView: self.rootView.collectionView)
+}
+```
     
