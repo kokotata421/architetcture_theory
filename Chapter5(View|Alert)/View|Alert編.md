@@ -1293,7 +1293,7 @@ class HogeViewController<Presenter: HogePresenterInputs,
 ```
 ##### ViewControllerの入力処理
 本アプリではViewControllerの入力処理はviewDidLoad()内で行われます。(実際のほとんどのアプリでも同様にviewDidLoad()内だと思います。)  
-具体的に本アプリで行なっている入力処理はセットアップ、画面下部ボタンタップ時の登録、Alertボタンのタップ時の登録の3つです。
+具体的に本アプリで行なっている入力処理はセットアップ、画面下部ボタンタップ時の処理登録、Alertボタンのタップ時の処理登録の3つです。
 
 ###### セットアップ処理
 これは言い換えるとViewのロード完了イベントの処理で、本アプリではViewがロードされたタイミングでPresenterのセットアップ処理を呼び出しています。  
@@ -1309,7 +1309,6 @@ override func viewDidLoad() {
 画面下部のボタンタップ時の処理を登録する、至って普通の処理です。  
 ここではボタンのタップ時に動物の切り替え確認を行うアラートの表示処理をPresenterに命令するように処理登録を行なっています。  
 ```
- 
 override func viewDidLoad() {
     ...
     self.rootView
@@ -1319,6 +1318,28 @@ override func viewDidLoad() {
                          }),
                      for: .touchUpInside)
      ...
+}
+```
+
+###### Alertボタンのタップ時の処理登録
+ここが本記事の一つの見所でしょう。  
+本記事で紹介したAlertの設計論では入力と出力のデータフローを切り離すことを目標に話をしてきました。  
+本アプリではまさに、下記の該当コードが示しているように、Alertのタップ時の処理の登録をUIButtonのタップ時の処理の登録と同じように実装できるようになっており、Alertの入力処理が出力処理処理から切り離せるようになっています。  
+    
+```
+override func viewDidLoad() {
+     ...
+        
+     _ = self.alertClient
+            .register(handler: { [weak self] (action: ConfirmChangeAnimalAction) in
+                switch action {
+                case .change:
+                    self?.presenter.changeAnimalAlbum()
+                    return
+                case .cancel:
+                    return
+                }
+            })
 }
 ```
     
