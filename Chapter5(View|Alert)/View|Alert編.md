@@ -1291,5 +1291,25 @@ class HogeViewController<Presenter: HogePresenterInputs,
 }
 
 ```
+##### ViewControllerの入力処理
+本アプリではViewControllerの入力処理はviewDidLoad()内で行われます。(実際のほとんどのアプリでも同様にviewDidLoad()内だと思います。)  
+具体的に本アプリで行なっている入力処理はセットアップ、画面下部ボタンタップ時の登録、Alertボタンのタップ時の登録の3つです。
+
+###### セットアップ処理
+これは言い換えるとViewのロード完了イベントの処理で、本アプリではViewがロードされたタイミングでPresenterのセットアップ処理を呼び出しています。  
+```
+override func viewDidLoad() {
+   ...
+   self.presenter.setup()
+   ...
+}
+```
+###### 画面下部ボタンタップ時の登録
+こちらも
+```
     
+```
+こちらも`
+こちらも`
     
+##### ViewControllerの出力処理
