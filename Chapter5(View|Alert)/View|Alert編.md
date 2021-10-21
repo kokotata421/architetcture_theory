@@ -1425,5 +1425,6 @@ override func viewDidLoad() {
 }
 ```
 
-####　本記事のまとめ
-本記事ではView・Alert・DataSourceの設計について説明していきました。  
+#### 本記事のまとめ
+本記事ではView・Alert・DataSourceの設計について説明してきました。  
+ここで説明した内容を実践、もしくは応用していけば
