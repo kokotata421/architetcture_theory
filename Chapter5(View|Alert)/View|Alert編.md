@@ -1425,6 +1425,9 @@ override func viewDidLoad() {
 }
 ```
 
-#### 本記事のまとめ
-本記事ではView・Alert・DataSourceの設計について説明してきました。  
-ここで説明した内容を実践、もしくは応用していけば
+#### 本記事を振り返って
+本記事ではViewControllerのコア責務を入出力イベント処理に集中させるベく、View・Alert・DataSourceの責務をViewControllerから外部化させる方法を考えてきました。  
+本文内で説明したView・Alert
+次回は遷移の設計について考えていきたいと思います。  
+
+これは一言でViewControllerのrootViewを呼び出せるタイミングの問題です。  
