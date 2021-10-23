@@ -76,10 +76,10 @@ Content ViewControllerでは自身に表示されたUIButtonやUILabelといっ�
 この記事で扱うのはContent ViewControllerに限定されます。  
 [ドキュメント](https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS/ImplementingaContainerViewController.html#//apple_ref/doc/uid/TP40007457-CH11-SW1)に書かれている通りContainer ViewControllerでは**自身のChild ViewControllerへの干渉を最低限とするべき**であり、それはつまるところContainer ViewController内にある各Content ViewControllerの設計の重要性を意味しています。  
 各Content ViewControllerが独立した形でしっかりと設計がなされていれば、Container ViewControllerからChild ViewControllerへの干渉はその生成・破棄の管理、Root Viewの操作、Child ViewController間の連携に限定されるからです。[<sup>*3</sup>](#footnote3)  
-そのため設計論としてContainer ViewControllerについて固有に考えなくてはいけないことは特になく、本記事ではContent ViewControllerの設計に限定して話を進めることとします。[<sup>*4]</sup>(#footnote4)  
+そのため設計論としてContainer ViewControllerについて固有に考えなくてはいけないことは特になく、本記事ではContent ViewControllerの設計に限定して話を進めることとします。[<sup>*4</sup>](#footnote4)  
 
 ## 現実のViewControllerの開発で起こる問題
-ドキュメントを参考にしながらViewControllerの基本について触れましたが、ここでは現実にViewControllerの開発で起こる問題点について説明します。  
+ここからはドキュメントの内容を踏まえながら、実際のViewControllerの開発で起こる問題点を説明します。  
 私はViewControllerをその一般的な手法で開発すると以下の問題が起こると考えています。  
 
 1. 「Viewの管理(Control)」と一言でいえど、実際には多種多様なプログラムが書かれる
@@ -91,7 +91,7 @@ Content ViewControllerでは自身に表示されたUIButtonやUILabelといっ�
 記事冒頭の「[ViewControllerの基本](#ViewControllerの基本)」では、[Appleのドキュメント](https://developer.apple.com/documentation/uikit/uiviewcontroller)を引用してViewControllerの主要な責務を4点紹介し、それらはさらに「Viewの管理」へと要約できると説明しました。  
 しかしそのように責務を簡潔に表現できるのはあくまで概念上の話です。  
 実際のコードレベルにおいてViewControllerにはViewの操作、アニメーション、遷移処理、アラート操作、CollectionViewのデリゲート・データソース、その他オブジェクトの連携等、実にさまざまな処理が書かれており、中には簡単な状態変数の管理も行っているケースもあります。    
-恐らく設計理論の基礎を押さえている開発者であれば、こうした雑多に思えるコードにおいてもメタ認識によってその責務をある程度理解できると思います。            
+恐らく設計理論の基礎を押さえている開発者であれば、こうした雑多に思えるコードにおいてもメタ認識によって責務をある程度整理できると思います。            
 しかしViewControllerの責務はMVCやMVPなどのアーキテクチャ、またアプリの仕様といった外部環境によって変化します。    
 そのため一般的に様々な処理が実装されているViewControllerでそれぞれがどのような責務を担っているかコードレベルから判断するのはそれなりに大変な作業になります。  
 
