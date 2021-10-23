@@ -52,7 +52,7 @@
 参考にしたのはAppleが開発者向けに公開している[UIViewController](https://developer.apple.com/documentation/uikit/uiviewcontroller)と[View Controller Programming Guide for iOS](https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS/index.html#//apple_ref/doc/uid/TP40007457-CH2-SW1)という2つのドキュメントです。  
 
 ### ViewControllerの責務
-[UIViewControllerのドキュメント](https://developer.apple.com/documentation/uikit/uiviewcontroller)には、ViewControllerの主な責務は以下4点だと書かれています。<sup>[*1](#footnote1)</sup>  
+[UIViewControllerのドキュメント](https://developer.apple.com/documentation/uikit/uiviewcontroller)には、ViewControllerの主な責務は以下4点だと書かれています。[<sup>*1</sup>](#footnote1)  
 1. Viewに紐づいているデータの変化に応じたViewの更新
 2. Viewに関するユーザーインタラクションへの対応
 3. Viewの大きさの変更、また画面全体のレイアウトの管理
