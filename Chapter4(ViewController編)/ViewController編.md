@@ -63,14 +63,15 @@
 そのためViewControllerの責務を、その名前の通り「**Viewの管理&#40;Control&#41;をするコンポーネント**」と捉えるのは、その役割をシンプルに理解する上で重要であると思います。    
 ### 2種類のViewController
 ViewControllerの責務は先程の4点であることは変わらないのですが、その種類は利用ケースによって大きく2つに分かれます。  
-1. Content ViewController: 自身に紐づいた**Viewを管理**することを責務としたViewController
-2. Container ViewController: 自身の画面内で表示する**ViewController&#40;Container ViewControllerの文脈ではChild ViewControllerと言う&#41;の管理**を責務としたViewController
+1. Content ViewController: 自身に紐づいた**Viewを管理**することを責務としたViewController  
+2. Container ViewController: 自身の画面内で表示する**ViewController&#40;Child ViewController&#41;の管理**を責務としたViewController
 
 #### Content ViewControllerとContainer ViewControllerの違い
-大きな違いはViewController内で具体的なViewコンポーネントを操作するかどうかだと思います。    
-Content ViewControllerでは自身に表示されたUIButtonやUILabelといったViewを直接操作するのに対して、Container ViewControllerでは自身が管理するViewControllerとその親View(Root View)のみを操作するためUIButtonやUILabel等を直接操作することはありません。  
-一般的にアプリ内で独自に定義するViewControllerのほとんどはContent ViewControllerだと思います。<sup>[*2](#footnote2)</sup>  
-Container ViewControllerはあまり独自で定義することはないと思いますが、ただ私たちがアプリ内でよく利用するNavigation ControllerやTab Bar ControllerはContainer ViewControllerに該当します。  
+両者の大きな違いはViewController内で具体的なViewコンポーネントを操作するかです。      
+Content ViewControllerでは自身に表示されたUIButtonやUILabelといったViewを直接操作するのに対して、Container ViewControllerでは自身が管理するViewControllerとその親View(Root View)のみを操作するためUIButtonやUILabel等具体的なViewを直接操作することはありません。  
+一般的に開発者アプリ内で独自に定義するViewControllerのほとんどはContent ViewControllerだと思います。[<sup>*2</sup>](#footnote2)   
+Container ViewControllerはあまり独自で定義することはないと思いますが、私たちが開発の際よく使用するNavigation ControllerやTab Bar Controller等はContainer ViewControllerに該当します。  
+
 #### 記事で扱うのはContent ViewControllerのみ
 この記事で扱うのはContent ViewControllerに限定されます。  
 [ドキュメント](https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS/ImplementingaContainerViewController.html#//apple_ref/doc/uid/TP40007457-CH11-SW1)に書かれている通りContainer ViewControllerでは**自身のChild ViewControllerへの干渉を最低限とするべき**であり、それはつまるところContainer ViewController内にある各Content ViewControllerの設計の重要性を意味しています。  
