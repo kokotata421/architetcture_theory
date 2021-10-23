@@ -69,9 +69,9 @@ ViewControllerの責務は先程の4点であることは変わらないので�
 #### Content ViewControllerとContainer ViewControllerの違い
 両者の大きな違いはViewController内で具体的なViewコンポーネントを操作するかです。      
 Content ViewControllerでは自身に表示されたUIButtonやUILabelといったViewを直接操作するのに対して、Container ViewControllerでは自身が管理するViewControllerとその親View(Root View)のみを操作するためUIButtonやUILabel等具体的なViewを直接操作することはありません。  
-一般的に開発者アプリ内で独自に定義するViewControllerのほとんどはContent ViewControllerだと思います。[<sup>*2</sup>](#footnote2)   
-Container ViewControllerはあまり独自で定義することはないと思いますが、私たちが開発の際よく使用するNavigation ControllerやTab Bar Controller等はContainer ViewControllerに該当します。  
-
+一般的に開発者アプリ内で独自に定義するViewControllerのほとんどはContent ViewControllerで、Container ViewControllerはあまり独自で定義されることはないと思います。[<sup>*2</sup>](#footnote2)  
+ただ、私たちが開発の際よく使用するNavigation ControllerやTab Bar Controller等、デフォルトでUIKit上に定義されているUIViewControllerからの派生クラスはContainer ViewControllerに該当します。  
+  
 #### 記事で扱うのはContent ViewControllerのみ
 この記事で扱うのはContent ViewControllerに限定されます。  
 [ドキュメント](https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS/ImplementingaContainerViewController.html#//apple_ref/doc/uid/TP40007457-CH11-SW1)に書かれている通りContainer ViewControllerでは**自身のChild ViewControllerへの干渉を最低限とするべき**であり、それはつまるところContainer ViewController内にある各Content ViewControllerの設計の重要性を意味しています。  
