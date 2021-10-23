@@ -74,7 +74,7 @@ Content ViewControllerでは自身に表示されたUIButtonやUILabelといっ�
   
 #### 記事で扱うのはContent ViewControllerのみ
 この記事で扱うのはContent ViewControllerに限定されます。  
-[ドキュメント](https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS/ImplementingaContainerViewController.html#//apple_ref/doc/uid/TP40007457-CH11-SW1)に書かれている通りContainer ViewControllerでは**自身のChild ViewControllerへの干渉を最低限とするべき**であり、それはつまるところContainer ViewController内にある各Content ViewControllerの設計の重要性を意味しています。  
+[ドキュメント](https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS/ImplementingaContainerViewController.html#//apple_ref/doc/uid/TP40007457-CH11-SW1)に書かれている通りContainer ViewControllerでは**自身のChild ViewControllerへの干渉を最低限とするべき**であり、それはつまるところ、Container ViewController内にある各Content ViewControllerの設計の重要性を意味しています。  
 各Content ViewControllerが独立した形でしっかりと設計がなされていれば、Container ViewControllerからChild ViewControllerへの干渉はその生成・破棄の管理、Root Viewの操作、Child ViewController間の連携に限定されるからです。[<sup>*3</sup>](#footnote3)  
 そのため設計論としてContainer ViewControllerについて固有に考えなくてはいけないことは特になく、本記事ではContent ViewControllerの設計に限定して話を進めることとします。[<sup>*4</sup>](#footnote4)  
 
