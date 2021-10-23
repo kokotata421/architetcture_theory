@@ -52,7 +52,7 @@
 参考にしたのはAppleが開発者向けに公開している[UIViewController](https://developer.apple.com/documentation/uikit/uiviewcontroller)と[View Controller Programming Guide for iOS](https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS/index.html#//apple_ref/doc/uid/TP40007457-CH2-SW1)という2つのドキュメントです。  
 
 ### ViewControllerの責務
-[UIViewControllerのドキュメント](https://developer.apple.com/documentation/uikit/uiviewcontroller)を見ると、ViewControllerの主な責務以下4点だと書かれています。<sup>[*1](#footnote1)</sup>  
+[UIViewControllerのドキュメント](https://developer.apple.com/documentation/uikit/uiviewcontroller)には、ViewControllerの主な責務は以下4点だと書かれています。<sup>[*1](#footnote1)</sup>  
 1. Viewに紐づいているデータの変化に応じたViewの更新
 2. Viewに関するユーザーインタラクションへの対応
 3. Viewの大きさの変更、また画面全体のレイアウトの管理
@@ -60,7 +60,7 @@
 
 上記を見ればわかる通り、ViewControllerの責務を総体的に見るとその責務はViewと関係しており、Viewと関係のないデータの操作はその主な責務には含まれません。    
 **4.(他のViewControllerも含めた)他のオブジェクトとの連携**はいささか示している範囲が広いようには感じますが、この場合にもやはり、その責務の中心には「View」があります。    
-そのためViewControllerの責務を、その名前の通り「**Viewを管理&#40;Control&#41;するコンポーネント**」と捉えるのは、その役割をシンプルに理解する上で重要であると思います。    
+そのためViewControllerの責務を、その名前の通り「**Viewの管理&#40;Control&#41;をするコンポーネント**」と捉えるのは、その役割をシンプルに理解する上で重要であると思います。    
 ### 2種類のViewController
 ViewControllerの責務は先程の4点であることは変わらないのですが、その種類は利用ケースによって大きく2つに分かれます。  
 1. Content ViewController: 自身に紐づいた**Viewを管理**することを責務としたViewController
@@ -1038,7 +1038,7 @@ Constructor Injectionによって長期的な開発で変更が頻発したと�
 そのためDIを設計する際にはConstructor Injectionでできる方法はないか探してみると良いと思います。  
 
 ## 脚注
-<a name="footnote1">*1</a>: 複数点あり原文(英語)も載せると見づらくなってしまうため、意訳のみ載せています。  
+<a name="footnote1">*1</a>: それぞれに対して原文(英語)と意訳を載せると見づらくなってしまうため、意訳のみ載せています。  
   
 <a name="footnote2">*2</a>: アプリの仕様としてContainer ViewControllerを積極的に利用する方針にしているケースもなくはないと思いますが、全体から見ればごく限られたケースだと思います。  
 
